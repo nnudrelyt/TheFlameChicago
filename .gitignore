@@ -1,0 +1,9 @@
+# Vercel CLI state
+.vercel
+
+# Full-res generation masters (~234MB) — canonical copies live on disk and in
+# Dropbox/Public/The Flame Chicago/. The shipped WebP/JPG in assets/img/ are tracked.
+assets/img/_masters/
+
+# OS cruft
+.DS_Store

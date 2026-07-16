@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "flame-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4750"],
+      "port": 4750
+    }
+  ]
+}

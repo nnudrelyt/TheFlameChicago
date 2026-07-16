@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Flame — Website v2 Wireframe (ICP: The Neighborhood Regular)</title>
+<style>
+  :root{
+    --page:#e9ebef; --ink:#2c313a; --soft:#5a616c; --muted:#8b929c;
+    --block:#ffffff; --line:#cbd1d9; --line2:#dde1e7; --ph:#c3c9d2;
+    --accent:#c07d1e; --accent-bg:#fbf1df; --accent-line:#e6c98f;
+    --pill:#eef1f5; --brand:#1b1a1f;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--page);color:var(--ink);font-family:var(--font);line-height:1.5;padding:32px 20px 80px;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+
+  /* ---------- doc header ---------- */
+  .dochead{margin-bottom:28px}
+  .dochead .tag{display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-line);padding:5px 11px;border-radius:100px;font-weight:700;margin-bottom:14px}
+  .dochead h1{font-size:27px;letter-spacing:-.01em;margin-bottom:6px}
+  .dochead p{color:var(--soft);max-width:70ch;font-size:14.5px}
+  .icp{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;background:var(--block);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:20px}
+  .icp h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .icp .who{font-size:15px}
+  .icp .who b{color:var(--ink)}
+  .icp ul{list-style:none;font-size:13.5px;color:var(--soft)}
+  .icp ul li{padding:3px 0 3px 16px;position:relative}
+  .icp ul li::before{content:"◆";position:absolute;left:0;color:var(--accent);font-size:9px;top:6px}
+
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:24px 2px 6px}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:22px;height:13px;border-radius:3px;border:1px solid var(--line)}
+  .sw-block{background:var(--block)}
+  .sw-ph{background:repeating-linear-gradient(-45deg,#d7dce3 0 6px,#e7ebf0 6px 12px);border-style:dashed}
+  .sw-note{background:var(--accent-bg);border-color:var(--accent-line)}
+
+  /* ---------- section frame ---------- */
+  .sec{display:grid;grid-template-columns:1fr 300px;gap:18px;margin-top:16px;align-items:start}
+  .frame{background:var(--block);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
+  .frame::before{content:attr(data-n);position:absolute;top:0;left:0;background:var(--brand);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:0 0 9px 0;letter-spacing:.04em;z-index:3}
+  .flabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:9px 16px 0 54px;font-weight:700}
+  .fbody{padding:16px 22px 24px}
+
+  /* wireframe primitives */
+  .h-xl{height:20px;background:var(--ink);border-radius:4px;opacity:.9}
+  .line{height:9px;background:var(--ph);border-radius:4px;margin:7px 0}
+  .line.s{opacity:.6}
+  .kick{display:inline-block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .real{font-size:14px;color:var(--ink)} .real.soft{color:var(--soft);font-size:13px}
+  .display{font-size:clamp(22px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.06;color:var(--brand);margin:2px 0 10px}
+  .sub{font-size:14.5px;color:var(--soft);max-width:52ch;margin-bottom:14px}
+  .ph{background:repeating-linear-gradient(-45deg,#d7dce3 0 7px,#e7ebf0 7px 14px);border:1px dashed var(--ph);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9aa1ab;font-size:12px;letter-spacing:.03em;text-align:center;padding:10px}
+  .btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:9px 16px;border-radius:100px;border:1px solid var(--brand)}
+  .btn.p{background:var(--brand);color:#fff}
+  .btn.g{background:transparent;color:var(--brand)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{font-size:11.5px;color:var(--soft);background:var(--pill);border:1px solid var(--line2);border-radius:100px;padding:5px 11px;font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .card{border:1px solid var(--line2);border-radius:9px;padding:14px}
+  .num{width:26px;height:26px;border-radius:100px;background:var(--accent-bg);border:1px solid var(--accent-line);color:var(--accent);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
+  .stars{color:var(--accent);font-size:13px;letter-spacing:2px}
+  .avatar{width:34px;height:34px;border-radius:100px;background:var(--ph)}
+  .tick{color:var(--accent);font-weight:800;margin-right:7px}
+
+  /* site chrome mock */
+  .chrome{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line2);background:#fff}
+  .logo{font-weight:800;color:var(--brand);letter-spacing:-.01em}
+  .live{font-size:11.5px;font-weight:700;color:#2b7a41;background:#e7f4ec;border:1px solid #bfe0cb;border-radius:100px;padding:4px 11px;display:inline-flex;align-items:center;gap:6px}
+  .live::before{content:"";width:7px;height:7px;border-radius:100px;background:#2fa155;display:inline-block}
+  .hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:center}
+
+  /* annotation note */
+  .note{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:12px;padding:15px 16px;position:sticky;top:16px}
+  .note .nl{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .note p{font-size:13px;color:#6b5220;line-height:1.5}
+  .note p+p{margin-top:8px}
+  .note .drives{margin-top:10px;font-size:11px;color:#96702a;border-top:1px dashed var(--accent-line);padding-top:9px}
+  .note .drives b{color:var(--accent)}
+  .newflag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:var(--accent);border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+
+  /* sticky mobile bar mock */
+  .mbar{display:flex;gap:10px;padding:10px 16px;border-top:1px solid var(--line2);background:#fff}
+  .mbar .btn{flex:1;justify-content:center}
+
+  .foot-summary{background:var(--block);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:32px}
+  .foot-summary h2{font-size:16px;margin-bottom:14px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .cols h4{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .cols ul{list-style:none;font-size:13.5px;color:var(--soft)}
+  .cols li{padding:5px 0 5px 20px;position:relative}
+  .cols.add li::before{content:"+";position:absolute;left:2px;color:var(--accent);font-weight:800}
+  .cols.need li::before{content:"→";position:absolute;left:0;color:var(--soft)}
+
+  @media(max-width:820px){
+    .sec{grid-template-columns:1fr}
+    .note{position:static}
+    .icp,.hero-split,.cols{grid-template-columns:1fr}
+    .grid3,.grid4{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ============ DOC HEADER ============ -->
+  <div class="dochead">
+    <span class="tag">Wireframe · v2 concept</span>
+    <h1>The Flame — Website v2</h1>
+    <p>Same brand and copy foundation as v1, re-shaped around <b>one ideal customer</b> and one goal: turn a first-time visitor into a regular, and turn intent into a walk-in tonight. Low-fidelity — boxes and copy direction, not final visuals.</p>
+
+    <div class="icp">
+      <div>
+        <h3>Designing for · The Neighborhood Regular</h3>
+        <p class="who"><b>30–55, lives or works within a mile of Ashland &amp; Division.</b> Shift or long hours — trades, service, healthcare, retail. Wants a low-key <b>third place</b> to decompress after work: not a loud bar, not an intimidating casino. Comes back for familiarity, value, and being recognized.</p>
+      </div>
+      <div>
+        <h3>First-visit fears we must kill</h3>
+        <ul>
+          <li>"Is this a gambling den?"</li>
+          <li>"Is it actually for someone like me?"</li>
+          <li>"Do I need money to enjoy it?"</li>
+          <li>"Will I feel out of place walking in?"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><span class="swatch sw-block"></span> Content block</span>
+      <span><span class="swatch sw-ph"></span> Image / media placeholder</span>
+      <span><span class="swatch sw-note"></span> Annotation — why it's here for this customer</span>
+      <span><span class="newflag" style="margin:0">NEW</span> New in v2 vs. the current build</span>
+    </div>
+  </div>
+
+  <!-- ============ SITE CHROME ============ -->
+  <div class="sec">
+    <div class="frame" data-n="0">
+      <div class="flabel">Sticky header</div>
+      <div class="fbody" style="padding-top:12px">
+        <div class="chrome">
+          <span class="logo">The Flame</span>
+          <span class="live">Open now · 11am–11pm</span>
+          <div class="row">
+            <span class="btn g">Call</span>
+            <span class="btn p">Get directions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular <span class="newflag">NEW</span></div>
+      <p>A live <b>"Open now"</b> status and a one-tap <b>Call</b> turn a passer-by's "are they open?" into an instant yes. Directions is the primary action across the whole site — the win is a body through the door, not a form fill.</p>
+    </div>
+  </div>
+
+  <!-- ============ 1. HERO ============ -->
+  <div class="sec">
+    <div class="frame" data-n="1">
+      <div class="flabel">Hero — the moment, not the brand</div>
+      <div class="fbody">
+        <div class="hero-split">
+          <div>
+            <span class="kick">For the hard-working people of Wicker Park</span>
+            <div class="display">After your shift,<br>this seat's yours.</div>
+            <p class="sub">The Flame is your neighborhood spot to clock out, kick back, and enjoy a little excitement — no cover, no pressure, always a friendly face.</p>
+            <div class="row">
+              <span class="btn p">Plan your first visit →</span>
+              <span class="btn g">Get directions</span>
+            </div>
+            <div class="chiprow">
+              <span class="chip">✓ No cover</span>
+              <span class="chip">✓ Smoke-free</span>
+              <span class="chip">✓ Free snacks &amp; drinks</span>
+              <span class="chip">✓ Open daily 11–11</span>
+            </div>
+          </div>
+          <div class="ph" style="min-height:210px">Warm, people-in-the-room photo<br>(this venue · lighting, not brightness)</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>v1 opened with the brand tagline. v2 opens on <b>their moment</b> — the end of a shift — so the right person feels spoken to in the first second.</p>
+      <p>The trust chips kill the three biggest walk-in fears (<i>cost, comfort, "is it for me"</i>) before they can stop the scroll.</p>
+      <p class="drives">Drivers: <b>Stress relief · Value · Recognition</b> · tagline moves to a supporting line</p>
+    </div>
+  </div>
+
+  <!-- ============ 2. DAY MIRROR ============ -->
+  <div class="sec">
+    <div class="frame" data-n="2">
+      <div class="flabel">Your day, unwound — emotional mirror <span class="newflag">NEW</span></div>
+      <div class="fbody">
+        <div class="grid3">
+          <div class="card"><div class="real" style="font-weight:700">Long day.</div><p class="real soft">Early start, late finish, and everyone needing something from you.</p></div>
+          <div class="card"><div class="real" style="font-weight:700">We get it.</div><p class="real soft">You don't need another to-do. You need a minute that's yours.</p></div>
+          <div class="card"><div class="real" style="font-weight:700">Come trade it in.</div><p class="real soft">A couple of easy hours, a few laughs, and the day quietly lifts.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>A short beat that <b>mirrors their day back to them</b> before asking for anything. It builds the "this place gets me" feeling that recognition-driven customers return for.</p>
+      <p class="drives">Drivers: <b>Recognition · Escape</b></p>
+    </div>
+  </div>
+
+  <!-- ============ 3. FIRST VISIT ============ -->
+  <div class="sec">
+    <div class="frame" data-n="3">
+      <div class="flabel">Your first visit, made easy — friction remover <span class="newflag">NEW</span></div>
+      <div class="fbody">
+        <span class="kick">Never been in? Here's all there is to it</span>
+        <div class="grid3" style="margin-top:6px">
+          <div class="card"><div class="num">1</div><div class="real" style="font-weight:700">Walk in</div><p class="real soft">Everyone's welcome. No membership, no dress code, no cover.</p></div>
+          <div class="card"><div class="num">2</div><div class="real" style="font-weight:700">Grab a seat &amp; a snack</div><p class="real soft">Complimentary snacks and drinks — on us, every visit.</p></div>
+          <div class="card"><div class="num">3</div><div class="real" style="font-weight:700">Play &amp; stay awhile</div><p class="real soft">Enjoy the games at your pace. Spend what you like — or nothing at all.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>The single most important new section. It answers the unspoken first-timer objections in plain steps and turns <b>anxiety into an easy yes</b>.</p>
+      <p>"Spend what you like — or nothing at all" defuses the money fear without a word about payouts (on-framework).</p>
+      <p class="drives">Drivers: <b>Value · Belonging</b> · gaming stays entertainment</p>
+    </div>
+  </div>
+
+  <!-- ============ 4. REGULARS ============ -->
+  <div class="sec">
+    <div class="frame" data-n="4">
+      <div class="flabel">Why regulars keep coming back — social proof <span class="newflag">NEW</span></div>
+      <div class="fbody">
+        <span class="kick">In their words</span>
+        <div class="grid3" style="margin-top:6px">
+          <div class="card">
+            <div class="stars">★★★★★</div>
+            <p class="real soft" style="margin:8px 0 12px">"They know my name and my drink. Feels less like going out and more like going home."</p>
+            <div class="row"><span class="avatar"></span><div><div class="real" style="font-size:12.5px;font-weight:700">Regular quote</div><div class="real soft" style="font-size:11.5px">— comes by after work</div></div></div>
+          </div>
+          <div class="card">
+            <div class="stars">★★★★★</div>
+            <p class="real soft" style="margin:8px 0 12px">"Quiet, clean, friendly. I come to actually relax — and the snacks don't hurt."</p>
+            <div class="row"><span class="avatar"></span><div><div class="real" style="font-size:12.5px;font-weight:700">Regular quote</div><div class="real soft" style="font-size:11.5px">— neighbor, 2 blocks away</div></div></div>
+          </div>
+          <div class="card">
+            <div class="stars">★★★★★</div>
+            <p class="real soft" style="margin:8px 0 12px">"First time I felt at home in five minutes. Now it's my Friday spot."</p>
+            <div class="row"><span class="avatar"></span><div><div class="real" style="font-size:12.5px;font-weight:700">Regular quote</div><div class="real soft" style="font-size:11.5px">— found it during the fest</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>Recognition &amp; belonging is the top retention driver — and real regulars' voices let a first-timer <b>picture themselves as one</b>.</p>
+      <p class="drives">Needs from client: <b>3–5 real quotes</b> (or Google review pulls) + first names</p>
+    </div>
+  </div>
+
+  <!-- ============ 5. REASSURANCE ============ -->
+  <div class="sec">
+    <div class="frame" data-n="5">
+      <div class="flabel">It's easy — and it's for you (elevated FAQ)</div>
+      <div class="fbody">
+        <div class="grid2">
+          <div class="real"><span class="tick">✓</span>No cover to walk in — ever.</div>
+          <div class="real"><span class="tick">✓</span>You don't need to be a member.</div>
+          <div class="real"><span class="tick">✓</span>The snacks and drinks are free — really.</div>
+          <div class="real"><span class="tick">✓</span>Smoke-free and comfortable.</div>
+          <div class="real"><span class="tick">✓</span>Spend what you want, or nothing at all.</div>
+          <div class="real"><span class="tick">✓</span>Come solo, or bring the whole crew.</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>v1's Q&amp;A FAQ, reframed as <b>confidence statements</b>. Removes every remaining reason to hesitate right before the location + CTA.</p>
+      <p class="drives">Drivers: <b>Value · Belonging</b></p>
+    </div>
+  </div>
+
+  <!-- ============ 6. THE ROOM ============ -->
+  <div class="sec">
+    <div class="frame" data-n="6">
+      <div class="flabel">The room — an honest look <span class="newflag">NEW</span></div>
+      <div class="fbody">
+        <span class="kick">Yep — this is it. Warm, easy, around the corner.</span>
+        <div class="grid4" style="margin-top:6px">
+          <div class="ph" style="min-height:110px">Room wide</div>
+          <div class="ph" style="min-height:110px">Bar stools / snacks</div>
+          <div class="ph" style="min-height:110px">Flame neon lamp</div>
+          <div class="ph" style="min-height:110px">People at play</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>First-timers want to <b>see exactly what they're walking into</b>. Honest shots of <i>this</i> room (not a fancier invented venue) lower uncertainty and match the brand's authenticity.</p>
+      <p class="drives">Ties to the locked asset rule: every image looks shot in this space</p>
+    </div>
+  </div>
+
+  <!-- ============ 7. NEIGHBORHOOD ============ -->
+  <div class="sec">
+    <div class="frame" data-n="7">
+      <div class="flabel">Right in the neighborhood — hyperlocal + convert</div>
+      <div class="fbody">
+        <div class="hero-split">
+          <div>
+            <span class="kick">Visit</span>
+            <div class="display" style="font-size:24px">Come in and stay awhile.</div>
+            <p class="real"><b>1231 N Ashland Ave</b> · Wicker Park / West Town</p>
+            <p class="real soft" style="margin:6px 0 12px">Two minutes from the Division Blue Line · street parking nearby</p>
+            <div class="row" style="margin-bottom:12px"><span class="live">Open now · 11am–11pm</span></div>
+            <div class="row">
+              <span class="btn p">Get directions</span>
+              <span class="btn g">Call (312) 218-7677</span>
+            </div>
+          </div>
+          <div class="ph" style="min-height:190px">Map embed</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>Proximity is the strongest pull for a walk-in venue. Naming the <b>Blue Line + parking</b> answers "how do I get there," and <b>Open now</b> + one-tap actions convert intent into a visit tonight.</p>
+      <p class="drives">Drivers: <b>Convenience · Value</b> · local SEO win</p>
+    </div>
+  </div>
+
+  <!-- ============ 8. FINAL CTA ============ -->
+  <div class="sec">
+    <div class="frame" data-n="8">
+      <div class="flabel">The invite</div>
+      <div class="fbody" style="text-align:center;padding:34px 22px">
+        <div class="display" style="font-size:28px">Come in tonight.<br>We'll save you a seat.</div>
+        <div class="row" style="justify-content:center;margin-top:8px">
+          <span class="btn p">Get directions</span>
+          <span class="btn g">Call us</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>A warm, direct invite that <b>assumes the relationship</b> ("your seat"). Speaks to belonging and closes on the one action that matters.</p>
+    </div>
+  </div>
+
+  <!-- ============ MOBILE STICKY BAR ============ -->
+  <div class="sec">
+    <div class="frame" data-n="★">
+      <div class="flabel">Sticky mobile action bar <span class="newflag">NEW</span></div>
+      <div class="fbody" style="padding-top:12px">
+        <div style="max-width:360px;margin:0 auto;border:1px solid var(--line2);border-radius:12px;overflow:hidden">
+          <div style="height:64px;background:repeating-linear-gradient(-45deg,#eef1f5 0 8px,#f6f8fa 8px 16px);display:flex;align-items:center;justify-content:center;color:#9aa1ab;font-size:11px">…page scrolls above…</div>
+          <div class="mbar"><span class="btn g">📞 Call</span><span class="btn p">📍 Directions</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="nl">◆ Why, for the regular</div>
+      <p>Most local traffic is <b>mobile</b>, and the goal is a physical visit. A persistent Call / Directions bar is the highest-leverage conversion element on the whole site.</p>
+    </div>
+  </div>
+
+  <!-- ============ SUMMARY ============ -->
+  <div class="foot-summary">
+    <h2>What v2 changes</h2>
+    <div class="cols">
+      <div class="add">
+        <h4>New / reshaped for the ideal customer</h4>
+        <ul>
+          <li>Hero speaks to <b>their moment</b> (after a shift), not the brand</li>
+          <li>Emotional <b>day-mirror</b> strip</li>
+          <li><b>First-visit</b> friction remover (3 steps)</li>
+          <li><b>Regulars' social proof</b> (testimonials)</li>
+          <li>FAQ reframed as <b>confidence statements</b></li>
+          <li>Honest <b>"the room"</b> gallery</li>
+          <li><b>Open-now</b> status + hyperlocal transit proof</li>
+          <li>Sticky <b>mobile call/directions</b> bar</li>
+        </ul>
+      </div>
+      <div class="need">
+        <h4>To build it — needs &amp; open calls</h4>
+        <ul>
+          <li>Confirm ICP = the working <b>neighborhood regular</b> (vs. leaning a Hispanic-family or Black-community angle — shifts copy &amp; imagery)</li>
+          <li>3–5 <b>real regular quotes</b> / Google reviews + first names</li>
+          <li><b>Room photos</b> (or generated-to-this-room imagery)</li>
+          <li>Confirm <b>full weekly hours</b> for the "Open now" logic</li>
+          <li>Keep the same warm-dark Flame visual system from v1 in final design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

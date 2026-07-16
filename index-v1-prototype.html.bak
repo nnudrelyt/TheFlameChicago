@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============ SEO ============ -->
+<title>The Flame Chicago — Relax. Play. Connect. | Wicker Park Gaming Lounge</title>
+<meta name="description" content="The Flame is a welcoming neighborhood gaming lounge in Wicker Park, Chicago. Unwind, enjoy exciting games, and spend time with good company. Smoke-free, complimentary snacks & drinks.">
+<link rel="canonical" href="https://www.theflamechicago.com/">
+<link rel="alternate" hreflang="en" href="https://www.theflamechicago.com/">
+<link rel="alternate" hreflang="es" href="https://www.theflamechicago.com/es">
+<link rel="alternate" hreflang="x-default" href="https://www.theflamechicago.com/">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="business.business">
+<meta property="og:site_name" content="The Flame Chicago">
+<meta property="og:title" content="The Flame Chicago — Relax. Play. Connect.">
+<meta property="og:description" content="A welcoming neighborhood gaming lounge in Wicker Park. Unwind, enjoy exciting games, and connect with good company.">
+<meta property="og:url" content="https://www.theflamechicago.com/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Flame Chicago — Relax. Play. Connect.">
+<meta name="twitter:description" content="A welcoming neighborhood gaming lounge in Wicker Park, Chicago.">
+
+<meta name="theme-color" content="#140f0a">
+
+<!-- Fonts: Bebas Neue Pro + Source Sans 3 (Adobe Fonts) -->
+<link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
+<link rel="stylesheet" href="/assets/global.css">
+
+<!-- ============ JSON-LD LocalBusiness (phone/hours/address from live theflamechicago.com; socials TBD) ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EntertainmentBusiness",
+  "name": "The Flame Chicago",
+  "description": "A welcoming neighborhood gaming lounge in Wicker Park, Chicago — relax, enjoy exciting games, and connect with good company.",
+  "url": "https://www.theflamechicago.com/",
+  "telephone": "+1-312-218-7677",
+  "priceRange": "$",
+  "image": "https://www.theflamechicago.com/assets/img/og.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1231 N Ashland Ave",
+    "addressLocality": "Chicago",
+    "addressRegion": "IL",
+    "postalCode": "60622",
+    "addressCountry": "US"
+  },
+  "areaServed": { "@type": "City", "name": "Chicago" },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "11:00", "closes": "23:00"
+  }],
+  "sameAs": []
+}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <a class="brand" href="/" aria-label="The Flame Chicago home"><span class="fl">The&nbsp;Flame</span></a>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <a class="navlink" href="#experience">Experience</a>
+    <a class="navlink" href="#atmosphere">Atmosphere</a>
+    <a class="navlink" href="#visit">Visit</a>
+  </nav>
+  <div class="nav-tools">
+    <a class="btn btn-primary" href="#visit">Plan your visit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-atmos" aria-hidden="true">
+      <span class="bloom"></span>
+      <span class="beam beam-1"></span>
+      <span class="beam beam-2"></span>
+    </div>
+    <span class="hero-rail" aria-hidden="true">Est. Wicker Park · Chicago</span>
+    <div class="wrap hero-inner">
+      <p class="kicker reveal">A neighborhood gaming lounge</p>
+      <h1 class="display hero-mark reveal" id="hero-h">
+        <span class="l1">Relax.</span><span class="l2">Play.</span><span class="l3">Connect.</span>
+      </h1>
+      <p class="lead hero-sub reveal">Good vibes, exciting games, and familiar faces &mdash; your neighborhood escape in Wicker Park.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="#visit">Plan your visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#experience">Explore the space</a>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Smoke-free</span><i>◆</i><span>Complimentary snacks &amp; drinks</span><i>◆</i><span>Open daily · 11am&ndash;11pm</span><i>◆</i><span>Familiar faces</span><i>◆</i><span>Good vibes</span><i>◆</i>
+        <span>Smoke-free</span><i>◆</i><span>Complimentary snacks &amp; drinks</span><i>◆</i><span>Open daily · 11am&ndash;11pm</span><i>◆</i><span>Familiar faces</span><i>◆</i><span>Good vibes</span><i>◆</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WELCOME ============ -->
+  <section class="section welcome" aria-labelledby="welcome-h">
+    <div class="wrap">
+      <div class="welcome-copy">
+        <p class="kicker reveal">Your place to unwind</p>
+        <h2 class="reveal" id="welcome-h">Your neighborhood gathering place.</h2>
+        <p class="lead reveal">Life is busy. Work is demanding. Everyone deserves a place to take a break.</p>
+        <p class="reveal">The Flame is where hard-working people come to unwind, enjoy a little excitement, and connect with good company &mdash; right here in Wicker Park. Pull up a seat, catch up with a friend, and make the most of your time off in a place that already feels like home.</p>
+      </div>
+      <div class="welcome-art reveal" role="img" aria-label="Warm, softly lit interior of The Flame">
+        <span class="tag">The Flame · Wicker Park</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PILLARS / EXPERIENCE ============ -->
+  <section class="section pillars" id="experience" aria-labelledby="pillars-h">
+    <div class="wrap">
+      <div class="pillars-head">
+        <p class="kicker reveal">The experience</p>
+        <h2 class="reveal" id="pillars-h">More than a game. A place to belong.</h2>
+        <p class="lead muted reveal">Every visit is built on four things we care about.</p>
+      </div>
+      <div class="pillar-grid">
+        <article class="pillar reveal" data-accent="people">
+          <h3>People</h3>
+          <p class="p-hook">You&rsquo;re never a stranger here.</p>
+          <p>Regulars and first-timers get the same easy welcome &mdash; a nod from across the room, a seat nearby, a conversation that picks up right where it left off. The company is what brings people back.</p>
+        </article>
+        <article class="pillar reveal" data-accent="winners">
+          <h3>The Fun</h3>
+          <p class="p-hook">Enjoy the thrill of the moment.</p>
+          <p>There&rsquo;s a spark in the air. Our gaming entertainment keeps things exciting, and every visit brings its own good moments worth celebrating.</p>
+        </article>
+        <article class="pillar reveal" data-accent="atmosphere">
+          <h3>Atmosphere</h3>
+          <p class="p-hook">Comfortable. Welcoming. Relaxing.</p>
+          <p>Warm light, easy energy, and a smoke-free room you can settle into. Help yourself to complimentary snacks and drinks, and just relax.</p>
+        </article>
+        <article class="pillar reveal" data-accent="experience">
+          <h3>Experience</h3>
+          <p class="p-hook">There&rsquo;s always something to enjoy.</p>
+          <p>From the welcome at the door to the little touches that make you glad you came, every visit is meant to feel worth it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ATMOSPHERE / AMENITIES ============ -->
+  <section class="section atmos" id="atmosphere" aria-labelledby="atmos-h">
+    <div class="wrap">
+      <div class="atmos-art reveal" role="img" aria-label="The Flame's neon sign glowing in a warm, moody room">
+        <span class="tag">Good vibes · Warm light</span>
+      </div>
+      <div class="atmos-copy">
+        <p class="kicker reveal">Atmosphere</p>
+        <h2 class="reveal" id="atmos-h">Leave your stress at the door.</h2>
+        <p class="subhead reveal">Comfortable. Welcoming. Relaxing.</p>
+        <p class="lead reveal">Step inside and the day starts to melt away. Warm light, easy energy, and a comfortable, smoke-free room make The Flame the kind of place you can settle into and stay awhile. Help yourself to complimentary snacks and drinks, find your spot, and just relax &mdash; you&rsquo;ve earned it.</p>
+        <ul class="amenities reveal">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div>Smoke-free environment<small>A clean, comfortable room.</small></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div>Complimentary snacks &amp; drinks<small>On the house, every visit.</small></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div>Exciting games<small>Easy to jump into, fun to play.</small></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div>Welcoming neighborhood vibe<small>Familiar faces, friendly welcome.</small></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BELONG ============ -->
+  <section class="section belong" aria-labelledby="belong-h">
+    <div class="wrap">
+      <p class="kicker reveal">Come as you are</p>
+      <h2 class="reveal" id="belong-h">Whoever you are, you belong here.</h2>
+      <p class="lead reveal">After a long shift or a full week. With family, with friends, or flying solo. To celebrate something big or simply to unwind. The Flame is a community-centered place where everyone is welcome and every visit feels a little like home.</p>
+    </div>
+  </section>
+
+  <!-- ============ VISIT ============ -->
+  <section class="section visit" id="visit" aria-labelledby="visit-h">
+    <div class="wrap">
+      <div class="visit-copy">
+        <p class="kicker reveal">Visit</p>
+        <h2 class="reveal" id="visit-h">Come in and stay awhile.</h2>
+        <p class="subhead reveal">Find us in the heart of Wicker Park.</p>
+        <ul class="visit-list reveal">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div><div class="k">Find us</div><div class="v">1231 N Ashland Ave<br>Chicago, IL 60622 · Wicker Park / West Town</div></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <div><div class="k">Hours</div><div class="v">Open daily · 11am&ndash;11pm</div></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+            <div><div class="k">Call</div><div class="v"><a href="tel:+13122187677">(312) 218-7677</a></div></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5-2V4l5 2 6-2 5 2v14l-5-2-6 2Z"/><path d="M9 6v14M15 4v14"/></svg>
+            <div><div class="k">Getting here</div><div class="v">Blue Line · Division &nbsp;|&nbsp; street parking nearby</div></div>
+          </li>
+        </ul>
+        <a class="btn btn-primary visit-cta" href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Get directions
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="map-frame reveal">
+        <iframe title="Map to The Flame Chicago, 1231 N Ashland Ave" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=1231+N+Ashland+Ave,+Chicago,+IL+60622&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GOOD TO KNOW / FAQ ============ -->
+  <section class="section faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <p class="kicker reveal">Good to know</p>
+      <h2 class="reveal" id="faq-h">Good to know before you come.</h2>
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <p class="faq-q">Is The Flame smoke-free?</p>
+          <p>Yes &mdash; the whole space is clean, comfortable, and smoke-free.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-q">What kind of games do you have?</p>
+          <p>A lineup of exciting sweepstakes-style games &mdash; easy to jump into and fun to play.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-q">Is there a cost to come in?</p>
+          <p>No cover. Come in, relax, and enjoy yourself.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-q">Are the snacks and drinks really complimentary?</p>
+          <p>They are. Help yourself &mdash; it&rsquo;s on us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="section cta-band" aria-labelledby="cta-h">
+    <div class="wrap">
+      <p class="kicker reveal">Come see us</p>
+      <h2 class="reveal" id="cta-h">Good times start here.</h2>
+      <p class="lead muted reveal" style="max-width:44ch;margin-inline:auto">Your neighborhood is waiting. Relax, play, and connect. We&rsquo;ll leave the light on.</p>
+      <div class="reveal" style="margin-top:30px">
+        <a class="btn btn-primary" href="#visit">Plan your visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <div class="brand"><span class="fl">The Flame</span></div>
+      <p>A welcoming neighborhood gaming lounge in Wicker Park, Chicago. Relax. Play. Connect.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Visit</h4>
+      <a href="#visit">1231 N Ashland Ave</a>
+      <a href="#visit">Chicago, IL 60622</a>
+      <a href="tel:+13122187677">(312) 218-7677</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Get directions</a>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <a href="#experience">Experience</a>
+      <a href="#atmosphere">Atmosphere</a>
+      <a href="#visit">Plan your visit</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>&copy; 2026 The Flame Chicago. All rights reserved.</span>
+    <span>Must be 21+ &middot; Please play responsibly.</span>
+  </div>
+</footer>
+
+<script src="/assets/global.js"></script>
+</body>
+</html>
