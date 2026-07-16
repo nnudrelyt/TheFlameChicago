@@ -5,7 +5,9 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 ## Stack
 - **Static HTML on Vercel** — no build step, no framework. `index.html` (EN) is the source of truth; `es.html` is the ES parallel page (TBD).
 - Preview: `.claude/launch.json` → `python3 -m http.server 4750` (config `flame-static`).
-- Deploy: Vercel (`the-main-sequence` scope). `vercel.json` = cleanUrls + no trailing slash.
+- Repo: **https://github.com/nnudrelyt/TheFlameChicago** (PUBLIC — no secrets/client-confidential material in new files; `CLAUDE.md`/`PRODUCT.md`/`IMAGE-PLAN.md` are published there by Tyler's explicit call). `main` is the only branch.
+- Deploy: **git-driven** — push to `main` auto-deploys to production on Vercel project `the-main-sequence/the-flame-chicago` → https://the-flame-chicago.vercel.app. No `vercel --prod` needed (connected Jul 16 2026). `vercel.json` = cleanUrls + no trailing slash; `.vercelignore` (docs, prototypes, `_masters`) applies to git builds too.
+- The old CLI-only `flame` project (flame-lemon.vercel.app) was **deleted Jul 16 2026** — superseded, don't recreate.
 - Fonts: Adobe Fonts kit `tvp7hvq` (Bebas Neue Pro + Source Sans 3) — same as the brand messaging deck.
 
 ## Design
