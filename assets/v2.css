@@ -42,6 +42,15 @@
 .btn-outline{background:transparent;color:var(--amber);border-color:var(--amber)}
 .btn-outline:hover{background:var(--amber);color:#241300;border-color:var(--amber);transform:translateY(-2px)}
 
+/* hairline framing system — a soft full-bleed rule marks every section seam,
+   framing the page into distinct bands for first-time visitors. The reusable
+   ".rule" line (fades at the far edges) is the recurring divider/framing motif. */
+.firststeps,.occasions,.proof,.invite{position:relative}
+.firststeps::before,.occasions::before,.proof::before,.invite::before,.footer-rich::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;z-index:6;pointer-events:none;
+  background:rgba(255,240,222,.16);
+}
+
 /* first-visit step numbers stepped through the pillar palette */
 .firststeps .steps .step:nth-child(1) .step-n{color:var(--teal);background:rgba(69,214,208,.12);border-color:rgba(69,214,208,.42)}
 .firststeps .steps .step:nth-child(2) .step-n{color:var(--magenta);background:rgba(255,92,146,.12);border-color:rgba(255,92,146,.42)}
@@ -89,7 +98,7 @@
 .v2hero .kicker{display:inline-flex;align-items:center;gap:12px}
 .v2hero .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
 .v2hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.3rem,10vw,8.2rem);line-height:.9;letter-spacing:.01em;color:var(--paper);margin:.12em 0 .18em;text-shadow:0 2px 40px rgba(0,0,0,.5)}
-.v2hero .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);color:var(--ink-soft);max-width:40ch;margin-bottom:26px}
+.v2hero .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);color:var(--ink-soft);max-width:62ch;margin-bottom:26px}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
 .chip{font-size:.82rem;font-weight:600;color:var(--ink-soft);background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;padding:7px 14px;backdrop-filter:blur(3px)}
@@ -122,7 +131,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
    ========================================================================= */
 /* merged first-visit: give the empathetic headline + lead a wider measure */
 .firststeps .sec-head{max-width:none}
-.firststeps .sec-head .lead{max-width:78ch;margin-top:16px}
+.firststeps .sec-head .lead{max-width:none;margin-top:16px;text-wrap:balance}
 .firststeps .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .step{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
 .step .shot{border:0;border-radius:0;min-height:200px}
@@ -165,14 +174,20 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 /* =========================================================================
    COMBINED FOOTER — visit block (storefront + address + map) + site footer
    ========================================================================= */
-.footer-rich{background:#161513;border-top:1px solid var(--line);padding:0 0 44px}
+.footer-rich{background:#161513;position:relative;border-top:0;padding:0 0 44px}
 .footer-rich .wrap{display:block}                 /* neutralize inherited 3-col grid */
 .footer-rich .kicker{display:inline-flex;align-items:center;gap:12px}
 .footer-rich .kicker::before{content:"";width:28px;height:1px;background:var(--amber)}
 .footer-rich h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
 
-.footer-rich .footer-visit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px);align-items:center;padding-top:clamp(48px,7vw,88px)}
-.footer-rich .foot-shot{min-height:440px;height:100%;border-radius:var(--radius);overflow:hidden}
+.footer-rich .footer-visit{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;padding-top:clamp(44px,6vw,72px)}
+.footer-rich .foot-visit-copy{display:flex;flex-direction:column;gap:26px}
+.footer-rich .foot-visit-copy p{max-width:none}   /* lift the inherited 34ch footer cap */
+.footer-rich .foot-copy-top{display:flex;flex-direction:column;gap:13px}
+.footer-rich .foot-copy-top h2,.footer-rich .foot-copy-top .addr,.footer-rich .foot-copy-top .sub2{margin:0}
+.footer-rich .foot-copy-bottom .hood-cta{margin:0}
+.footer-rich .foot-copy-bottom .foot-facts{margin-top:22px}
+.footer-rich .foot-shot{min-height:clamp(300px,26vw,360px);border-radius:var(--radius);overflow:hidden}
 .footer-rich .addr{font-size:1.12rem;color:var(--paper);font-weight:600;margin:2px 0 6px}
 .footer-rich .sub2{color:var(--muted);margin-bottom:18px}
 .footer-rich .hood-cta{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 24px}
@@ -241,7 +256,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   body{font-size:19px}
   .roomgallery .mosaic{grid-auto-rows:220px}
   .daymirror .shot,.reassure .shot{min-height:540px}
-  .footer-rich .foot-shot{min-height:520px}
+  .footer-rich .foot-shot{min-height:380px}
   .step .shot{min-height:300px}
   .step-body{padding:26px 28px 30px;column-gap:16px;row-gap:16px}
   .step-n{width:44px;height:44px;font-size:1.2rem}
@@ -272,21 +287,100 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .tfeature .who b{color:var(--paper);font-weight:700}
 .tfeature .who span{color:var(--faint);font-size:.9rem}
 
+/* proof + practical — two-column split: review | FAQ accordion */
+.proof .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,84px);align-items:start}
+/* vertical rule between the review and FAQ columns — spans the full section
+   height so it meets the top & bottom dividers; centered in the gap (50%, since
+   the columns are equal and the section padding is symmetric) */
+@media(min-width:861px){
+  .proof::after{content:"";position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:1px;background:rgba(255,240,222,.14);z-index:5;pointer-events:none}
+}
+.proof .sec-head{margin-bottom:clamp(18px,2.4vw,30px)}
+.proof .proof-col .sec-head{max-width:none}
+.proof .tfeature{max-width:none}
+/* testimonial carousel — fade-through */
+.tcarousel{max-width:none}
+.tviewport{position:relative;min-height:clamp(210px,20vw,250px)}
+.tviewport .tslide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.tviewport .tslide.is-active{opacity:1;pointer-events:auto}
+.tdots{display:flex;gap:10px;margin-top:22px}
+.tdot{width:9px;height:9px;padding:0;border:0;border-radius:50%;cursor:pointer;background:var(--line);transition:background .25s var(--ease),transform .25s var(--ease)}
+.tdot:hover{background:var(--faint)}
+.tdot.is-active{background:var(--amber);transform:scale(1.25)}
+@media(prefers-reduced-motion:reduce){.tviewport .tslide{transition:none}}
+/* FAQ accordion (native <details>/<summary>) — subtle cards + / − indicator */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:linear-gradient(180deg,#5a4a39,#4a3b2d);border:1px solid rgba(255,232,200,.18);border-radius:14px;transition:border-color .25s var(--ease),background .25s var(--ease)}
+.faq-item:hover{border-color:rgba(255,232,200,.36)}
+.faq-item[open]{background:linear-gradient(180deg,#63513d,#503f30);border-color:rgba(255,182,74,.5)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:19px 24px;color:var(--paper);transition:color .2s var(--ease)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::marker{content:"";display:none}
+.faq-item summary:hover{color:var(--amber)}
+.faq-item .faq-q{font-family:var(--sans);font-weight:500;font-size:1.3rem;line-height:1.2;text-box:trim-both cap alphabetic;transform:translateY(4px)}
+/* larger nudge where leading-trim is unavailable (untrimmed line box sits higher) */
+@supports not (text-box:trim-both cap alphabetic){.faq-item .faq-q{transform:translateY(3px)}}
+/* + (closed) → − (open) indicator */
+.faq-pm{position:relative;flex:none;width:30px;height:30px;border:1px solid rgba(255,182,74,.55);border-radius:50%;transition:border-color .25s var(--ease),background .25s var(--ease)}
+.faq-item summary:hover .faq-pm{background:rgba(255,182,74,.1)}
+.faq-pm::before,.faq-pm::after{content:"";position:absolute;top:50%;left:50%;background:var(--amber);border-radius:2px;transition:transform .3s var(--ease)}
+.faq-pm::before{width:11px;height:2px;transform:translate(-50%,-50%)}
+.faq-pm::after{width:2px;height:11px;transform:translate(-50%,-50%)}
+.faq-item[open] .faq-pm::after{transform:translate(-50%,-50%) scaleY(0)}
+.faq-a{padding:0 26px 20px}
+.faq-a p{color:var(--ink-soft);max-width:56ch}
+/* smooth open where supported; instant + fully usable everywhere else */
+@supports (interpolate-size: allow-keywords){
+  :root{interpolate-size:allow-keywords}
+  .faq-item::details-content{height:0;overflow:clip;opacity:0;transition:height .32s var(--ease),opacity .28s var(--ease),content-visibility .32s allow-discrete}
+  .faq-item[open]::details-content{height:auto;opacity:1}
+}
+@media(prefers-reduced-motion:reduce){
+  .faq-item,.faq-item summary,.faq-pm::before,.faq-pm::after{transition:none}
+  .faq-item::details-content{transition:none}
+}
+@media(max-width:860px){
+  .proof .proof-grid{grid-template-columns:1fr;gap:clamp(40px,9vw,58px)}
+}
+
 /* room mosaic — bottom row pair completes the grid */
 .roomgallery .shot.wide{grid-column:span 2}
 @media(max-width:560px){.roomgallery .shot.wide{grid-column:span 1}}
 
-/* occasions — asymmetric image-led grid (tall solo + stacked pair) */
-.occasions .occ-grid{display:grid;grid-template-columns:1fr 1.55fr;grid-auto-rows:290px;gap:16px}
-.occ.occ-tall{grid-row:span 2}
+/* occasions — full-bleed horizontal auto-scroll marquee (pauses on hover) */
+.occasions .sec-head{max-width:none}  /* let the display heading sit on one line */
+.occ-scroll{position:relative;overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);margin-top:clamp(24px,3.5vw,40px)}
+/* soft edges so cards enter/exit rather than hard-clip */
+.occ-scroll::before,.occ-scroll::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,7vw,120px);z-index:4;pointer-events:none}
+.occ-scroll::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.occ-scroll::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.occ-track{display:flex;width:max-content;animation:occScroll 58s linear infinite;will-change:transform}
+.occ-scroll:hover .occ-track{animation-play-state:paused}
+.occ-set{display:flex;gap:16px;padding-right:16px}
+.occ-set .occ{position:relative;flex:0 0 auto;margin:0;height:clamp(384px,50vw,516px);width:auto;aspect-ratio:var(--ar,4/5);min-height:0;border-radius:var(--radius);overflow:hidden}
 .occ .occ-cap{position:absolute;inset:auto 0 0 0;z-index:3;padding:26px 24px 20px;background:linear-gradient(180deg,transparent,rgba(15,11,7,.85) 70%)}
 .occ .occ-cap b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:.02em;color:var(--paper)}
-.occ .occ-cap span{display:block;margin-top:4px;font-size:.95rem;color:var(--ink-soft);max-width:46ch}
-@media(max-width:960px){
-  .occasions .occ-grid{grid-template-columns:1fr;grid-auto-rows:280px}
-  .occ.occ-tall{grid-row:span 1}
+.occ .occ-cap span{display:block;margin-top:4px;font-size:.95rem;color:var(--ink-soft);max-width:42ch}
+/* callout card — reassurance folded into the row */
+.occ-set .occ.occ-callout{background:linear-gradient(145deg,#7a3c14 0%,#4a230c 52%,#2a1408 100%);border:1px solid rgba(255,182,74,.32);display:flex;align-items:stretch}
+.occ-callout::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(120% 90% at 12% 8%,rgba(255,182,74,.28),transparent 55%)}
+.occ-callout .co-body,.occ-callout .co-media{position:relative;z-index:1}
+.occ-callout .co-body{flex:1 1 55%;min-width:0;padding:clamp(24px,2.4vw,42px);display:flex;flex-direction:column;justify-content:center}
+.occ-callout .co-body h3{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,2.2vw,2.5rem);letter-spacing:.02em;color:var(--paper);margin:0 0 14px}
+.occ-callout .conf{list-style:none;display:block;margin:0}
+.occ-callout .conf li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(255,214,150,.16);font-size:1rem;line-height:1.4;color:#f3e6d3}
+.occ-callout .conf li:first-child{border-top:0}
+.occ-callout .conf svg{flex:none;width:20px;height:20px;color:var(--amber);margin-top:2px}
+.occ-callout .co-media{position:relative;flex:1 1 45%;overflow:hidden}
+.occ-callout .co-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%}
+@keyframes occScroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  .occ-track{animation:none}
+  .occ-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .occ-scroll::before,.occ-scroll::after{display:none}
+  .occ-set[aria-hidden="true"]{display:none}
+  .occ-set .occ{scroll-snap-align:start}
 }
-@media(min-width:1440px){.occasions .occ-grid{grid-auto-rows:330px}}
 
 /* invite — tagline close, centered single CTA, fest note */
 .invite .hero-actions{justify-content:center}
@@ -298,7 +392,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   body{font-size:20px}
   .roomgallery .mosaic{grid-auto-rows:270px}
   .daymirror .shot,.reassure .shot{min-height:620px}
-  .footer-rich .foot-shot{min-height:600px}
+  .footer-rich .foot-shot{min-height:420px}
   .step .shot{min-height:380px}
   .step-body{padding:30px 32px 34px;column-gap:18px;row-gap:18px}
   .step-n{width:48px;height:48px;font-size:1.3rem}

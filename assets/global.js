@@ -67,4 +67,31 @@
       pill.classList.toggle("closed", !open);
     });
   }
+
+  /* --- testimonial carousel (fade-through) --- */
+  var car = document.getElementById("tCarousel");
+  if (car) {
+    var slides = Array.prototype.slice.call(car.querySelectorAll(".tslide"));
+    var dots = Array.prototype.slice.call(car.querySelectorAll(".tdot"));
+    if (slides.length > 1) {
+      var idx = 0, timer = null, DELAY = 5500;
+      var show = function (n) {
+        idx = (n + slides.length) % slides.length;
+        slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
+        dots.forEach(function (d, k) {
+          var on = k === idx;
+          d.classList.toggle("is-active", on);
+          d.setAttribute("aria-selected", on ? "true" : "false");
+        });
+      };
+      var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+      var start = function () { if (reduce) return; stop(); timer = setInterval(function () { show(idx + 1); }, DELAY); };
+      dots.forEach(function (d, k) { d.addEventListener("click", function () { show(k); start(); }); });
+      car.addEventListener("mouseenter", stop);
+      car.addEventListener("mouseleave", start);
+      car.addEventListener("focusin", stop);
+      car.addEventListener("focusout", start);
+      start();
+    }
+  }
 })();
