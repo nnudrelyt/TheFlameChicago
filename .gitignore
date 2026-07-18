@@ -7,3 +7,6 @@ assets/img/_masters/
 
 # OS cruft
 .DS_Store
+
+# scratch exploration (do not deploy/commit)
+_explore.html
