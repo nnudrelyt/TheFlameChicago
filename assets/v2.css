@@ -97,7 +97,7 @@
 .v2hero-inner{position:relative;z-index:1;padding-block:0 clamp(48px,7vw,96px);padding-top:clamp(120px,18vh,200px)}
 .v2hero .kicker{display:inline-flex;align-items:center;gap:12px}
 .v2hero .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
-.v2hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(3.3rem,10vw,8.2rem);line-height:.9;letter-spacing:.01em;color:var(--paper);margin:.12em 0 .18em;text-shadow:0 2px 40px rgba(0,0,0,.5)}
+.v2hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.3rem,10vw,8.2rem);line-height:.9;letter-spacing:.01em;color:var(--paper);margin:.12em 0 .18em;text-shadow:0 2px 40px rgba(0,0,0,.5)}
 .v2hero .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);color:var(--ink-soft);max-width:62ch;margin-bottom:26px}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
@@ -110,7 +110,7 @@
 .sec-head{max-width:60ch;margin-bottom:clamp(28px,4vw,46px)}
 .sec-head.center{margin-inline:auto;text-align:center}
 .eyebrow{display:block}
-h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,5vw,4rem);line-height:.98;letter-spacing:.01em;color:var(--paper)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.3rem,5vw,4rem);line-height:.98;letter-spacing:.01em;color:var(--paper)}
 h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--paper)}
 .subhead{font-family:var(--sans);font-weight:600;font-size:1.05rem;color:var(--amber);margin:12px 0 0}
 
@@ -178,7 +178,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .wrap{display:block}                 /* neutralize inherited 3-col grid */
 .footer-rich .kicker{display:inline-flex;align-items:center;gap:12px}
 .footer-rich .kicker::before{content:"";width:28px;height:1px;background:var(--amber)}
-.footer-rich h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
+.footer-rich h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
 
 .footer-rich .footer-visit{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;padding-top:clamp(44px,6vw,72px)}
 .footer-rich .foot-visit-copy{display:flex;flex-direction:column;gap:26px}
