@@ -311,8 +311,10 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .foot-visit-copy p{max-width:none}   /* lift the inherited 34ch footer cap */
 .footer-rich .foot-copy-top{display:flex;flex-direction:column;gap:13px}
 .footer-rich .foot-copy-top h2,.footer-rich .foot-copy-top .addr,.footer-rich .foot-copy-top .sub2{margin:0}
-.footer-rich .foot-copy-bottom .hood-cta{margin:0}
-.footer-rich .foot-copy-bottom .foot-facts{margin-top:22px}
+/* the phone CTA sits with the address copy it belongs to; only the tags stay
+   pinned to the bottom of the photo */
+.footer-rich .foot-copy-top .hood-cta{margin:14px 0 0}
+.footer-rich .foot-copy-bottom .foot-facts{margin-top:0}
 /* =========================================================================
    FOOTER MAP — hand-drawn, geographically true.
    Ashland runs N-S, Division E-W, Milwaukee cuts NW at ~45 degrees, and the
@@ -352,11 +354,12 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .foot-facts li{font-size:.92rem;font-weight:600;color:var(--ink-soft);
   background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;
   padding:8px 16px;white-space:nowrap}
+.footer-rich .foot-facts li b{color:var(--amber);font-weight:700;margin-right:6px}
 .footer-rich .foot-brandline{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;color:var(--muted)}
 /* one type treatment across the whole sentence — the wordmark keeps the amber
    but matches the size, family and weight of the line it now sits inside. */
-.footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:600;letter-spacing:inherit;color:var(--amber)}
-.footer-rich .foot-brandline{gap:.4ch;color:var(--faint)}
+.footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit}
+.footer-rich .foot-brandline{gap:.4ch;color:var(--amber);font-weight:600}
 
 /* =========================================================================
    INVITE — full-bleed close
@@ -392,6 +395,11 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   .roomgallery .mosaic{grid-template-columns:1fr;grid-auto-rows:200px}
   .roomgallery .shot.big{grid-column:span 1}
   .footer-rich .footer-meta{grid-template-columns:1fr}
+  /* the checkmarks push each tag past the fold point at 375px, so the four of
+     them stack. Tighten them here so the block stays compact. */
+  .footer-rich .foot-facts{gap:8px}
+  .footer-rich .foot-facts li{font-size:.84rem;padding:7px 13px}
+  .footer-rich .foot-facts li b{margin-right:5px}
 }
 
 /* =========================================================================
