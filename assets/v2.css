@@ -365,7 +365,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 /* one type treatment across the whole sentence — the wordmark keeps the amber
    but matches the size, family and weight of the line it now sits inside. */
 .footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit}
-.footer-rich .foot-brandline{gap:.4ch;color:var(--amber);font-weight:600}
+.footer-rich .foot-brandline{gap:.4ch;color:var(--paper);font-weight:500}
 
 /* =========================================================================
    INVITE — full-bleed close
@@ -525,6 +525,9 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
    The quote is the largest body text on the page: it is the only place a
    stranger vouches for the room, so it gets the weight a headline would.
    ========================================================================= */
+/* more air than a standard .section so the quote reads as a featured moment
+   rather than another band in the stack */
+.testimonials{padding-block:clamp(78px,10.5vw,152px)}
 .testimonials .wrap{text-align:center}
 .testimonials .sec-head{max-width:none;margin-bottom:clamp(26px,3.4vw,44px)}
 /* the rating sits under the heading and stays put while quotes cycle */
