@@ -683,19 +683,19 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
    The <ol> is the source content; .is-live (set by global.js) swaps it for the
    interactive stage, so no-JS still gets every occasion as plain text. */
 /* Two columns: the nine chips stack flush left as a menu, the chosen photo
-   fills the rest. */
-/* Heading and component ride one centred 1500px track. A fixed left indent
-   put the module left of centre on wide screens (at 2000px the right gutter
-   came out roughly double the left, because the cap bites before the margin
-   does); margin-inline:auto keeps the gutters equal at every width, and still
-   reads as indented from the full-bleed hero above. */
+   fills the rest. Left-aligned, NOT centred — the chips have to start on the
+   same line as the section heading above them. */
+/* The section's content is indented a column from the hero's flush-left edge,
+   so the eye steps inward here. Heading and chips share the indent, which keeps
+   the chips aligned to the heading above them. Zeroed on narrow screens where
+   the width is needed more than the gesture. */
 .occasions .sec-head,
-.occasions .chooser{max-width:1500px;margin-inline:auto}
+.occasions .chooser{margin-left:clamp(0px,5vw,160px)}
 
 /* Capped, and deliberately NOT var(--maxw) — that token scales to 1800px on
    large screens, and past ~1500 the photo letterboxes badly against its 3:2
-   source. */
-.chooser{margin-top:clamp(26px,3vw,40px)}
+   source. Trailing space to the right on very wide screens is intentional. */
+.chooser{margin-top:clamp(26px,3vw,40px);max-width:1500px}
 
 .chooser .oc-chips,
 .chooser .oc-stage{display:none}
@@ -718,9 +718,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 
 /* the chips — a vertical menu in the left column. They hug their text rather
    than filling the column, so they stay pills and don't read as nav buttons. */
-/* right-aligned so the stack hugs the photo; the ragged edge falls away from
-   it rather than between the two columns */
-.oc-chips{flex-direction:column;align-items:flex-end;gap:10px}
+.oc-chips{flex-direction:column;align-items:flex-start;gap:10px}
 .oc-chip{font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
   color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;
   padding:11px 20px;white-space:nowrap;
@@ -758,9 +756,11 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 /* Below this the 255px chip column starves the photo — it goes square-ish
    (1.12:1 at 1024px) against a 3:2 source. Back to chips over photo. */
 @media(max-width:1180px){
+  .occasions .sec-head,
+  .occasions .chooser{margin-left:0}
   .chooser.is-live{grid-template-columns:1fr}
   .oc-frame{aspect-ratio:auto}
-  .oc-chips{flex-direction:row;align-items:center;flex-wrap:wrap;max-width:860px;gap:10px;
+  .oc-chips{flex-direction:row;flex-wrap:wrap;max-width:860px;gap:10px;
     margin-bottom:clamp(20px,2.4vw,30px)}
   .oc-frame{height:clamp(340px,52vh,520px)}
 }
