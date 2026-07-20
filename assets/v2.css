@@ -46,8 +46,10 @@
 .kicker.k-magenta::before{background:var(--magenta)}
 .kicker.k-violet::before{background:var(--violet)}
 
-/* amber-outlined button (nav CTA) — clearer than a plain ghost */
-.btn-outline{background:transparent;color:var(--amber);border-color:var(--amber)}
+/* amber-outlined button — clearer than a plain ghost. Used only on the two
+   phone CTAs (nav + footer). White label, amber keyline: the number reads as
+   text to act on rather than as another amber accent. */
+.btn-outline{background:transparent;color:var(--paper);border-color:var(--amber)}
 .btn-outline:hover{background:var(--amber);color:#241300;border-color:var(--amber);transform:translateY(-2px)}
 
 /* hairline framing system — a soft full-bleed rule marks every section seam,
