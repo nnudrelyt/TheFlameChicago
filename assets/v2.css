@@ -757,9 +757,10 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin:0 0 11px;
   text-shadow:0 1px 12px rgba(0,0,0,.85)}
 .oc-readout .oc-title{font-family:var(--serif);
-  /* NB: bebas-neue-pro serves 600 and 700 from the same face in this kit, so
-     this renders identically to bold. Distinct faces are 200/300/400/500/600+. */
-  font-weight:600;font-size:clamp(2.4rem,4.3vw,3.9rem);line-height:1.02;color:var(--paper);margin:0 0 11px;
+  /* regular, matching the section h2s (v2.css:178). NB: bebas-neue-pro serves
+     600 and 700 from the same face in this kit — distinct faces are
+     200/300/400/500/600+ — so don't expect a 600/700 difference. */
+  font-weight:400;font-size:clamp(2.4rem,4.3vw,3.9rem);line-height:1.02;color:var(--paper);margin:0 0 11px;
   text-shadow:0 2px 20px rgba(0,0,0,.7)}
 .oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.5vw,1.5rem);
   line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
