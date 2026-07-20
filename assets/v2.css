@@ -302,9 +302,11 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .wrap{display:block}                 /* neutralize inherited 3-col grid */
 .footer-rich .kicker{display:inline-flex;align-items:center;gap:12px;color:var(--amber);font-size:.82rem;letter-spacing:.209em}
 .footer-rich .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
-/* "Find us on Ashland." steps up two sizes (was clamp(2.1,4.4vw,3.4)) to the
-   same scale as the invite close, so the footer opens with a real statement. */
-.footer-rich h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,6rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
+/* "Find us on Ashland." — no font-size of its own, so it inherits the site h2
+   (v2.css:178, clamp(2.3rem,5vw,4rem)) and matches every other section heading
+   exactly. Net one step up from the original footer-only clamp(2.1,4.4vw,3.4).
+   NB: global.css's h2 is superseded by that rule — don't size against it. */
+.footer-rich h2{font-family:var(--serif);font-weight:400;line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
 
 /* align-items left at its stretch default + space-between on the copy column
    pins the phone button and the tag row to the bottom edge of the photo. */
