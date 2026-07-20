@@ -749,14 +749,17 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
     rgba(14,10,6,.55) 62%,rgba(14,10,6,.93))}
 .oc-readout{position:absolute;left:clamp(20px,2.8vw,40px);right:clamp(20px,2.8vw,40px);
   /* NB: a ch cap here resolves against the CONTAINER's font-size, not the
-     title's — at a 62px title 44ch wrapped the longest headline to 3 lines.
-     A share of the frame keeps it to 2. */
-  bottom:clamp(20px,2.8vw,38px);max-width:min(58%,640px)}
+     title's, so it froze while the type grew. Sized off the frame instead,
+     wide enough to keep the longest support line unwrapped (797px at 24px);
+     the body scales on vw so the ratio holds down to the 1180px collapse. */
+  bottom:clamp(20px,2.8vw,38px);max-width:min(92%,900px)}
 .oc-readout .oc-when{font-family:var(--sans);font-weight:700;font-size:.9rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin:0 0 11px;
   text-shadow:0 1px 12px rgba(0,0,0,.85)}
-.oc-readout .oc-title{font-family:var(--serif);font-weight:700;
-  font-size:clamp(2.4rem,4.3vw,3.9rem);line-height:1.02;color:var(--paper);margin:0 0 11px;
+.oc-readout .oc-title{font-family:var(--serif);
+  /* 500, not 600: bebas-neue-pro renders 600 and 700 from the same face here,
+     so 500 is the next step that actually looks lighter */
+  font-weight:500;font-size:clamp(2.4rem,4.3vw,3.9rem);line-height:1.02;color:var(--paper);margin:0 0 11px;
   text-shadow:0 2px 20px rgba(0,0,0,.7)}
 .oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.5vw,1.5rem);
   line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
