@@ -20,8 +20,8 @@
 <meta name="theme-color" content="#140f0a">
 
 <link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
-<link rel="stylesheet" href="/assets/global.css?v=10">
-<link rel="stylesheet" href="/assets/v2.css?v=31">
+<link rel="stylesheet" href="/assets/global.css?v=12">
+<link rel="stylesheet" href="/assets/v2.css?v=99">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
 <!-- JSON-LD (real NAP from live site; socials TBD) -->
@@ -53,7 +53,7 @@
     </nav>
     <div class="nav-tools">
       <span class="live" aria-label="Open daily 11am to 11pm">Open daily · 11–11</span>
-      <a class="btn btn-outline" href="#visit">Get directions</a>
+      <a class="btn btn-outline" href="tel:+13122187677" aria-label="Call The Flame at (312) 218-7677">(312) 218-7677</a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="nav">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -84,16 +84,147 @@
         <a class="btn btn-ghost" href="#visit">Find us</a>
       </div>
       <div class="chips reveal">
-        <span class="chip"><b>✓</b>No cover</span>
-        <span class="chip"><b>✓</b>Smoke-free</span>
-        <span class="chip"><b>✓</b>Free snacks &amp; drinks</span>
-        <span class="chip"><b>✓</b>21+</span>
-        <span class="chip"><b>✓</b>Open daily 11–11</span>
+        <div class="chips-track">
+          <div class="chips-set">
+            <span class="chip"><b>✓</b>No cover</span>
+            <span class="chip"><b>✓</b>Smoke-free</span>
+            <span class="chip"><b>✓</b>Free snacks &amp; drinks</span>
+            <span class="chip"><b>✓</b>21+</span>
+            <span class="chip"><b>✓</b>Open daily 11–11</span>
+          </div>
+          <div class="chips-set" aria-hidden="true">
+            <span class="chip"><b>✓</b>No cover</span>
+            <span class="chip"><b>✓</b>Smoke-free</span>
+            <span class="chip"><b>✓</b>Free snacks &amp; drinks</span>
+            <span class="chip"><b>✓</b>21+</span>
+            <span class="chip"><b>✓</b>Open daily 11–11</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 2 · FIRST VISIT (empathetic + 3 steps) ============ -->
+  <!-- ============ 2 · OCCASIONS ============ -->
+  <section class="section occasions" id="occasions" aria-labelledby="occ-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 id="occ-h">Whatever you need, whatever the time.</h2>
+        <p class="subhead">There's no wrong reason to walk in.</p>
+      </div>
+      <!-- Occasion chooser. The <ol> is the real content and the no-JS
+           fallback; global.js reads its data-* and upgrades it (.is-live). -->
+      <div class="chooser reveal" id="occChooser">
+        <div class="oc-chips" role="tablist" aria-label="Reasons people come in"></div>
+        <div class="oc-stage" id="occPanel" role="tabpanel" tabindex="0">
+          <div class="oc-frame"><!-- the two crossfade layers are built by global.js -->
+            <span class="oc-wash" aria-hidden="true"></span>
+            <span class="oc-vig" aria-hidden="true"></span>
+          </div>
+          <!-- outside .oc-frame so it can drop below the photo on small screens -->
+          <div class="oc-readout">
+            <p class="oc-when"></p>
+            <h3 class="oc-title"></h3>
+            <p class="oc-body"></p>
+          </div>
+        </div>
+
+        <ol class="oc-list">
+          <li class="oc-item" data-chip="Off the overnight" data-when="Daytime · 11am – 5pm"
+              data-from="660"  data-to="780"
+              data-img="/assets/img/rail/img-09.webp"
+              data-alt="A woman settling in at a glowing cabinet, the warm room behind her">
+            <h3>Coming off the overnight</h3>
+            <p>We open at 11. When your day ends as everyone else's starts, there's a seat here.</p>
+          </li>
+          <li class="oc-item" data-chip="Waiting out the weather" data-when="Daytime · 11am – 5pm"
+              data-from="780"  data-to="900"
+              data-img="/assets/img/rail/img-07.webp"
+              data-alt="Complimentary snacks and a drink on the counter beside the stools, lit by a warm pool of light">
+            <h3>Waiting out the weather</h3>
+            <p>Chicago does what Chicago does. Warm room, free snacks, no cover.</p>
+          </li>
+          <li class="oc-item" data-chip="An hour to myself" data-when="Daytime · 11am – 5pm"
+              data-from="900"  data-to="1020"
+              data-img="/assets/img/rail/img-11.webp"
+              data-alt="The neon flame lamp glowing beside a potted plant in a quiet corner of the room">
+            <h3>An hour that's yours</h3>
+            <p>Not a parent, not an employee. Just you, for a little while.</p>
+          </li>
+          <li class="oc-item" data-chip="After a shift" data-when="After work · 5 – 8pm"
+              data-from="1020" data-to="1110"
+              data-img="/assets/img/rail/img-02.webp"
+              data-alt="A man in a work jacket unwinding at a table, the glow of The Flame's neon lamp warming his face">
+            <h3>After the shift</h3>
+            <p>Let the day go. A warm seat, a cold drink, and nothing asked of you.</p>
+          </li>
+          <li class="oc-item" data-chip="Date night" data-when="After work · 5 – 8pm"
+              data-from="1110" data-to="1200"
+              data-img="/assets/img/rail/img-10.webp"
+              data-alt="Two people at adjacent stools mid-conversation, drinks in hand, easy laughter">
+            <h3>An easy date night</h3>
+            <p>Low-key and close together, with the snacks on us.</p>
+          </li>
+          <li class="oc-item" data-chip="With friends" data-when="Evening · 8 – 11pm"
+              data-from="1200" data-to="1245"
+              data-img="/assets/img/rail/img-06.webp"
+              data-alt="The Flame's warm, neon-lit room with locals playing and talking together">
+            <h3>A night with friends</h3>
+            <p>Catch-ups, birthdays, or no reason at all. Everyone gets a seat.</p>
+          </li>
+          <li class="oc-item" data-chip="Nobody can agree" data-when="Evening · 8 – 11pm"
+              data-from="1245" data-to="1290"
+              data-img="/assets/img/rail/img-03.webp"
+              data-alt="A guest just inside the door getting a genuine welcome, warm light at the entry">
+            <h3>When nobody can agree</h3>
+            <p>No cover, no reservation, no plan. The easiest yes in the group chat.</p>
+          </li>
+          <li class="oc-item" data-chip="Something to celebrate" data-when="Evening · 8 – 11pm"
+              data-from="1290" data-to="1335"
+              data-img="/assets/img/rail/img-05.webp"
+              data-alt="Hands at the cabinet buttons as the win light triggers, a relaxed smile at the edge of frame">
+            <h3>Something to celebrate</h3>
+            <p>Good news, a good week, a birthday worth marking.</p>
+          </li>
+          <li class="oc-item" data-chip="Before the show" data-when="Evening · 8 – 11pm"
+              data-from="1335" data-to="1380"
+              data-img="/assets/img/rail/img-12.webp"
+              data-alt="The Flame's Ashland Avenue storefront glowing warm at blue hour">
+            <h3>Before or after the main event</h3>
+            <p>Two minutes from the Blue Line, open till 11. Start here or end here.</p>
+          </li>
+        </ol>
+      </div>
+      <!-- HIDDEN 2026-07-20 per Tyler ("for now") — the "Come as you are"
+           callout. Kept in place rather than deleted so it can be restored by
+           removing this comment wrapper. Its four reassurance points and the
+           "Save your seat" CTA are not repeated anywhere else on the page.
+      <div class="cta-band reveal">
+        <figure class="shot">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/img-07.webp">
+            <img class="shot-img" src="/assets/img/img-07.jpg" width="1200" height="1200" loading="lazy" alt="Complimentary snacks and a drink on the counter beside the stools, lit by a warm pool of light">
+          </picture>
+        </figure>
+        <div class="cta-scrim" aria-hidden="true"></div>
+        <div class="cta-inner">
+          <h3>Come as you are.</h3>
+          <p class="tagline">Everyone is welcome.</p>
+          <ul class="conf">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No cover and no membership, ever.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Smoke-free and comfortable.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Come alone or bring your people.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Spend what you want, or nothing at all.</li>
+          </ul>
+          <a class="btn btn-cta" href="#firstvisit">Save your seat
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- ============ 3 · FIRST VISIT (empathetic + 3 steps) ============ -->
   <section class="section firststeps" id="firstvisit" aria-labelledby="first-h">
     <div class="wrap">
       <div class="sec-head reveal">
@@ -117,150 +248,75 @@
     </div>
   </section>
 
-  <!-- ============ 3 · OCCASIONS ============ -->
-  <section class="section occasions" id="occasions" aria-labelledby="occ-h">
+  <!-- ============ 4 · TESTIMONIALS (full-width, centred) ============ -->
+  <section class="section testimonials" id="neighbors" aria-labelledby="nb-h">
     <div class="wrap">
       <div class="sec-head reveal">
-        <h2 id="occ-h">Whatever kind of night you need.</h2>
-        <p class="subhead">Come solo, come as a pair, bring the whole crew.</p>
+        <h2 id="nb-h">What neighbors say.</h2>
+        <div class="stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
       </div>
-    </div>
-    <div class="occ-scroll reveal" aria-label="Ways to enjoy The Flame">
-      <div class="occ-track">
-        <div class="occ-set">
-          <figure class="shot occ t-teal" style="--ar:4/5">
-            <picture><source type="image/webp" srcset="/assets/img/img-02.webp"><img class="shot-img" src="/assets/img/img-02.jpg" width="1120" height="1500" loading="lazy" alt="A man in a work jacket unwinds at a table, the glow of The Flame's neon lamp warming his face"></picture>
-            <figcaption class="occ-cap"><b>After the shift</b><span>Let the day go. A warm seat, a cold drink, and nothing asked of you.</span></figcaption>
+      <div class="tcarousel reveal" id="tCarousel">
+        <div class="tviewport">
+          <figure class="tfeature tslide is-active">
+            <blockquote>Fun place. The owner is great. Very hospitable and friendly. Good vibes.</blockquote>
+            <figcaption class="who"><b>Elizabeth</b><span>Google review</span></figcaption>
           </figure>
-          <figure class="shot occ" style="--ar:1/1">
-            <picture><source type="image/webp" srcset="/assets/img/img-10.webp"><img class="shot-img" src="/assets/img/img-10.jpg" width="1200" height="1200" loading="lazy" alt="Two friends laughing over drinks at The Flame, the neon flame lamp glowing beside them"></picture>
-            <figcaption class="occ-cap"><b>An easy date night</b><span>Low-key and close together, with the snacks on us.</span></figcaption>
+          <!-- SAMPLE / PLACEHOLDER reviews — fabricated for layout only. Replace with real reviews before launch. -->
+          <figure class="tfeature tslide">
+            <blockquote>First time in and the staff made it easy. The free popcorn didn't hurt either.</blockquote>
+            <figcaption class="who"><b>Marcus D.</b><span>Google review</span></figcaption>
           </figure>
-          <figure class="shot occ t-magenta" style="--ar:16/9">
-            <picture><source type="image/webp" srcset="/assets/img/img-06.webp"><img class="shot-img" src="/assets/img/img-06.jpg" width="2200" height="1244" loading="lazy" alt="The Flame's warm, neon-lit room with its row of game cabinets and a few locals playing together"></picture>
-            <figcaption class="occ-cap"><b>Bring your people</b><span>Birthdays, catch-ups, or no reason at all. Everyone gets a seat.</span></figcaption>
+          <figure class="tfeature tslide">
+            <blockquote>My spot after a long shift. Comfortable, easy, and never any pressure to spend.</blockquote>
+            <figcaption class="who"><b>Renata V.</b><span>Google review</span></figcaption>
           </figure>
-          <figure class="occ occ-callout" style="--ar:16/9">
-            <div class="co-body">
-              <h3>Come as you are.</h3>
-              <ul class="conf">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No cover and no membership, ever.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Smoke-free and comfortable.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Come alone or bring your people.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Spend what you want, or nothing at all.</li>
-              </ul>
-            </div>
-            <div class="co-media">
-              <picture><source type="image/webp" srcset="/assets/img/img-11.webp"><img src="/assets/img/img-11.jpg" width="1125" height="1500" loading="lazy" alt="The glowing neon flame lamp beside a potted plant on a clean, warm wall"></picture>
-            </div>
+          <figure class="tfeature tslide">
+            <blockquote>Came for a birthday and stayed way longer than we planned. Welcoming crew.</blockquote>
+            <figcaption class="who"><b>James T.</b><span>Google review</span></figcaption>
           </figure>
         </div>
-        <div class="occ-set" aria-hidden="true">
-          <figure class="shot occ t-teal" style="--ar:4/5">
-            <picture><source type="image/webp" srcset="/assets/img/img-02.webp"><img class="shot-img" src="/assets/img/img-02.jpg" width="1120" height="1500" loading="lazy" alt=""></picture>
-            <figcaption class="occ-cap"><b>After the shift</b><span>Let the day go. A warm seat, a cold drink, and nothing asked of you.</span></figcaption>
-          </figure>
-          <figure class="shot occ" style="--ar:1/1">
-            <picture><source type="image/webp" srcset="/assets/img/img-10.webp"><img class="shot-img" src="/assets/img/img-10.jpg" width="1200" height="1200" loading="lazy" alt=""></picture>
-            <figcaption class="occ-cap"><b>An easy date night</b><span>Low-key and close together, with the snacks on us.</span></figcaption>
-          </figure>
-          <figure class="shot occ t-magenta" style="--ar:16/9">
-            <picture><source type="image/webp" srcset="/assets/img/img-06.webp"><img class="shot-img" src="/assets/img/img-06.jpg" width="2200" height="1244" loading="lazy" alt=""></picture>
-            <figcaption class="occ-cap"><b>Bring your people</b><span>Birthdays, catch-ups, or no reason at all. Everyone gets a seat.</span></figcaption>
-          </figure>
-          <figure class="occ occ-callout" style="--ar:16/9">
-            <div class="co-body">
-              <h3>Come as you are.</h3>
-              <ul class="conf">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No cover and no membership, ever.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Smoke-free and comfortable.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Come alone or bring your people.</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Spend what you want, or nothing at all.</li>
-              </ul>
-            </div>
-            <div class="co-media">
-              <picture><source type="image/webp" srcset="/assets/img/img-11.webp"><img src="/assets/img/img-11.jpg" width="1125" height="1500" loading="lazy" alt=""></picture>
-            </div>
-          </figure>
+        <div class="tdots" role="tablist" aria-label="Choose a review">
+          <button class="tdot is-active" type="button" role="tab" aria-selected="true" aria-label="Review 1"></button>
+          <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 2"></button>
+          <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 3"></button>
+          <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 4"></button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 4 · PROOF + PRACTICAL (review | FAQ) ============ -->
-  <section class="section proof" id="neighbors" aria-labelledby="nb-h faq-h">
-    <div class="wrap proof-grid">
-
-      <div class="proof-col reveal">
-        <div class="sec-head">
-          <h2 id="nb-h">What neighbors say.</h2>
-          <p class="subhead">Good company, good energy, and something to celebrate most nights.</p>
-        </div>
-        <div class="tcarousel" id="tCarousel">
-          <div class="tviewport">
-            <figure class="tfeature tslide is-active">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote>Fun place. The owner is great. Very hospitable and friendly. Good vibes.</blockquote>
-              <figcaption class="who"><b>Elizabeth</b><span>Google review</span></figcaption>
-            </figure>
-            <!-- SAMPLE / PLACEHOLDER reviews — fabricated for layout only. Replace with real reviews before launch. -->
-            <figure class="tfeature tslide">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote>First time in and the staff made it easy. The free popcorn didn't hurt either.</blockquote>
-              <figcaption class="who"><b>Marcus D.</b><span>Google review</span></figcaption>
-            </figure>
-            <figure class="tfeature tslide">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote>My spot after a long shift. Comfortable, easy, and never any pressure to spend.</blockquote>
-              <figcaption class="who"><b>Renata V.</b><span>Google review</span></figcaption>
-            </figure>
-            <figure class="tfeature tslide">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote>Came for a birthday and stayed way longer than we planned. Welcoming crew.</blockquote>
-              <figcaption class="who"><b>James T.</b><span>Google review</span></figcaption>
-            </figure>
-          </div>
-          <div class="tdots" role="tablist" aria-label="Choose a review">
-            <button class="tdot is-active" type="button" role="tab" aria-selected="true" aria-label="Review 1"></button>
-            <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 2"></button>
-            <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 3"></button>
-            <button class="tdot" type="button" role="tab" aria-selected="false" aria-label="Review 4"></button>
-          </div>
-        </div>
+  <!-- ============ 5 · GOOD TO KNOW (FAQ) ============ -->
+  <section class="section faqs" id="goodtoknow" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 id="faq-h">For your visit.</h2>
       </div>
-
-      <div class="faq-col reveal">
-        <div class="sec-head">
-          <h2 id="faq-h">Good to know.</h2>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary><span class="faq-q">Do I need a reservation?</span><span class="faq-pm" aria-hidden="true"></span></summary>
-            <div class="faq-a"><p>Nope, just walk in. We're open daily, 11am to 11pm.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary><span class="faq-q">I've never played before.</span><span class="faq-pm" aria-hidden="true"></span></summary>
-            <div class="faq-a"><p>Perfect. Sit anywhere and the staff will walk you through everything, at your pace.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary><span class="faq-q">What does it cost?</span><span class="faq-pm" aria-hidden="true"></span></summary>
-            <div class="faq-a"><p>Nothing to walk in. You choose what to spend on play, and the snacks and drinks are always on us.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary><span class="faq-q">Who can come in?</span><span class="faq-pm" aria-hidden="true"></span></summary>
-            <div class="faq-a"><p>Guests 21 and up, with a valid ID.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary><span class="faq-q">Where do I park?</span><span class="faq-pm" aria-hidden="true"></span></summary>
-            <div class="faq-a"><p>Street parking on Ashland and the side streets, and we're two minutes from the Division Blue Line.</p></div>
-          </details>
-        </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary><span class="faq-q">Do I need a reservation?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
+          <div class="faq-a"><p>Nope, just walk in. We're open daily, 11am to 11pm.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">I've never played before.</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
+          <div class="faq-a"><p>Perfect. Sit anywhere and the staff will walk you through everything, at your pace.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">What does it cost?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
+          <div class="faq-a"><p>Nothing to walk in. You choose what to spend on play, and the snacks and drinks are always on us.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Who can come in?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
+          <div class="faq-a"><p>Guests 21 and up, with a valid ID.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Where do I park?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
+          <div class="faq-a"><p>Street parking on Ashland and the side streets, and we're two minutes from the Division Blue Line.</p></div>
+        </details>
       </div>
-
     </div>
   </section>
 
-  <!-- ============ 5 · INVITE ============ -->
+  <!-- ============ 6 · INVITE ============ -->
   <section class="invite" aria-labelledby="cta-h">
     <figure class="shot">
       <picture>
@@ -293,7 +349,6 @@
       </div>
       <div class="foot-copy-bottom">
         <div class="hood-cta reveal">
-          <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Get directions</a>
           <a class="btn btn-ghost" href="tel:+13122187677">Call (312) 218-7677</a>
         </div>
         <ul class="foot-facts reveal">
@@ -304,26 +359,21 @@
         </ul>
       </div>
     </div>
-    <figure class="shot foot-shot reveal">
+    <figure class="foot-facade reveal">
       <picture>
-        <source type="image/webp" srcset="/assets/img/img-12.webp">
-        <img class="shot-img" src="/assets/img/img-12.jpg" width="2048" height="1360" loading="lazy" alt="The Flame's storefront at dusk on Ashland Avenue, its historic facade and warm-glowing windows welcoming from the sidewalk">
+        <source type="image/webp" srcset="/assets/img/img-12-window.webp">
+        <img src="/assets/img/img-12-window.jpg" width="980" height="551" loading="lazy"
+             alt="Looking in through The Flame's storefront window on Ashland at dusk: warm chandelier light, soft seating and glowing cabinets inside">
       </picture>
     </figure>
   </div>
 
   <div class="wrap foot-bottom">
-    <span class="foot-brandline"><span class="brand"><span class="fl">The Flame</span></span><span>A welcoming neighborhood gaming lounge in Wicker Park.</span></span>
+    <span class="foot-brandline"><span class="brand"><span class="fl">The Flame</span></span> <span>is a welcoming neighborhood gaming lounge in Wicker Park.</span></span>
     <span>&copy; 2026 The Flame Chicago · 21+ · Please play responsibly.</span>
   </div>
 </footer>
 
-<!-- ============ STICKY MOBILE ACTION BAR ============ -->
-<div class="mbar" aria-label="Quick actions">
-  <a class="btn btn-ghost" href="tel:+13122187677">Call</a>
-  <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Directions</a>
-</div>
-
-<script src="/assets/global.js?v=4"></script>
+<script src="/assets/global.js?v=12"></script>
 </body>
 </html>

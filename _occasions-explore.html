@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Occasions — layout exploration · The Flame</title>
+<link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
+<link rel="stylesheet" href="/assets/global.css?v=11">
+<link rel="stylesheet" href="/assets/v2.css?v=77">
+<style>
+/* =========================================================================
+   PROTOTYPE-ONLY CSS. Nothing here has been merged into v2.css.
+   Everything uses the live tokens so the comparison is honest.
+   ========================================================================= */
+
+/* --- the variant switcher (scaffolding, not part of any design) --- */
+.proto-bar{position:sticky;top:0;z-index:50;background:var(--bg-deep);
+  border-bottom:1px solid var(--line)}
+.proto-bar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:12px}
+.proto-bar strong{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--faint)}
+.proto-bar .pbtn{font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--muted);border:1px solid var(--line);
+  border-radius:999px;padding:7px 15px;transition:.18s var(--ease)}
+.proto-bar .pbtn:hover{color:var(--paper);border-color:var(--faint)}
+.proto-bar .pbtn[aria-current="true"]{background:var(--amber);border-color:var(--amber);color:#201200}
+.proto-note{border-left:2px solid var(--amber);padding:2px 0 2px 16px;margin:0 0 clamp(28px,4vw,44px);
+  max-width:70ch;color:var(--muted);font-size:.95rem}
+.proto-note b{color:var(--paper);font-family:var(--sans);font-weight:700;
+  display:block;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+
+/* =========================================================================
+   A · TIME-OF-DAY SWITCHER
+   The three time blocks become one segmented rail. The rail keeps the
+   existing gradient hairline + dot motif so it still reads as a timeline,
+   not a generic tab bar. One panel visible at a time: photo left, list right.
+   ========================================================================= */
+.tswitch{position:relative;margin-top:clamp(30px,3.6vw,48px)}
+.tswitch-rail{position:relative;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2.4vw,34px);padding-top:26px}
+.tswitch-rail::before{content:"";position:absolute;top:6px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--teal),var(--amber) 40%,var(--magenta) 72%,var(--violet));
+  opacity:.4}
+.ttab{position:relative;background:transparent;border:0;padding:0 0 16px;cursor:pointer;
+  text-align:left;font:inherit;color:var(--faint);transition:color .2s var(--ease)}
+.ttab::before{content:"";position:absolute;top:-26px;left:0;width:13px;height:13px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--line);
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.ttab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--amber);transform:scaleX(0);transform-origin:left;
+  transition:transform .32s var(--ease)}
+.ttab .tt-name{display:block;font-family:var(--sans);font-weight:700;font-size:.82rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  transition:color .2s var(--ease)}
+.ttab .tt-time{display:block;font-size:.82rem;margin-top:3px}
+.ttab:hover{color:var(--ink-soft)}
+.ttab:hover::before{border-color:var(--faint)}
+.ttab[aria-selected="true"]{color:var(--amber)}
+.ttab[aria-selected="true"] .tt-name{color:var(--paper)}
+.ttab[aria-selected="true"]::before{border-color:var(--amber);
+  box-shadow:0 0 0 4px rgba(255,182,74,.16),0 0 18px rgba(255,182,74,.45)}
+.ttab[aria-selected="true"]::after{transform:scaleX(1)}
+/* the hook: a live badge on whichever block the visitor is actually in */
+.tt-now{display:inline-block;vertical-align:2px;margin-left:9px;padding:2px 8px 1px;
+  border-radius:999px;background:rgba(121,227,154,.14);border:1px solid rgba(121,227,154,.4);
+  color:var(--green);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.tt-now::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--green);margin-right:6px;vertical-align:1px;
+  box-shadow:0 0 7px var(--green);animation:tpulse 2.6s var(--ease) infinite}
+@keyframes tpulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.tpanels{margin-top:clamp(24px,3vw,38px)}
+.tpanel[hidden]{display:none}
+.tpanel{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,3.4vw,52px);
+  align-items:start;animation:tfade .45s var(--ease) both}
+@keyframes tfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tpanel .cshot{aspect-ratio:16/11;margin:0}
+.tpanel ul{list-style:none;margin:0;padding:0}
+.tpanel li{padding:18px 0;border-top:1px solid var(--line-soft)}
+.tpanel li:first-child{border-top:0;padding-top:0}
+.tpanel li b{display:block;font-family:var(--serif);font-weight:700;font-size:1.5rem;
+  color:var(--paper);margin-bottom:6px}
+.tpanel li span{color:var(--muted);font-size:.97rem;line-height:1.55}
+.tgreet{font-size:.9rem;color:var(--faint);margin-top:22px}
+.tgreet b{color:var(--amber);font-weight:600}
+
+/* =========================================================================
+   B · SCRUBBABLE LIGHT RAIL
+   Drag 11am → 11pm. The room photo crossfades and a colour wash moves
+   amber → magenta → violet, so the control is literally the lighting.
+   ========================================================================= */
+.lightbox{position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);background:#171009;aspect-ratio:21/9;
+  margin-top:clamp(30px,3.6vw,48px)}
+.lightbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .5s var(--ease)}
+.lightbox img.on{opacity:1}
+.lightwash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:var(--wash,rgba(255,182,74,.5));transition:background .3s linear}
+.lightvig{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(14,10,6,.55),rgba(14,10,6,.05) 38%,rgba(14,10,6,.88))}
+.lbclock{position:absolute;top:clamp(16px,2.4vw,28px);left:clamp(18px,2.6vw,32px);
+  font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;
+  color:var(--paper);text-shadow:0 2px 26px rgba(0,0,0,.7)}
+.lbclock small{display:block;font-family:var(--sans);font-size:.72rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-top:8px}
+.lbcopy{position:absolute;left:clamp(18px,2.6vw,32px);right:clamp(18px,2.6vw,32px);
+  bottom:clamp(18px,2.6vw,30px);max-width:56ch}
+.lbcopy h3{font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,2.8vw,2.1rem);
+  color:var(--paper);margin:0 0 5px}
+.lbcopy p{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin:0;
+  text-shadow:0 1px 14px rgba(0,0,0,.75)}
+.lbcopy.swap{animation:tfade .4s var(--ease) both}
+
+.scrub{position:relative;margin-top:26px;padding-top:4px}
+.scrub input[type=range]{-webkit-appearance:none;appearance:none;width:100%;
+  background:transparent;cursor:grab;height:34px;margin:0}
+.scrub input[type=range]:active{cursor:grabbing}
+.scrub input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--teal),var(--amber) 40%,var(--magenta) 72%,var(--violet));
+  opacity:.55}
+.scrub input[type=range]::-moz-range-track{height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--teal),var(--amber) 40%,var(--magenta) 72%,var(--violet));
+  opacity:.55}
+.scrub input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:20px;height:20px;border-radius:50%;background:var(--amber);border:3px solid var(--bg);
+  margin-top:-9px;box-shadow:0 0 0 3px rgba(255,182,74,.2),0 0 22px rgba(255,182,74,.65)}
+.scrub input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;
+  background:var(--amber);border:3px solid var(--bg);
+  box-shadow:0 0 0 3px rgba(255,182,74,.2),0 0 22px rgba(255,182,74,.65)}
+.scrub-ticks{display:flex;justify-content:space-between;margin-top:2px;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.scrub-hint{margin-top:16px;font-size:.88rem;color:var(--faint)}
+.scrub-hint b{color:var(--amber);font-weight:600}
+.lblist{list-style:none;margin:clamp(26px,3vw,38px) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(18px,2.4vw,34px)}
+.lblist li{padding-top:15px;border-top:1px solid var(--line-soft)}
+.lblist li b{display:block;font-family:var(--serif);font-weight:700;font-size:1.3rem;
+  color:var(--paper);margin-bottom:5px}
+.lblist li span{color:var(--muted);font-size:.94rem;line-height:1.5}
+
+/* =========================================================================
+   C · "WHAT BRINGS YOU IN?" CHIP CHOOSER
+   Time-of-day framing dropped. Nine reasons, tap one, read one line.
+   Reading becomes opt-in and the section becomes self-identification.
+   ========================================================================= */
+.chooser{text-align:center;margin-top:clamp(28px,3.4vw,44px)}
+.chipset{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;max-width:540px;
+  margin:0 auto}
+.ochip{font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;
+  padding:11px 20px;transition:.2s var(--ease)}
+.ochip:hover{border-color:var(--amber);color:var(--paper);transform:translateY(-2px)}
+.ochip[aria-selected="true"]{background:var(--amber);border-color:var(--amber);
+  color:#201200;font-weight:600;box-shadow:0 0 26px rgba(255,182,74,.35)}
+.answer{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,3.2vw,48px);
+  align-items:center;text-align:left;margin-top:clamp(30px,3.8vw,50px);
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(18px,2.2vw,26px)}
+.answer .cshot{aspect-ratio:4/3;margin:0}
+.answer-body{animation:tfade .38s var(--ease) both}
+.answer-body .answer-eyebrow{font-family:var(--sans);font-weight:700;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:0 0 10px}
+.answer-body h3{font-family:var(--serif);font-weight:700;
+  font-size:clamp(1.7rem,3.2vw,2.5rem);color:var(--paper);margin:0 0 10px;line-height:1.08}
+.answer-body p{color:var(--muted);font-size:1.05rem;line-height:1.6;margin:0}
+.answer-cta{display:inline-block;margin-top:20px;font-weight:600;color:var(--amber);
+  border-bottom:1px solid rgba(255,182,74,.4);padding-bottom:2px}
+
+@media(max-width:900px){
+  .tswitch-rail{grid-template-columns:1fr;gap:0;padding-top:0}
+  .tswitch-rail::before{display:none}
+  .ttab{padding:14px 0;border-top:1px solid var(--line-soft)}
+  .ttab::before{display:none}
+  .tpanel,.answer{grid-template-columns:1fr}
+  .lightbox{aspect-ratio:4/3}
+  .lbcopy{position:static;margin-top:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .tpanel,.answer-body,.lbcopy.swap{animation:none}
+  .lightbox img,.lightwash{transition:none}
+  .tt-now::before{animation:none}
+  .ochip:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="proto-bar" aria-label="Prototype variant">
+  <div class="wrap">
+    <strong>Occasions §</strong>
+    <button class="pbtn" data-v="cur" aria-current="true">Current</button>
+    <button class="pbtn" data-v="a">A · Time switcher</button>
+    <button class="pbtn" data-v="b">B · Light rail</button>
+    <button class="pbtn" data-v="c">C · Chip chooser</button>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============ CURRENT (as shipped) ============ -->
+<section class="section occasions" data-variant="cur" aria-labelledby="cur-h">
+  <div class="wrap">
+    <p class="proto-note"><b>Current — as shipped</b>Nine items, each a bold headline plus a full sentence, all visible at once across three ragged-length columns (3 / 2 / 4). Roughly 180 words with no entry point.</p>
+    <div class="sec-head">
+      <h2 id="cur-h">Whatever kind of night you need.</h2>
+      <p class="subhead">Come solo, come as a pair, bring the whole crew.</p>
+    </div>
+    <div class="tline" id="cur-tline"></div>
+  </div>
+</section>
+
+<!-- ============ A · TIME-OF-DAY SWITCHER ============ -->
+<section class="section occasions" data-variant="a" hidden aria-labelledby="a-h">
+  <div class="wrap">
+    <p class="proto-note"><b>A — Time-of-day switcher</b>One block at a time, so the visible read drops from nine items to two–four. The rail keeps the gradient hairline and dot motif, so it still reads as a timeline. It opens on the block the visitor is <em>actually</em> in (America/Chicago), flagged “Right now”. Without JS it degrades to all three panels stacked.</p>
+    <div class="sec-head">
+      <h2 id="a-h">Whatever kind of night you need.</h2>
+      <p class="subhead">Come solo, come as a pair, bring the whole crew.</p>
+    </div>
+    <div class="tswitch">
+      <div class="tswitch-rail" role="tablist" aria-label="Time of day" id="a-rail"></div>
+      <div class="tpanels" id="a-panels"></div>
+      <p class="tgreet" id="a-greet"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B · SCRUBBABLE LIGHT RAIL ============ -->
+<section class="section occasions" data-variant="b" hidden aria-labelledby="b-h">
+  <div class="wrap">
+    <p class="proto-note"><b>B — Scrubbable light rail</b>Drag from 11am to 11pm and the room changes with you: the photo crossfades and a colour wash moves amber → magenta → violet. The control <em>is</em> the lighting, which is the most literal expression of “premium = lighting, not brightness”. Built on a native range input, so keyboard and screen-reader support come free.</p>
+    <div class="sec-head">
+      <h2 id="b-h">Whatever kind of night you need.</h2>
+      <p class="subhead">Drag through the day and see the room change.</p>
+    </div>
+    <div class="lightbox" id="b-box">
+      <img id="b-img-day" src="/assets/img/img-11.jpg" alt="The neon flame lamp glowing beside a potted plant in a quiet corner of the room">
+      <img id="b-img-work" src="/assets/img/img-02.jpg" alt="A man in a work jacket unwinding at a table, the glow of The Flame's neon lamp warming his face">
+      <img id="b-img-night" src="/assets/img/img-06.jpg" alt="The Flame's warm, neon-lit room with locals playing and talking together">
+      <span class="lightwash" id="b-wash" aria-hidden="true"></span>
+      <span class="lightvig" aria-hidden="true"></span>
+      <div class="lbclock" aria-hidden="true"><span id="b-clock">6:00</span><small id="b-ampm">PM · After work</small></div>
+      <div class="lbcopy" id="b-copy"><h3></h3><p></p></div>
+    </div>
+    <div class="scrub">
+      <label class="visually-hidden" for="b-range">Time of day</label>
+      <input id="b-range" type="range" min="660" max="1380" step="10" value="1080"
+             aria-valuetext="6:00 PM, after work">
+      <div class="scrub-ticks" aria-hidden="true"><span>11am · open</span><span>5pm</span><span>8pm</span><span>11pm · close</span></div>
+      <p class="scrub-hint" id="b-hint"></p>
+    </div>
+    <ul class="lblist" id="b-list"></ul>
+  </div>
+</section>
+
+<!-- ============ C · CHIP CHOOSER ============ -->
+<section class="section occasions" data-variant="c" hidden aria-labelledby="c-h">
+  <div class="wrap">
+    <p class="proto-note"><b>C — “What brings you in?” chooser</b>Time-of-day framing dropped. All nine reasons become tappable chips; you read one line, the one you picked. Reading is opt-in and the section turns into a moment of self-recognition — the strongest engagement of the three, at the cost of the timeline structure.</p>
+    <div class="sec-head center" style="text-align:center;margin-inline:auto">
+      <h2 id="c-h">What brings you in?</h2>
+      <p class="subhead">There's no wrong answer. Pick the one that sounds like you.</p>
+    </div>
+    <div class="chooser">
+      <div class="chipset" role="tablist" aria-label="Reasons to visit" id="c-chips"></div>
+      <div class="answer" id="c-answer"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* =========================================================================
+   One content model, three renderings — so the copy stays identical across
+   variants and only the layout is being compared.
+   ========================================================================= */
+const BLOCKS = [
+  { id:'day',   name:'Daytime',    time:'11am – 5pm', from:11, to:17,
+    img:'/assets/img/img-11.jpg',
+    alt:"The neon flame lamp glowing beside a potted plant in a quiet corner of the room" },
+  { id:'work',  name:'After work',  time:'5 – 8pm',   from:17, to:20,
+    img:'/assets/img/img-02.jpg',
+    alt:"A man in a work jacket unwinding at a table, the glow of The Flame's neon lamp warming his face" },
+  { id:'night', name:'Evening',     time:'8 – 11pm',  from:20, to:23,
+    img:'/assets/img/img-06.jpg',
+    alt:"The Flame's warm, neon-lit room with locals playing and talking together" }
+];
+
+const ITEMS = [
+  { b:'day',   chip:'Off the overnight',    t:"Coming off the overnight",       d:"We open at 11. When your day ends as everyone else's starts, there's a seat here." },
+  { b:'day',   chip:'Waiting out weather',  t:"Waiting out the weather",        d:"Chicago does what Chicago does. Warm room, free snacks, no cover." },
+  { b:'day',   chip:'An hour to myself',    t:"An hour that's yours",           d:"Not a parent, not an employee. Just you, for a little while." },
+  { b:'work',  chip:'After a shift',        t:"After the shift",                d:"Let the day go. A warm seat, a cold drink, and nothing asked of you." },
+  { b:'work',  chip:'Date night',           t:"An easy date night",             d:"Low-key and close together, with the snacks on us." },
+  { b:'night', chip:'With friends',         t:"A night with friends",           d:"Catch-ups, birthdays, or no reason at all. Everyone gets a seat." },
+  { b:'night', chip:"Nobody can agree",     t:"When nobody can agree",          d:"No cover, no reservation, no plan. The easiest yes in the group chat." },
+  { b:'night', chip:'Something to celebrate',t:"Something to celebrate",        d:"Good news, a good week, a birthday worth marking." },
+  { b:'night', chip:'Before the show',      t:"Before or after the main event", d:"Two minutes from the Blue Line, open till 11. Start here or end here." }
+];
+
+const byBlock = id => ITEMS.filter(i => i.b === id);
+const block   = id => BLOCKS.find(b => b.id === id);
+const esc     = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Chicago wall-clock hour — same source of truth as the Open-now pill. */
+function chiHour(){
+  const p = new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'numeric',
+    minute:'numeric',hour12:false}).formatToParts(new Date());
+  const h = +p.find(x=>x.type==='hour').value % 24;
+  const m = +p.find(x=>x.type==='minute').value;
+  return h + m/60;
+}
+function fmt(mins){
+  let h = Math.floor(mins/60), m = Math.round(mins%60/10)*10;
+  if(m===60){h++;m=0;}
+  const ampm = h>=12 ? 'PM' : 'AM';
+  const h12 = h%12===0 ? 12 : h%12;
+  return { time:`${h12}:${String(m).padStart(2,'0')}`, ampm };
+}
+function blockForHour(h){
+  return BLOCKS.find(b => h >= b.from && h < b.to) || (h < 11 ? BLOCKS[0] : BLOCKS[2]);
+}
+
+/* ---------- CURRENT ---------- */
+document.getElementById('cur-tline').innerHTML = BLOCKS.map(b => `
+  <div class="tcol">
+    <span class="tmark" aria-hidden="true"></span>
+    <div class="thd"><h3>${b.name}</h3><em>${b.time}</em></div>
+    <figure class="cshot"><img src="${b.img}" loading="lazy" alt="${esc(b.alt)}"></figure>
+    <ul>${byBlock(b.id).map(i=>`<li><b>${esc(i.t)}</b><span>${esc(i.d)}</span></li>`).join('')}</ul>
+  </div>`).join('');
+
+/* ---------- A · TIME SWITCHER ---------- */
+(function(){
+  const rail = document.getElementById('a-rail');
+  const pans = document.getElementById('a-panels');
+  const nowB = blockForHour(chiHour());
+  const open = chiHour() >= 11 && chiHour() < 23;
+
+  rail.innerHTML = BLOCKS.map((b,i) => `
+    <button class="ttab" role="tab" id="tab-${b.id}" aria-controls="pan-${b.id}"
+            aria-selected="${b.id===nowB.id}" tabindex="${b.id===nowB.id?0:-1}">
+      <span class="tt-name">${b.name}${(open && b.id===nowB.id) ? '<span class="tt-now">Right now</span>' : ''}</span>
+      <span class="tt-time">${b.time}</span>
+    </button>`).join('');
+
+  pans.innerHTML = BLOCKS.map(b => `
+    <div class="tpanel" role="tabpanel" id="pan-${b.id}" aria-labelledby="tab-${b.id}"
+         tabindex="0" ${b.id===nowB.id?'':'hidden'}>
+      <figure class="cshot"><img src="${b.img}" loading="lazy" alt="${esc(b.alt)}"></figure>
+      <ul>${byBlock(b.id).map(i=>`<li><b>${esc(i.t)}</b><span>${esc(i.d)}</span></li>`).join('')}</ul>
+    </div>`).join('');
+
+  const f = fmt(chiHour()*60);
+  document.getElementById('a-greet').innerHTML = open
+    ? `It's <b>${f.time} ${f.ampm}</b> in Wicker Park — the room is open, and this is what it looks like right now.`
+    : `We're closed at the moment. Doors open at <b>11am</b>.`;
+
+  const tabs = [...rail.querySelectorAll('.ttab')];
+  function select(i){
+    tabs.forEach((t,n)=>{
+      const on = n===i;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById('pan-'+BLOCKS[n].id).hidden = !on;
+    });
+  }
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click', ()=>select(i));
+    t.addEventListener('keydown', e=>{
+      const d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return;
+      e.preventDefault();
+      const n = (i+d+tabs.length)%tabs.length;
+      select(n); tabs[n].focus();
+    });
+  });
+})();
+
+/* ---------- B · LIGHT RAIL ---------- */
+(function(){
+  const r     = document.getElementById('b-range');
+  const wash  = document.getElementById('b-wash');
+  const copy  = document.getElementById('b-copy');
+  const list  = document.getElementById('b-list');
+  const imgs  = { day:  document.getElementById('b-img-day'),
+                  work: document.getElementById('b-img-work'),
+                  night:document.getElementById('b-img-night') };
+  // amber (open) → magenta (evening) → violet (late)
+  const STOPS = [[255,182,74],[255,92,146],[166,132,255]];
+  function washFor(t){
+    const s = t*(STOPS.length-1), i = Math.min(Math.floor(s), STOPS.length-2), k = s-i;
+    const c = STOPS[i].map((v,n)=>Math.round(v+(STOPS[i+1][n]-v)*k));
+    return `rgba(${c[0]},${c[1]},${c[2]},${(0.30+t*0.34).toFixed(2)})`;
+  }
+  let last = null;
+  function paint(){
+    const mins = +r.value, h = mins/60, b = blockForHour(h), t = (mins-660)/720;
+    wash.style.background = washFor(t);
+    Object.entries(imgs).forEach(([id,el]) => el.classList.toggle('on', id===b.id));
+    const f = fmt(mins);
+    document.getElementById('b-clock').textContent = f.time;
+    document.getElementById('b-ampm').textContent  = `${f.ampm} · ${b.name}`;
+    r.setAttribute('aria-valuetext', `${f.time} ${f.ampm}, ${b.name.toLowerCase()}`);
+    if(b.id !== last){
+      last = b.id;
+      const items = byBlock(b.id);
+      copy.querySelector('h3').textContent = items[0].t;
+      copy.querySelector('p').textContent  = items[0].d;
+      if(!REDUCED){ copy.classList.remove('swap'); void copy.offsetWidth; copy.classList.add('swap'); }
+      list.innerHTML = items.slice(1).map(i =>
+        `<li><b>${esc(i.t)}</b><span>${esc(i.d)}</span></li>`).join('');
+      document.getElementById('b-hint').innerHTML =
+        `<b>${b.name}</b>, ${b.time} — ${items.length} reason${items.length>1?'s':''} people come in.`;
+    }
+  }
+  r.addEventListener('input', paint);
+  r.value = Math.min(1380, Math.max(660, Math.round(chiHour()*60/10)*10));
+  paint();
+})();
+
+/* ---------- C · CHIP CHOOSER ---------- */
+(function(){
+  const chips  = document.getElementById('c-chips');
+  const answer = document.getElementById('c-answer');
+  const start  = 3; // "After a shift" — a populated default beats an empty state
+
+  chips.innerHTML = ITEMS.map((i,n) => `
+    <button class="ochip" role="tab" id="chip-${n}" aria-controls="c-answer"
+            aria-selected="${n===start}" tabindex="${n===start?0:-1}">${esc(i.chip)}</button>`).join('');
+
+  function show(n){
+    const i = ITEMS[n], b = block(i.b);
+    answer.innerHTML = `
+      <figure class="cshot"><img src="${b.img}" loading="lazy" alt="${esc(b.alt)}"></figure>
+      <div class="answer-body">
+        <p class="answer-eyebrow">${b.name} · ${b.time}</p>
+        <h3>${esc(i.t)}</h3>
+        <p>${esc(i.d)}</p>
+        <span class="answer-cta">Find us on Ashland →</span>
+      </div>`;
+    [...chips.children].forEach((c,k)=>{
+      c.setAttribute('aria-selected', k===n);
+      c.tabIndex = k===n ? 0 : -1;
+    });
+  }
+  [...chips.children].forEach((c,n)=>{
+    c.addEventListener('click', ()=>show(n));
+    c.addEventListener('keydown', e=>{
+      const d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return;
+      e.preventDefault();
+      const k = (n+d+ITEMS.length)%ITEMS.length;
+      show(k); chips.children[k].focus();
+    });
+  });
+  show(start);
+})();
+
+/* ---------- variant switcher (scaffolding) ---------- */
+document.querySelectorAll('.proto-bar .pbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.proto-bar .pbtn')
+      .forEach(b=>b.setAttribute('aria-current', b===btn));
+    document.querySelectorAll('[data-variant]')
+      .forEach(s=>s.hidden = s.dataset.variant !== btn.dataset.v);
+    scrollTo({top:0, behavior: REDUCED ? 'auto' : 'smooth'});
+  });
+});
+</script>
+</body>
+</html>

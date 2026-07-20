@@ -53,6 +53,18 @@
     revealables.forEach(function (el) { io.observe(el); });
   }
 
+  /* --- spotlight cards: pointer position drives the glow (see v2.css) --- */
+  if (window.matchMedia("(hover: hover)").matches) {
+    var SPOT = ".step, .faq-item";
+    document.addEventListener("pointermove", function (e) {
+      var card = e.target.closest && e.target.closest(SPOT);
+      if (!card) return;
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    }, { passive: true });
+  }
+
   /* --- live pill: real open/closed state (11am–11pm, America/Chicago) --- */
   var pills = Array.prototype.slice.call(document.querySelectorAll(".live"));
   if (pills.length) {
@@ -66,6 +78,180 @@
       pill.setAttribute("aria-label", open ? "Open now until 11pm" : "Closed now, opens at 11am");
       pill.classList.toggle("closed", !open);
     });
+  }
+
+  /* --- occasion chooser: pick a reason, see it ---------------------------
+     Progressive enhancement: index.html ships the nine occasions as a plain
+     <ol>. We only light up the chips + stage once JS is running, and we hold a
+     single pair of <img> layers that swap src, so the section costs one photo
+     up front instead of nine. */
+  var chooser = document.getElementById("occChooser");
+  if (chooser) {
+    var items = Array.prototype.slice.call(chooser.querySelectorAll(".oc-item")).map(function (li) {
+      return {
+        chip: li.getAttribute("data-chip"),
+        when: li.getAttribute("data-when"),
+        from: parseInt(li.getAttribute("data-from"), 10),
+        to: parseInt(li.getAttribute("data-to"), 10),
+        img: li.getAttribute("data-img"),
+        alt: li.getAttribute("data-alt"),
+        title: li.querySelector("h3").textContent,
+        body: li.querySelector("p").textContent
+      };
+    });
+
+    if (items.length) {
+      var chipBar = chooser.querySelector(".oc-chips");
+      var panel = chooser.querySelector(".oc-stage");
+      var ocFrame = chooser.querySelector(".oc-frame");
+      var whenEl = chooser.querySelector(".oc-when");
+      var titleEl = chooser.querySelector(".oc-title");
+      var bodyEl = chooser.querySelector(".oc-body");
+      var ocWash = chooser.querySelector(".oc-wash");
+
+      /* two stacked layers, crossfaded */
+      var ocLayers = [document.createElement("img"), document.createElement("img")];
+      ocLayers.forEach(function (im) {
+        im.className = "oc-img";
+        im.alt = "";
+        im.decoding = "async";
+        im.setAttribute("aria-hidden", "true");
+        ocFrame.insertBefore(im, ocFrame.firstChild);
+      });
+      var ocActive = 0, ocShown = -1, ocToken = 0;
+
+      items.forEach(function (it, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "oc-chip";
+        b.id = "oc-chip-" + i;
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-controls", "occPanel");
+        b.setAttribute("aria-selected", "false");
+        b.tabIndex = -1;
+        b.appendChild(document.createTextNode(it.chip));
+        chipBar.appendChild(b);
+      });
+      var chips = Array.prototype.slice.call(chipBar.querySelectorAll(".oc-chip"));
+
+      /* amber (open) → magenta (evening) → violet (last call) */
+      var OC_STOPS = [[255, 182, 74], [255, 92, 146], [166, 132, 255]];
+      function ocWashAt(t) {
+        var s = t * (OC_STOPS.length - 1);
+        var i = Math.min(Math.floor(s), OC_STOPS.length - 2);
+        var k = s - i;
+        var c = OC_STOPS[i].map(function (v, n) { return Math.round(v + (OC_STOPS[i + 1][n] - v) * k); });
+        return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (0.2 + t * 0.22).toFixed(2) + ")";
+      }
+
+      function ocSwapTo(i) {
+        var token = ++ocToken;
+        var incoming = ocLayers[1 - ocActive];
+        incoming.src = items[i].img;
+        incoming.alt = items[i].alt;
+        var reveal = function () {
+          if (token !== ocToken) return;   // a faster click already won
+          incoming.classList.add("is-on");
+          incoming.removeAttribute("aria-hidden");
+          ocLayers[ocActive].classList.remove("is-on");
+          ocLayers[ocActive].setAttribute("aria-hidden", "true");
+          ocLayers[ocActive].alt = "";
+          ocActive = 1 - ocActive;
+        };
+        /* NB: img.decode() can stay pending forever while the section is still
+           off-screen, so gate on load instead — the crossfade covers the rest. */
+        if (incoming.complete && incoming.naturalWidth) reveal();
+        else { incoming.onload = reveal; incoming.onerror = reveal; }
+      }
+
+      /* the chip bar scrolls horizontally on small screens, so the selected
+         chip has to be brought into view or the active state is invisible */
+      /* NB: scrollTo({behavior:"smooth"}) silently no-ops against this bar's
+         scroll-snap container — assign scrollLeft directly instead. */
+      function ocRevealChip(i) {
+        if (chipBar.scrollWidth <= chipBar.clientWidth) return;
+        var barRect = chipBar.getBoundingClientRect();
+        var cRect = chips[i].getBoundingClientRect();
+        chipBar.scrollLeft += (cRect.left - barRect.left) - (barRect.width - cRect.width) / 2;
+      }
+
+      function ocSelect(i) {
+        chips.forEach(function (c, n) {
+          var on = n === i;
+          c.setAttribute("aria-selected", on ? "true" : "false");
+          c.tabIndex = on ? 0 : -1;
+        });
+        ocRevealChip(i);
+        panel.setAttribute("aria-labelledby", "oc-chip-" + i);
+        if (i === ocShown) return;
+        ocShown = i;
+
+        var mid = (items[i].from + items[i].to) / 2;
+        ocWash.style.background = ocWashAt((mid - 660) / 720);
+
+        whenEl.textContent = items[i].when;
+        titleEl.textContent = items[i].title;
+        bodyEl.textContent = items[i].body;
+        ocSwapTo(i);
+      }
+
+      /* Ambient auto-advance, same shape as the testimonial carousel: off under
+         prefers-reduced-motion, paused while hovering or focused. It stops for
+         good the moment someone picks a chip — advancing away from a deliberate
+         choice would be worse than having no motion at all. */
+      var ocTimer = null, ocPicked = false, OC_DELAY = 3800;
+      function ocStop() { if (ocTimer) { clearInterval(ocTimer); ocTimer = null; } }
+      function ocStart() {
+        if (reduce || ocPicked) return;
+        ocStop();
+        ocTimer = window.setInterval(function () {
+          ocSelect((ocShown + 1) % items.length);
+        }, OC_DELAY);
+      }
+
+      chips.forEach(function (c, i) {
+        c.addEventListener("click", function () { ocPicked = true; ocStop(); ocSelect(i); });
+        c.addEventListener("keydown", function (e) {
+          var n = -1;
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") n = (i + 1) % chips.length;
+          else if (e.key === "ArrowLeft" || e.key === "ArrowUp") n = (i - 1 + chips.length) % chips.length;
+          else if (e.key === "Home") n = 0;
+          else if (e.key === "End") n = chips.length - 1;
+          else return;
+          e.preventDefault();
+          ocPicked = true;
+          ocStop();
+          ocSelect(n);
+          chips[n].focus();
+        });
+      });
+
+      chooser.addEventListener("mouseenter", ocStop);
+      chooser.addEventListener("mouseleave", ocStart);
+      chooser.addEventListener("focusin", ocStop);
+      chooser.addEventListener("focusout", ocStart);
+
+      chooser.classList.add("is-live");
+      /* always opens on the first chip, so autoplay reads as a clean sweep down
+         the list rather than starting somewhere arbitrary */
+      ocSelect(0);
+
+      /* only run the carousel while the section is actually on screen */
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) ocStart(); else ocStop(); });
+        }, { threshold: 0.25 }).observe(chooser);
+      } else {
+        ocStart();
+      }
+
+      /* pull the rest of the photography down once the page is idle */
+      var ocWarm = function () {
+        items.forEach(function (it) { (new Image()).src = it.img; });
+      };
+      if (window.requestIdleCallback) window.requestIdleCallback(ocWarm, { timeout: 4000 });
+      else window.setTimeout(ocWarm, 2500);
+    }
   }
 
   /* --- testimonial carousel (fade-through) --- */

@@ -85,7 +85,46 @@ Per Tyler, "The room" gallery section was **removed from `index.html`** — the 
 
 The mosaic CSS (`.roomgallery`, `.shot.wide`) remains in `v2.css` in case the gallery returns.
 
+## Occasion chooser — where the shelved frames landed (2026-07-20)
+
+The Occasions section was rebuilt as a chip chooser, which is what finally earned these photos a home: **nine images, one section's worth of height, one visible at a time.** Five of the six shelved frames are in it (IMG-08, the lamp detail, is still free).
+
+Each occasion owns one photograph. The order is deliberate — the room gets busier and the light gets cooler as you move down the list, and the wash tint behind each frame is keyed to its time of day:
+
+| When | Occasion | Image |
+|-------|----------|-------|
+| 11:00–1:00 | Coming off the overnight | IMG-09 |
+| 1:00–3:00 | Waiting out the weather | IMG-07 |
+| 3:00–5:00 | An hour that's yours | IMG-11 |
+| 5:00–6:30 | After the shift | IMG-02 |
+| 6:30–8:00 | An easy date night | IMG-10 |
+| 8:00–8:45 | A night with friends | IMG-06 |
+| 8:45–9:30 | When nobody can agree | IMG-03 |
+| 9:30–10:15 | Something to celebrate | IMG-05 |
+| 10:15–11:00 | Before or after the main event | IMG-12 |
+
+**Rail derivatives** live in `assets/img/rail/` — a 3:2 centre-crop of each source at webp q72, sized to the source rather than one fixed width (landscape sources at 1600×1067, the 4:5 portraits at their native 1120×747 rather than upscaled). ~1MB for all nine, but only one loads before interaction. Regenerate with:
+
+```
+magick img-NN.jpg -resize "1600x1067^" -gravity center -crop 1600x1067+0+0 +repage -quality 72 rail/img-NN.webp
+```
+
+Gravity matters: cropping the 4:5 portraits `north` cut the warm flame-lamp key light out of IMG-02 and IMG-11 and left them magenta. Both are `center`. IMG-09 is `north` (keeps her face off the bottom edge).
+
+`hero-01` is deliberately **not** in the rail — it stays exclusive to the hero so the page doesn't repeat its strongest frame.
+
 ## Notes / open
 - **Room-accuracy is the gate.** The four earlier concept frames (`references/01–04`) depict a larger, wrong venue and are **mood-only** — do not reuse. Every new asset must read as *this* storefront room.
 - **Regular portraits** (testimonial avatars, IMG in `.tcard`) should ideally be **real regulars** (with permission) rather than generated; fall back to warm generated portraits matched to the ICP only if needed.
 - Hold final generation for Tyler's greenlight (batch-1 review with Dana & Ross is the established gate).
+
+## IMG-12-window · Footer facade (2026-07-20)
+
+The footer's hand-drawn SVG map was replaced with a photograph: a close look **in through the storefront glass** rather than the wide full-building shot, per Tyler. Cropped from the existing IMG-12 master — no new generation needed, and it holds up sharp at this zoom because IMG-12 is 2048×1360.
+
+```
+magick img-12.jpg -crop 980x551+625+700 +repage -quality 82 img-12-window.jpg
+magick img-12-window.jpg -quality 78 img-12-window.webp
+```
+
+980×551 (16:9), 41K webp / 77K jpg. Frames the warm interior — chandeliers, seating, the row of cabinets — with a sliver of awning above and sidewalk below to ground it. The wide IMG-12 stays in use in the Occasions chooser ("Before or after the main event").

@@ -12,6 +12,9 @@
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(121,227,154,.5)}70%{box-shadow:0 0 0 7px rgba(121,227,154,0)}100%{box-shadow:0 0 0 0 rgba(121,227,154,0)}}
 @media(prefers-reduced-motion:reduce){.live::before{animation:none}}
 
+/* section rhythm tightened — the stacked headers were leaving too much air */
+.section{padding-block:clamp(48px,7vw,96px)}
+
 /* =========================================================================
    WIDER CONTENT COLUMN + PILLAR COLOR ACCENTS (from the messaging deck)
    Amber stays the brand/CTA throughline; teal/magenta/violet punctuate.
@@ -23,6 +26,11 @@
    stays full-bleed (header is block) while .nav-wrap carries the gutter. */
 .site-header{display:block;padding:15px 0}
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+/* the header runs closer to the browser edge than the content column — half the
+   gutter. This deliberately breaks the wordmark's alignment with .wrap below. */
+.site-header .nav-wrap{padding-inline:35px}
+@media(max-width:900px){.site-header .nav-wrap{padding-inline:20px}}
+@media(max-width:560px){.site-header .nav-wrap{padding-inline:11px}}
 
 /* content column = full width minus a FIXED 70px margin on each side
    (no max-width centering, so the margin is always exactly 70px on desktop) */
@@ -45,11 +53,62 @@
 /* hairline framing system — a soft full-bleed rule marks every section seam,
    framing the page into distinct bands for first-time visitors. The reusable
    ".rule" line (fades at the far edges) is the recurring divider/framing motif. */
-.firststeps,.occasions,.proof,.invite{position:relative}
-.firststeps::before,.occasions::before,.proof::before,.invite::before,.footer-rich::before{
+.firststeps,.occasions,.testimonials,.faqs,.invite{position:relative}
+.firststeps::before,.occasions::before,.testimonials::before,.faqs::before,.invite::before,.footer-rich::before{
   content:"";position:absolute;top:0;left:0;right:0;height:1px;z-index:6;pointer-events:none;
   background:rgba(255,240,222,.16);
 }
+
+/* --- lit rule grid ------------------------------------------------------
+   Borrowed from the cabinets' edge lighting: a bright hairline core with a
+   soft coloured bloom spilling onto the dark band. The seam rules and the
+   sections carry the same treatment so the lines read as one illuminated
+   frame rather than a stack of unrelated dividers.
+
+   Every rule runs the same four pillar colours, but each section ROTATES the
+   ramp to lead with its own pillar (--r1). So the page walks the palette as
+   you scroll instead of repeating the identical rainbow five times. The
+   footer leads teal again, closing the loop the first section opened.
+
+   All rules run the full width, edge to edge — no fade-out at the ends. */
+.firststeps{--r1:var(--teal);   --r2:var(--amber);  --r3:var(--magenta);--r4:var(--violet); --rule-glow:rgba(69,214,208,.16)}
+.occasions {--r1:var(--magenta);--r2:var(--violet); --r3:var(--teal);   --r4:var(--amber);  --rule-glow:rgba(255,92,146,.16)}
+.testimonials{--r1:var(--violet); --r2:var(--teal);  --r3:var(--amber);  --r4:var(--magenta);--rule-glow:rgba(166,132,255,.16)}
+.faqs      {--r1:var(--magenta);--r2:var(--amber);  --r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,92,146,.16)}
+.invite    {--r1:var(--amber);  --r2:var(--magenta);--r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,182,74,.16)}
+
+.firststeps::before,.occasions::before,.testimonials::before,.faqs::before,.invite::before{
+  background:linear-gradient(90deg,
+    var(--r1) 0%, var(--r2) 34%, var(--r3) 67%, var(--r4) 100%);
+  opacity:.36;
+  filter:saturate(.8) drop-shadow(0 0 4px var(--rule-glow)) drop-shadow(0 0 11px var(--rule-glow));
+}
+
+/* The footer rule closes the page rather than seaming two bands, so it is
+   softened and darkened against the others, and carries no bloom. */
+.footer-rich{--r1:var(--teal);--r2:var(--amber);--r3:var(--magenta);--r4:var(--violet)}
+.footer-rich::before{
+  background:linear-gradient(90deg,
+    var(--r1) 0%, var(--r2) 34%, var(--r3) 67%, var(--r4) 100%);
+  opacity:.24;
+  filter:saturate(.68) brightness(.74);
+}
+/* The glass is drawn, not refracted. backdrop-filter was the obvious reach
+   here and it does nothing: the invite scrim above has already faded to
+   near-black by the seam, so there is no imagery left to blur (measured: 7/255
+   max difference). Instead the seam is built like a pane of smoked glass —
+   a soft shadow falling up into the invite, and a specular sheen catching the
+   top edge of the footer below. Both halves have a background they can
+   actually be seen against. */
+/* footer glow removed — the seam is a plain rule on a darker ground now */
+.footer-rich::after{display:none}
+
+/* Alternating band: sections step between the page ground and one shade
+   deeper so the scroll reads as rhythm rather than one continuous dark field.
+   Running order — occasions light, first-visit deep, testimonials light,
+   FAQ deep — with the hero and invite photos bookending. Cards (--bg-2 /
+   --surface) still lift off the deep band. */
+.firststeps{background:var(--bg-deep)}
 
 /* first-visit step numbers stepped through the pillar palette */
 .firststeps .steps .step:nth-child(1) .step-n{color:var(--teal);background:rgba(69,214,208,.12);border-color:rgba(69,214,208,.42)}
@@ -89,18 +148,22 @@
 /* =========================================================================
    HERO — full-bleed cinematic
    ========================================================================= */
-.v2hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.v2hero{position:relative;min-height:calc(100vh - 20px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .v2hero .shot{position:absolute;inset:0;z-index:-1;border:0;border-radius:0}
 /* full-bleed shots read as cinematic photo; hide the on-canvas brief so it never fights copy */
 .v2hero .shot-tag,.v2hero .shot-brief,.invite .shot-tag,.invite .shot-brief{display:none}
 .v2hero-scrim{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(20,15,10,.55) 0%,rgba(20,15,10,.15) 34%,rgba(20,15,10,.72) 78%,var(--bg) 100%)}
-.v2hero-inner{position:relative;z-index:1;padding-block:0 clamp(48px,7vw,96px);padding-top:clamp(120px,18vh,200px)}
-.v2hero .kicker{display:inline-flex;align-items:center;gap:12px}
+.v2hero-inner{position:relative;z-index:1;padding-block:0 clamp(24px,3.5vw,48px);padding-top:clamp(120px,18vh,200px)}
+.v2hero .kicker{display:inline-flex;align-items:center;gap:12px;letter-spacing:.209em}
 .v2hero .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
 .v2hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.3rem,10vw,8.2rem);line-height:.9;letter-spacing:.01em;color:var(--paper);margin:.12em 0 .18em;text-shadow:0 2px 40px rgba(0,0,0,.5)}
 .v2hero .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);color:var(--ink-soft);max-width:62ch;margin-bottom:26px}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+/* the track/set wrappers exist only for the mobile ticker — at desktop they
+   dissolve so the chips stay direct flex children of .chips and wrap as before */
+.chips-track,.chips-set{display:contents}
+.chips-set[aria-hidden="true"]{display:none}
 .chip{font-size:.82rem;font-weight:600;color:var(--ink-soft);background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;padding:7px 14px;backdrop-filter:blur(3px)}
 .chip b{color:var(--amber);font-weight:700;margin-right:5px}
 
@@ -136,6 +199,65 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .step{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
 .step .shot{border:0;border-radius:0;min-height:200px}
 .step-body{padding:22px 24px 26px;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:14px;align-items:center}
+
+/* --- spotlight cards ----------------------------------------------------
+   The pointer acts like a light source moving across the card: a soft wash
+   falls on the surface and the nearest edge catches the light. Same premise
+   as the cabinets and the lit rule grid — light is the brand's material.
+
+   global.js writes --mx/--my (pointer position, as a %) onto the hovered
+   card; each card supplies its own --glow, matching its step number, so the
+   colour that lights is the one already assigned to that step. Cards keep a
+   50%/50% default so a keyboard-focused card lights from its centre rather
+   than a stale pointer position. */
+.step,.faq-item{position:relative;--mx:50%;--my:50%}
+.steps .step:nth-child(1){--glow:69,214,208}
+.steps .step:nth-child(2){--glow:255,92,146}
+.steps .step:nth-child(3){--glow:166,132,255}
+.faq-item{--glow:255,182,74}
+
+/* the wash — sits above the photo, below the copy */
+.step .shot{z-index:0}
+.step-body{position:relative;z-index:2}
+.step::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  border-radius:inherit;transition:opacity .35s var(--ease);
+  background:radial-gradient(320px circle at var(--mx) var(--my),rgba(var(--glow),.17),transparent 68%);
+}
+/* the lit edge — a 1px gradient ring, masked so only the border shows */
+.step::after{
+  content:"";position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;
+  border-radius:inherit;padding:1px;transition:opacity .35s var(--ease);
+  background:radial-gradient(260px circle at var(--mx) var(--my),
+    rgba(var(--glow),1),rgba(var(--glow),.35) 45%,transparent 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+}
+.step{transition:transform .35s var(--ease),border-color .35s var(--ease)}
+.step:hover,.step:focus-within{transform:translateY(-3px);border-color:rgba(var(--glow),.34)}
+.step:hover::before,.step:focus-within::before,
+.step:hover::after,.step:focus-within::after,
+/* FAQ rows are not cards, so the spotlight is a lit BOTTOM EDGE rather than a
+   full ring — left/right/top strokes would draw a box that no longer exists. */
+.faq-item::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;z-index:2;
+  pointer-events:none;opacity:0;transition:opacity .3s var(--ease);
+  background:radial-gradient(300px circle at var(--mx) 50%,
+    rgba(var(--glow),1),rgba(var(--glow),.35) 46%,transparent 74%);
+}
+.faq-item:hover::after,.faq-item:focus-within::after{opacity:1}
+
+/* no pointer to follow, and the lift costs layout work on scroll-heavy phones */
+@media (hover:none){
+  .step:hover,.step:focus-within{transform:none}
+  .step::before,.step::after,.faq-item::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .step{transition:border-color .35s var(--ease)}
+  .step:hover,.step:focus-within{transform:none}
+}
 .step-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:100px;background:rgba(255,182,74,.12);border:1px solid rgba(255,182,74,.4);color:var(--amber);font-weight:800;font-size:1.15rem;grid-column:1;grid-row:1}
 .step h3{grid-column:2;grid-row:1;font-size:1.55rem;margin:0}
 .step p{grid-column:1 / -1;grid-row:2;color:var(--muted);font-size:1rem;margin:0}
@@ -174,22 +296,41 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 /* =========================================================================
    COMBINED FOOTER — visit block (storefront + address + map) + site footer
    ========================================================================= */
-.footer-rich{background:#161513;position:relative;border-top:0;padding:0 0 44px}
+.footer-rich{background:#121110;position:relative;border-top:0;padding:0 0 44px}
 .footer-rich .wrap{display:block}                 /* neutralize inherited 3-col grid */
-.footer-rich .kicker{display:inline-flex;align-items:center;gap:12px}
-.footer-rich .kicker::before{content:"";width:28px;height:1px;background:var(--amber)}
-.footer-rich h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
+.footer-rich .kicker{display:inline-flex;align-items:center;gap:12px;color:var(--amber);font-size:.82rem;letter-spacing:.209em}
+.footer-rich .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
+/* "Find us on Ashland." steps up two sizes (was clamp(2.1,4.4vw,3.4)) to the
+   same scale as the invite close, so the footer opens with a real statement. */
+.footer-rich h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,6rem);line-height:1;letter-spacing:.01em;color:var(--paper);margin:10px 0 16px}
 
-.footer-rich .footer-visit{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;padding-top:clamp(44px,6vw,72px)}
-.footer-rich .foot-visit-copy{display:flex;flex-direction:column;gap:26px}
+/* align-items left at its stretch default + space-between on the copy column
+   pins the phone button and the tag row to the bottom edge of the photo. */
+.footer-rich .footer-visit{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,64px);padding-top:clamp(44px,6vw,72px)}
+.footer-rich .foot-visit-copy{display:flex;flex-direction:column;justify-content:space-between;gap:26px}
 .footer-rich .foot-visit-copy p{max-width:none}   /* lift the inherited 34ch footer cap */
 .footer-rich .foot-copy-top{display:flex;flex-direction:column;gap:13px}
 .footer-rich .foot-copy-top h2,.footer-rich .foot-copy-top .addr,.footer-rich .foot-copy-top .sub2{margin:0}
 .footer-rich .foot-copy-bottom .hood-cta{margin:0}
 .footer-rich .foot-copy-bottom .foot-facts{margin-top:22px}
-.footer-rich .foot-shot{min-height:clamp(300px,26vw,360px);border-radius:var(--radius);overflow:hidden}
-.footer-rich .addr{font-size:1.12rem;color:var(--paper);font-weight:600;margin:2px 0 6px}
-.footer-rich .sub2{color:var(--muted);margin-bottom:18px}
+/* =========================================================================
+   FOOTER MAP — hand-drawn, geographically true.
+   Ashland runs N-S, Division E-W, Milwaukee cuts NW at ~45 degrees, and the
+   three enclose the Polish Triangle where the Blue Line station sits. Drawn
+   rather than embedded so it carries brand colour, weighs ~2KB, needs no API
+   key, and works offline.
+   ========================================================================= */
+/* Swapped from the hand-drawn SVG map to a photograph (2026-07-20): a close
+   look in through the storefront glass sells the room better than wayfinding
+   the address line and the "Get directions" button already cover. */
+.footer-rich .foot-facade{
+  margin:0;border-radius:var(--radius);overflow:hidden;
+  background:var(--bg-deep);border:1px solid var(--line);
+  min-height:clamp(300px,26vw,360px);display:flex;
+}
+.footer-rich .foot-facade img{width:100%;height:100%;object-fit:cover;display:block}
+.footer-rich .addr{font-size:1.38rem;color:var(--paper);font-weight:600;margin:2px 0 6px}
+.footer-rich .sub2{color:var(--muted);font-size:1.16rem;margin-bottom:18px}
 .footer-rich .hood-cta{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 24px}
 .footer-rich .map-frame{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);min-height:200px}
 .footer-rich .map-frame iframe{width:100%;height:100%;min-height:200px;border:0;display:block;filter:grayscale(.35) contrast(1.05) brightness(.8)}
@@ -197,14 +338,25 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .footer-meta{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:clamp(40px,5vw,64px);padding-top:clamp(32px,4vw,44px);border-top:1px solid var(--line-soft)}
 .footer-rich .foot-brand .brand{font-size:1.9rem;margin-bottom:12px}
 .footer-rich .foot-brand p{color:var(--muted);font-size:.95rem;max-width:34ch}
-.footer-rich .foot-line{display:block;color:var(--ink-soft);font-weight:600;font-size:.95rem;padding:5px 0}
-.footer-rich .foot-bottom{margin-top:clamp(40px,5vw,60px);align-items:center}
+.footer-rich .foot-line{display:block;color:var(--ink-soft);font-weight:600;font-size:1.12rem;padding:5px 0}
+/* .footer-rich .wrap{display:block} above kills global.css's flex on .foot-bottom,
+   which is why the copyright was running on straight after the brand line instead
+   of sitting at the right edge. Re-assert the row here, and drop the hairline. */
+.footer-rich .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;
+  align-items:center;gap:12px 28px;
+  border-top:0;margin-top:clamp(40px,5vw,60px)}
 /* compact inline facts, folded under the CTAs (replaces the old meta row) */
-.footer-rich .foot-facts{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:9px 14px;margin-top:26px;font-size:.94rem;font-weight:600;color:var(--ink-soft)}
-.footer-rich .foot-facts li{display:flex;align-items:center;gap:14px}
-.footer-rich .foot-facts li:not(:last-child)::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--faint);flex:none}
+/* tags, not a dot-separated run-on — same pill language as the hero chips and
+   the occasion chooser, so the page has one way of showing a set of facts. */
+.footer-rich .foot-facts{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:26px}
+.footer-rich .foot-facts li{font-size:.92rem;font-weight:600;color:var(--ink-soft);
+  background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;
+  padding:8px 16px;white-space:nowrap}
 .footer-rich .foot-brandline{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;color:var(--muted)}
-.footer-rich .foot-bottom .brand{font-size:1.15rem}
+/* one type treatment across the whole sentence — the wordmark keeps the amber
+   but matches the size, family and weight of the line it now sits inside. */
+.footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:600;letter-spacing:inherit;color:var(--amber)}
+.footer-rich .foot-brandline{gap:.4ch;color:var(--faint)}
 
 /* =========================================================================
    INVITE — full-bleed close
@@ -216,15 +368,8 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .invite h2{font-size:clamp(2.6rem,7vw,6rem)}
 .invite p{color:var(--ink-soft);font-size:1.15rem;margin:16px auto 28px;max-width:46ch}
 
-/* =========================================================================
-   STICKY MOBILE ACTION BAR
-   ========================================================================= */
-.mbar{display:none}
-@media(max-width:720px){
-  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:120;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(20,15,10,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
-  .mbar .btn{flex:1;justify-content:center;padding:14px}
-  body{padding-bottom:74px}
-}
+/* The sticky mobile Call/Directions bar was removed — the hero CTAs carry the
+   actions on mobile now, and the footer keeps Call and Get directions. */
 
 /* =========================================================================
    RESPONSIVE
@@ -234,7 +379,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   .daymirror .wrap,.reassure .wrap{grid-template-columns:1fr}
   .daymirror .shot,.reassure .shot{min-height:320px}
   .footer-rich .footer-visit{grid-template-columns:1fr}
-  .footer-rich .foot-shot{min-height:300px}
+  .footer-rich .foot-facade{min-height:300px}
   .footer-rich .footer-meta{grid-template-columns:1fr 1fr}
   .roomgallery .mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:170px}
   .roomgallery .shot.big{grid-column:span 2}
@@ -246,8 +391,82 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 @media(max-width:560px){
   .roomgallery .mosaic{grid-template-columns:1fr;grid-auto-rows:200px}
   .roomgallery .shot.big{grid-column:span 1}
-  .v2hero{min-height:88vh}
   .footer-rich .footer-meta{grid-template-columns:1fr}
+}
+
+/* =========================================================================
+   MOBILE HERO — stack the photo over a dark text block so copy never lands on
+   a face. Same structure as the TCW hero: the image stops being a background
+   and becomes the top block of content, the scrim is dropped because the type
+   is on solid ground now, and the CTAs go full width.
+   ========================================================================= */
+@media(max-width:640px){
+  .v2hero{min-height:0;display:block;overflow:visible}
+  .v2hero .shot{position:relative;height:44vh;min-height:0;z-index:auto}
+  /* relative, not static: the base rule gives .shot-img z-index:2, and a static
+     box ignores z-index — the photo would paint under .shot::before's placeholder
+     wash. The wash and grain are for empty slots anyway, so drop them here. */
+  /* pinned right so the lit cabinet stays in frame through the narrow crop */
+  .v2hero .shot .shot-img{position:relative;z-index:2;width:100%;height:44vh;object-fit:cover;object-position:calc(100% - 20px) 32%}
+  .v2hero .shot::before,.v2hero .shot::after{display:none}
+  .v2hero-scrim{display:none}          /* type is on solid dark — no scrim needed */
+  .v2hero-inner{
+    position:static;background:var(--bg);
+    padding-top:30px;padding-bottom:40px;
+  }
+  /* narrowed so the line breaks after "HARD-WORKING" rather than after "PEOPLE" */
+  .v2hero .kicker{max-width:250px;align-items:flex-start}
+  .v2hero .kicker::before{margin-top:.62em;flex:none}
+  .v2hero h1{text-shadow:none;margin:.1em 0 .16em}
+  .v2hero .lead{max-width:none;margin-bottom:24px}
+  /* with the sticky bar gone these are the mobile CTAs — give them the width.
+     Scoped to the hero: .hero-actions is reused by the invite section, whose
+     single centred CTA should stay as it is. */
+  .v2hero .hero-actions{gap:11px}
+  .v2hero .hero-actions .btn{width:100%;justify-content:center;padding-block:15px}
+  /* one CTA on mobile — "Find us" is covered by the footer and the nav */
+  .v2hero .hero-actions .btn-ghost{display:none}
+
+  /* three steps as a side-swipe rail — full-bleed so cards run to the edge,
+     snap so each lands square, and the third peeks to signal there is more */
+  .firststeps .steps{
+    display:flex;grid-template-columns:none;gap:14px;
+    width:100vw;margin-left:calc(50% - 50vw);padding:2px 22px 14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .firststeps .steps::-webkit-scrollbar{display:none}
+  .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
+
+  /* trust claims run as a right-to-left ticker: pill chrome dropped, dot
+     separators, full-bleed. The second .chips-set is a verbatim copy that
+     seams the loop — aria-hidden so the claims are announced once. */
+  .chips{
+    display:block;flex-wrap:nowrap;overflow:hidden;
+    width:100vw;margin-left:calc(50% - 50vw);margin-top:24px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .chips-track{display:flex;width:max-content;animation:chipTicker 26s linear infinite}
+  .chips-set{display:flex;align-items:center;flex:0 0 auto}
+  /* outranks the base rule that hides the copy at desktop — the loop needs it */
+  .chips-set[aria-hidden="true"]{display:flex}
+  .chip{
+    background:none;border:0;border-radius:0;padding:0;backdrop-filter:none;
+    display:inline-flex;align-items:center;white-space:nowrap;
+    font-size:.9rem;color:var(--ink-soft);
+  }
+  .chips-set .chip::after{
+    content:"";flex:none;width:3px;height:3px;border-radius:50%;
+    background:var(--faint);margin-inline:16px;
+  }
+  @keyframes chipTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+}
+/* no motion: a swipeable strip that still shows every claim */
+@media(max-width:640px) and (prefers-reduced-motion:reduce){
+  .chips{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .chips-track{animation:none}
+  .chips-set[aria-hidden="true"]{display:none}
 }
 
 /* ---- large-screen breakpoints: widen the canvas + scale up ---- */
@@ -256,7 +475,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   body{font-size:19px}
   .roomgallery .mosaic{grid-auto-rows:220px}
   .daymirror .shot,.reassure .shot{min-height:540px}
-  .footer-rich .foot-shot{min-height:380px}
+  .footer-rich .foot-facade{min-height:380px}
   .step .shot{min-height:300px}
   .step-body{padding:26px 28px 30px;column-gap:16px;row-gap:16px}
   .step-n{width:44px;height:44px;font-size:1.2rem}
@@ -287,48 +506,127 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .tfeature .who b{color:var(--paper);font-weight:700}
 .tfeature .who span{color:var(--faint);font-size:.9rem}
 
-/* proof + practical — two-column split: review | FAQ accordion */
-.proof .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,84px);align-items:start}
-/* vertical rule between the review and FAQ columns — spans the full section
-   height so it meets the top & bottom dividers; centered in the gap (50%, since
-   the columns are equal and the section padding is symmetric) */
-@media(min-width:861px){
-  .proof::after{content:"";position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:1px;background:rgba(255,240,222,.14);z-index:5;pointer-events:none}
+/* =========================================================================
+   TESTIMONIALS — its own full-width row, centred.
+   The quote is the largest body text on the page: it is the only place a
+   stranger vouches for the room, so it gets the weight a headline would.
+   ========================================================================= */
+.testimonials .wrap{text-align:center}
+.testimonials .sec-head{max-width:none;margin-bottom:clamp(26px,3.4vw,44px)}
+/* the rating sits under the heading and stays put while quotes cycle */
+.testimonials .sec-head .stars{
+  color:var(--amber);letter-spacing:10px;font-size:1.25rem;
+  margin:16px 0 0;padding-left:10px;   /* offsets the trailing letter-space */
 }
-.proof .sec-head{margin-bottom:clamp(18px,2.4vw,30px)}
-.proof .proof-col .sec-head{max-width:none}
-.proof .tfeature{max-width:none}
-/* testimonial carousel — fade-through */
+/* slides are absolutely positioned at inset:0, so the grid would stretch and
+   strand the byline at the bottom — centre the block and keep it together */
+.testimonials .tfeature{max-width:none;justify-items:center;gap:20px;height:100%;align-content:center}
+.testimonials .tfeature blockquote{
+  font-size:clamp(1.6rem,3.1vw,2.7rem);line-height:1.32;color:var(--paper);
+  max-width:46ch;margin-inline:auto;text-wrap:balance;
+}
+.testimonials .tfeature .who{justify-content:center}
+.testimonials .tdots{justify-content:center;margin-top:30px}
+
+/* testimonial carousel — fade-through.
+   Slides stack in a single grid cell rather than being absolutely positioned,
+   so the viewport sizes itself to the tallest quote. The old approach needed a
+   min-height to stop the container collapsing, and that reserved height became
+   stale the moment the quote width changed — leaving 200px of dead space. */
 .tcarousel{max-width:none}
-.tviewport{position:relative;min-height:clamp(210px,20vw,250px)}
-.tviewport .tslide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.tviewport{position:relative;display:grid}
+.tviewport .tslide{grid-area:1/1;margin:0;opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
 .tviewport .tslide.is-active{opacity:1;pointer-events:auto}
 .tdots{display:flex;gap:10px;margin-top:22px}
 .tdot{width:9px;height:9px;padding:0;border:0;border-radius:50%;cursor:pointer;background:var(--line);transition:background .25s var(--ease),transform .25s var(--ease)}
 .tdot:hover{background:var(--faint)}
 .tdot.is-active{background:var(--amber);transform:scale(1.25)}
 @media(prefers-reduced-motion:reduce){.tviewport .tslide{transition:none}}
-/* FAQ accordion (native <details>/<summary>) — subtle cards + / − indicator */
-.faq-list{display:flex;flex-direction:column;gap:10px}
-.faq-item{background:linear-gradient(180deg,#5a4a39,#4a3b2d);border:1px solid rgba(255,232,200,.18);border-radius:14px;transition:border-color .25s var(--ease),background .25s var(--ease)}
-.faq-item:hover{border-color:rgba(255,232,200,.36)}
-.faq-item[open]{background:linear-gradient(180deg,#63513d,#503f30);border-color:rgba(255,182,74,.5)}
-.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:19px 24px;color:var(--paper);transition:color .2s var(--ease)}
+/* =========================================================================
+   GOOD TO KNOW — its own row beneath the testimonial.
+   Dark glass: a translucent pane over the deep band rather than the opaque
+   warm-brown card it replaced. Like the footer seam, the glass is DRAWN, not
+   refracted — an inset top highlight for the lit edge of the pane, a low-alpha
+   fill for the body, and a soft drop for the lift. backdrop-filter is included
+   for browsers that composite it, but nothing depends on it: the section sits
+   on a flat ground, so there is nothing behind to blur.
+   ========================================================================= */
+.faqs{background:var(--bg-deep)}
+/* Pulled in a column on BOTH sides (the Occasions indent is left-only), so the
+   question list reads as a narrower, quieter block than the sections around it.
+   Scoped above 900px so it doesn't clobber .wrap's tighter mobile gutters. */
+@media(min-width:901px){
+  .faqs .wrap{padding-inline:calc(70px + clamp(0px,5vw,160px))}
+}
+.faqs .sec-head{max-width:none;margin-bottom:clamp(20px,2.6vw,32px)}
+
+.faq-list{display:flex;flex-direction:column;gap:0}
+/* closing rule so the last question is enclosed like the rest */
+.faq-list::after{
+  content:"";display:block;height:1px;
+  background:linear-gradient(90deg,var(--teal),var(--amber) 34%,var(--magenta) 67%,var(--violet));
+  opacity:.3;
+}
+.faq-item{background:none;border:0;border-radius:0;box-shadow:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;position:relative}
+/* items are separated by a lit rule rather than boxed — same gradient family
+   as the section seams, so the list reads as part of the page's rule system */
+.faq-item + .faq-item::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,var(--teal),var(--amber) 34%,var(--magenta) 67%,var(--violet));
+  opacity:.3;
+}
+.faq-item summary,.faq-item .faq-a{position:relative;z-index:1}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:26px 4px;color:var(--paper);transition:color .2s var(--ease)}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary::marker{content:"";display:none}
-.faq-item summary:hover{color:var(--amber)}
-.faq-item .faq-q{font-family:var(--sans);font-weight:500;font-size:1.3rem;line-height:1.2;text-box:trim-both cap alphabetic;transform:translateY(4px)}
+
+.faq-item .faq-q{font-family:var(--sans);font-weight:500;font-size:clamp(1.45rem,1.9vw,1.85rem);line-height:1.2;text-box:trim-both cap alphabetic;transform:translateY(4px);transition:transform .28s var(--ease)}
 /* larger nudge where leading-trim is unavailable (untrimmed line box sits higher) */
 @supports not (text-box:trim-both cap alphabetic){.faq-item .faq-q{transform:translateY(3px)}}
+/* the question steps toward the reader on rollover; the Y value is the cap-trim
+   correction and has to be carried through or the text jumps vertically */
+.faq-item summary:hover .faq-q,.faq-item summary:focus-visible .faq-q{transform:translate(9px,4px)}
+@supports not (text-box:trim-both cap alphabetic){
+  .faq-item summary:hover .faq-q,.faq-item summary:focus-visible .faq-q{transform:translate(9px,3px)}
+}
 /* + (closed) → − (open) indicator */
-.faq-pm{position:relative;flex:none;width:30px;height:30px;border:1px solid rgba(255,182,74,.55);border-radius:50%;transition:border-color .25s var(--ease),background .25s var(--ease)}
-.faq-item summary:hover .faq-pm{background:rgba(255,182,74,.1)}
-.faq-pm::before,.faq-pm::after{content:"";position:absolute;top:50%;left:50%;background:var(--amber);border-radius:2px;transition:transform .3s var(--ease)}
-.faq-pm::before{width:11px;height:2px;transform:translate(-50%,-50%)}
-.faq-pm::after{width:2px;height:11px;transform:translate(-50%,-50%)}
+/* the plus is now the interactive object — the row itself stays quiet, and the
+   rollover lives entirely on the button: it fills, and its ring lights with the
+   same pillar gradient the separators use. */
+.faq-pm{
+  position:relative;flex:none;width:52px;height:52px;border-radius:50%;
+  border:1px solid rgba(255,182,74,.42);
+  transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s var(--ease);
+}
+.faq-pm::before,.faq-pm::after{
+  content:"";position:absolute;top:50%;left:50%;background:var(--amber);
+  border-radius:2px;transition:transform .3s var(--ease);
+}
+.faq-pm::before{width:18px;height:2px;transform:translate(-50%,-50%)}
+.faq-pm::after{width:2px;height:18px;transform:translate(-50%,-50%)}
 .faq-item[open] .faq-pm::after{transform:translate(-50%,-50%) scaleY(0)}
-.faq-a{padding:0 26px 20px}
-.faq-a p{color:var(--ink-soft);max-width:56ch}
+
+/* rollover — lit ring drawn as a masked gradient so it can carry all four hues */
+.faq-pm-ring{
+  position:absolute;inset:-1px;border-radius:50%;padding:1px;pointer-events:none;
+  opacity:0;transition:opacity .25s var(--ease);
+  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
+  filter:saturate(.78);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+}
+.faq-item summary:hover .faq-pm,.faq-item summary:focus-visible .faq-pm{
+  background:none;border-color:transparent;transform:scale(1.06);
+}
+.faq-item summary:hover .faq-pm-ring,.faq-item summary:focus-visible .faq-pm-ring{opacity:.62}
+.faq-item[open] .faq-pm-ring{opacity:.4}
+/* no measure cap — the answers are short enough to sit on one line in the
+   full column, and wrap naturally once the viewport cannot hold them */
+.faq-a{padding:0 4px 30px;font-size:1.3rem;line-height:1.55;max-width:none}
+.faq-a p{color:var(--ink-soft);max-width:none}
 /* smooth open where supported; instant + fully usable everywhere else */
 @supports (interpolate-size: allow-keywords){
   :root{interpolate-size:allow-keywords}
@@ -340,46 +638,184 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   .faq-item::details-content{transition:none}
 }
 @media(max-width:860px){
-  .proof .proof-grid{grid-template-columns:1fr;gap:clamp(40px,9vw,58px)}
 }
 
 /* room mosaic — bottom row pair completes the grid */
 .roomgallery .shot.wide{grid-column:span 2}
 @media(max-width:560px){.roomgallery .shot.wide{grid-column:span 1}}
 
-/* occasions — full-bleed horizontal auto-scroll marquee (pauses on hover) */
+/* =========================================================================
+   OCCASIONS — the 11-to-11 timeline.
+   Three columns are the three parts of the trading day; a lit rule runs across
+   the top as the spine, with a dot marking where each part begins. One photo
+   per column instead of one per occasion — nine occasions would need nine
+   frames, and the library is entirely night-lit, so the daytime ones could not
+   be illustrated honestly. The three chosen frames build from quiet to full,
+   which is the arc the section is claiming.
+   ========================================================================= */
 .occasions .sec-head{max-width:none}  /* let the display heading sit on one line */
-.occ-scroll{position:relative;overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);margin-top:clamp(24px,3.5vw,40px)}
-/* soft edges so cards enter/exit rather than hard-clip */
-.occ-scroll::before,.occ-scroll::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,7vw,120px);z-index:4;pointer-events:none}
-.occ-scroll::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.occ-scroll::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-.occ-track{display:flex;width:max-content;animation:occScroll 58s linear infinite;will-change:transform}
-.occ-scroll:hover .occ-track{animation-play-state:paused}
-.occ-set{display:flex;gap:16px;padding-right:16px}
-.occ-set .occ{position:relative;flex:0 0 auto;margin:0;height:clamp(384px,50vw,516px);width:auto;aspect-ratio:var(--ar,4/5);min-height:0;border-radius:var(--radius);overflow:hidden}
-.occ .occ-cap{position:absolute;inset:auto 0 0 0;z-index:3;padding:26px 24px 20px;background:linear-gradient(180deg,transparent,rgba(15,11,7,.85) 70%)}
-.occ .occ-cap b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:.02em;color:var(--paper)}
-.occ .occ-cap span{display:block;margin-top:4px;font-size:.95rem;color:var(--ink-soft);max-width:42ch}
-/* callout card — reassurance folded into the row */
-.occ-set .occ.occ-callout{background:linear-gradient(145deg,#7a3c14 0%,#4a230c 52%,#2a1408 100%);border:1px solid rgba(255,182,74,.32);display:flex;align-items:stretch}
-.occ-callout::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(120% 90% at 12% 8%,rgba(255,182,74,.28),transparent 55%)}
-.occ-callout .co-body,.occ-callout .co-media{position:relative;z-index:1}
-.occ-callout .co-body{flex:1 1 55%;min-width:0;padding:clamp(24px,2.4vw,42px);display:flex;flex-direction:column;justify-content:center}
-.occ-callout .co-body h3{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,2.2vw,2.5rem);letter-spacing:.02em;color:var(--paper);margin:0 0 14px}
-.occ-callout .conf{list-style:none;display:block;margin:0}
-.occ-callout .conf li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(255,214,150,.16);font-size:1rem;line-height:1.4;color:#f3e6d3}
-.occ-callout .conf li:first-child{border-top:0}
-.occ-callout .conf svg{flex:none;width:20px;height:20px;color:var(--amber);margin-top:2px}
-.occ-callout .co-media{position:relative;flex:1 1 45%;overflow:hidden}
-.occ-callout .co-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%}
-@keyframes occScroll{to{transform:translateX(-50%)}}
+
+/* --- OCCASION CHOOSER ----------------------------------------------------
+   Nine reasons people come in, as chips. Pick one, see it. The chips are the
+   whole affordance: nothing to decode before you get something back, which is
+   why this replaced the scrubbable day rail.
+
+   It is also the home for the shelved room-gallery frames — nine photographs
+   in one section's worth of height, one visible at a time.
+
+   The <ol> is the source content; .is-live (set by global.js) swaps it for the
+   interactive stage, so no-JS still gets every occasion as plain text. */
+/* Two columns: the nine chips stack flush left as a menu, the chosen photo
+   fills the rest. Left-aligned, NOT centred — the chips have to start on the
+   same line as the section heading above them. */
+/* The section's content is indented a column from the hero's flush-left edge,
+   so the eye steps inward here. Heading and chips share the indent, which keeps
+   the chips aligned to the heading above them. Zeroed on narrow screens where
+   the width is needed more than the gesture. */
+.occasions .sec-head,
+.occasions .chooser{margin-left:clamp(0px,5vw,160px)}
+
+/* Capped, and deliberately NOT var(--maxw) — that token scales to 1800px on
+   large screens, and past ~1500 the photo letterboxes badly against its 3:2
+   source. Trailing space to the right on very wide screens is intentional. */
+.chooser{margin-top:clamp(26px,3vw,40px);max-width:1500px}
+
+.chooser .oc-chips,
+.chooser .oc-stage{display:none}
+/* align-items defaults to stretch, so the row is as tall as the chip stack and
+   the photo matches it exactly at any width — no clamp to keep re-tuning. */
+.chooser.is-live{display:grid;gap:clamp(26px,3vw,52px);
+  grid-template-columns:minmax(210px,255px) minmax(0,1fr)}
+.chooser.is-live .oc-chips{display:flex}
+.chooser.is-live .oc-stage{display:block}
+.chooser.is-live .oc-list{display:none}
+
+/* no-JS / pre-upgrade list */
+.oc-list{list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:clamp(20px,2.6vw,38px)}
+.oc-item{padding-top:16px;border-top:1px solid var(--line-soft)}
+.oc-item h3{font-family:var(--serif);font-weight:700;font-size:1.38rem;
+  color:var(--paper);margin:0 0 6px}
+.oc-item p{color:var(--muted);font-size:.97rem;line-height:1.5;margin:0}
+
+/* the chips — a vertical menu in the left column. They hug their text rather
+   than filling the column, so they stay pills and don't read as nav buttons. */
+.oc-chips{flex-direction:column;align-items:flex-start;gap:10px}
+.oc-chip{font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;
+  padding:11px 20px;white-space:nowrap;
+  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+.oc-chip:hover{border-color:var(--amber);color:var(--paper)}
+.oc-chip[aria-selected="true"]{background:var(--amber);border-color:var(--amber);
+  color:#201200;font-weight:600}
+
+/* the stage */
+.oc-stage{position:relative}
+.oc-stage:focus-visible{outline-offset:6px}
+.oc-frame{position:relative;overflow:hidden;border-radius:var(--radius);
+  border:1px solid var(--line);background:#171009;
+  /* aspect-ratio sets the row's natural height; height:100% then fills whatever
+     the row ends up being. Both are needed: without the ratio the photo can
+     never grow past the chip stack, and without height:100% it stays SHORTER
+     than the stretched stage on mid-widths and the readout floats off the photo. */
+  width:100%;aspect-ratio:16/10;height:100%;min-height:380px}
+.oc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .45s var(--ease)}
+.oc-img.is-on{opacity:1}
+.oc-wash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:var(--oc-wash,rgba(255,182,74,.26));transition:background .45s var(--ease)}
+.oc-vig{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(14,10,6,.34),rgba(14,10,6,.04) 34%,rgba(14,10,6,.9))}
+.oc-readout{position:absolute;left:clamp(18px,2.4vw,32px);right:clamp(18px,2.4vw,32px);
+  bottom:clamp(18px,2.4vw,30px);max-width:54ch}
+.oc-readout .oc-when{font-family:var(--sans);font-weight:700;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:0 0 9px}
+.oc-readout .oc-title{font-family:var(--serif);font-weight:700;
+  font-size:clamp(1.5rem,2.7vw,2.1rem);color:var(--paper);margin:0 0 5px}
+.oc-readout .oc-body{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin:0;
+  text-shadow:0 1px 14px rgba(0,0,0,.75)}
+
+/* Below this the 255px chip column starves the photo — it goes square-ish
+   (1.12:1 at 1024px) against a 3:2 source. Back to chips over photo. */
+@media(max-width:1180px){
+  .occasions .sec-head,
+  .occasions .chooser{margin-left:0}
+  .chooser.is-live{grid-template-columns:1fr}
+  .oc-frame{aspect-ratio:auto}
+  .oc-chips{flex-direction:row;flex-wrap:wrap;max-width:860px;gap:10px;
+    margin-bottom:clamp(20px,2.4vw,30px)}
+  .oc-frame{height:clamp(340px,52vh,520px)}
+}
+
+@media(max-width:760px){
+  /* a filter bar, not five rows of wrapped chips — keeps the photo near the top */
+  .oc-chips{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:none;margin-inline:-22px;padding-inline:22px}
+  .oc-chips::-webkit-scrollbar{display:none}
+  .oc-chip{scroll-snap-align:start;font-size:.94rem;padding:9px 16px}
+  .oc-frame{height:auto;aspect-ratio:4/5}
+  /* the photo is too small to also carry the copy — drop it underneath, and
+     lighten the vignette now that nothing has to be legible on top of it */
+  .oc-readout{position:static;max-width:none;margin-top:18px}
+  .oc-readout .oc-body{text-shadow:none;color:var(--muted)}
+  .oc-vig{background:linear-gradient(180deg,rgba(14,10,6,.4),rgba(14,10,6,0) 26%,rgba(14,10,6,.46))}
+}
 @media(prefers-reduced-motion:reduce){
-  .occ-track{animation:none}
-  .occ-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
-  .occ-scroll::before,.occ-scroll::after{display:none}
-  .occ-set[aria-hidden="true"]{display:none}
-  .occ-set .occ{scroll-snap-align:start}
+  .oc-img,.oc-wash,.oc-chip{transition:none}
+}
+
+/* =========================================================================
+   SAVE-YOUR-SEAT BAND — the invite section's treatment, at half the height.
+   Full-bleed photo behind, scrim fading to the page ground so the band melts
+   out rather than ending in a border, centred type. Shorter than the closing
+   invite (45vh vs 74vh) so it reads as a lighter echo of it, not a rival.
+   ========================================================================= */
+.cta-band{
+  position:relative;min-height:54vh;display:flex;align-items:center;
+  text-align:center;overflow:hidden;isolation:isolate;
+  margin-top:clamp(46px,5.4vw,84px);
+  border-radius:var(--radius);border:1px solid var(--line);
+}
+.cta-band .shot{position:absolute;inset:0;z-index:-1;border:0;border-radius:0;min-height:0}
+.cta-band .shot-tag,.cta-band .shot-brief{display:none}
+.cta-scrim{
+  position:absolute;inset:0;z-index:0;
+  /* the edges stay bright so the room reads; a soft centred pool darkens only
+     where the type sits. Measured: without it the checks fell to 3.96:1. */
+  background:
+    radial-gradient(66% 76% at 50% 52%, rgba(8,5,3,.88), rgba(8,5,3,.42) 60%, rgba(8,5,3,0) 84%),
+    linear-gradient(180deg,rgba(14,10,6,.46),rgba(14,10,6,.3) 45%,rgba(14,10,6,.56));
+}
+.cta-inner{position:relative;z-index:1;margin-inline:auto;padding:clamp(64px,8.6vw,125px) clamp(24px,4vw,64px)}
+.cta-band h3{
+  font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,5vw,4rem);
+  line-height:.98;letter-spacing:.01em;color:var(--paper);margin:0;
+}
+.cta-band .tagline{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(1.1rem,1.8vw,1.5rem);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--amber);margin:16px auto 0;
+}
+.cta-band .conf{
+  list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:9px clamp(16px,2.1vw,30px);margin:26px auto 0;max-width:70ch;
+}
+.cta-band .conf li{
+  display:inline-flex;gap:8px;align-items:center;border:0;padding:0;
+  font-size:clamp(.98rem,1.15vw,1.1rem);font-weight:600;color:var(--ink-soft);
+}
+.cta-band .conf svg{flex:none;width:17px;height:17px;color:var(--amber)}
+.btn-cta{
+  display:inline-flex;margin-top:clamp(24px,2.8vw,36px);
+  background:var(--amber);color:#241300;border:1px solid transparent;
+}
+.btn-cta:hover{background:#ffc76e;transform:translateY(-2px)}
+@media(max-width:640px){
+  .cta-band{min-height:0}
+  .cta-inner{padding-block:clamp(44px,11vw,64px)}
+  .cta-band .conf{gap:10px 18px}
+  .btn-cta{width:100%;justify-content:center}
 }
 
 /* invite — tagline close, centered single CTA, fest note */
@@ -392,7 +828,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   body{font-size:20px}
   .roomgallery .mosaic{grid-auto-rows:270px}
   .daymirror .shot,.reassure .shot{min-height:620px}
-  .footer-rich .foot-shot{min-height:420px}
+  .footer-rich .foot-facade{min-height:420px}
   .step .shot{min-height:380px}
   .step-body{padding:30px 32px 34px;column-gap:18px;row-gap:18px}
   .step-n{width:48px;height:48px;font-size:1.3rem}
