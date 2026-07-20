@@ -102,6 +102,7 @@ Each occasion owns one photograph. The order is deliberate — the room gets bus
 | 8:45–9:30 | When nobody can agree | IMG-03 |
 | 9:30–10:15 | Something to celebrate | IMG-05 |
 | 10:15–11:00 | Before or after the main event | IMG-12 |
+| late | The afterparty | IMG-13 |
 
 **Rail derivatives** live in `assets/img/rail/` — a 3:2 centre-crop of each source at webp q72, sized to the source rather than one fixed width (landscape sources at 1600×1067, the 4:5 portraits at their native 1120×747 rather than upscaled). ~1MB for all nine, but only one loads before interaction. Regenerate with:
 
@@ -112,6 +113,8 @@ magick img-NN.jpg -resize "1600x1067^" -gravity center -crop 1600x1067+0+0 +repa
 Gravity matters: cropping the 4:5 portraits `north` cut the warm flame-lamp key light out of IMG-02 and IMG-11 and left them magenta. Both are `center`. IMG-09 is `north` (keeps her face off the bottom edge).
 
 `hero-01` is deliberately **not** in the rail — it stays exclusive to the hero so the page doesn't repeat its strongest frame.
+
+**IMG-13 does double duty** (added 2026-07-20 for "The afterparty"): it is the invite section's full-bleed background, but there it sits under a heavy scrim behind centred type, so it is barely read as a photograph. Seeing it clearly in the chooser costs little. It was the least-bad option — every other frame was already spoken for, and hero-01 was the only real alternative. **A dedicated late-night group shot would serve this chip better if a generation round is worth it.**
 
 ## Notes / open
 - **Room-accuracy is the gate.** The four earlier concept frames (`references/01–04`) depict a larger, wrong venue and are **mood-only** — do not reuse. Every new asset must read as *this* storefront room.

@@ -742,16 +742,21 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .oc-img.is-on{opacity:1}
 .oc-wash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
   background:var(--oc-wash,rgba(255,182,74,.26));transition:background .45s var(--ease)}
+/* the copy sits on photography, so it needs its own bed: the scrim ramps
+   earlier and lands darker than a decorative vignette would */
 .oc-vig{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(14,10,6,.34),rgba(14,10,6,.04) 34%,rgba(14,10,6,.9))}
-.oc-readout{position:absolute;left:clamp(18px,2.4vw,32px);right:clamp(18px,2.4vw,32px);
-  bottom:clamp(18px,2.4vw,30px);max-width:54ch}
-.oc-readout .oc-when{font-family:var(--sans);font-weight:700;font-size:.72rem;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:0 0 9px}
+  background:linear-gradient(180deg,rgba(14,10,6,.34),rgba(14,10,6,.02) 26%,
+    rgba(14,10,6,.55) 62%,rgba(14,10,6,.93))}
+.oc-readout{position:absolute;left:clamp(20px,2.8vw,40px);right:clamp(20px,2.8vw,40px);
+  bottom:clamp(20px,2.8vw,38px);max-width:44ch}
+.oc-readout .oc-when{font-family:var(--sans);font-weight:700;font-size:.82rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin:0 0 11px;
+  text-shadow:0 1px 12px rgba(0,0,0,.85)}
 .oc-readout .oc-title{font-family:var(--serif);font-weight:700;
-  font-size:clamp(1.5rem,2.7vw,2.1rem);color:var(--paper);margin:0 0 5px}
-.oc-readout .oc-body{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin:0;
-  text-shadow:0 1px 14px rgba(0,0,0,.75)}
+  font-size:clamp(2rem,3.4vw,3rem);line-height:1.02;color:var(--paper);margin:0 0 9px;
+  text-shadow:0 2px 20px rgba(0,0,0,.7)}
+.oc-readout .oc-body{color:var(--paper);font-size:clamp(1.05rem,1.25vw,1.28rem);
+  line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
 
 /* Below this the 255px chip column starves the photo — it goes square-ish
    (1.12:1 at 1024px) against a 3:2 source. Back to chips over photo. */
@@ -775,7 +780,10 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   /* the photo is too small to also carry the copy — drop it underneath, and
      lighten the vignette now that nothing has to be legible on top of it */
   .oc-readout{position:static;max-width:none;margin-top:18px}
-  .oc-readout .oc-body{text-shadow:none;color:var(--muted)}
+  .oc-readout .oc-when,
+  .oc-readout .oc-title,
+  .oc-readout .oc-body{text-shadow:none}
+  .oc-readout .oc-body{color:var(--ink-soft)}
   .oc-vig{background:linear-gradient(180deg,rgba(14,10,6,.4),rgba(14,10,6,0) 26%,rgba(14,10,6,.46))}
 }
 @media(prefers-reduced-motion:reduce){
