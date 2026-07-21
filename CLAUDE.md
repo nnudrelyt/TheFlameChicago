@@ -39,6 +39,7 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 - Kickers were deliberately removed from all sections except the hero (anti-scaffold); pillar accent colors are decorative, not strictly pillar-mapped.
 
 ## Jump nav
+- Four links: **Occasions / Get started / FAQ / Find us** -> `#occasions` / `#firstvisit` / `#goodtoknow` / `#visit`. Targets are derived from each link's `href` in global.js, so adding or reordering links needs no JS change.
 - `.nav-wrap` is a **1fr auto 1fr grid**, not flex `space-between` — the brand and the tools cluster are very different widths, so space-between parked the nav visibly off-centre. The middle track centres on the viewport regardless of what flanks it.
 - A **sliding indicator** (`.nav-ind`, built by global.js) tracks the section in view. An IntersectionObserver with `rootMargin:-45% 0px -50% 0px` marks whichever section crosses the upper-middle band; the bar is positioned in **px**, so it re-measures on resize and after `document.fonts.ready` (a font swap changes link widths).
 - It hides in the hero (no section active) and is `display:none` below 860px — the drawer stacks links vertically, so a horizontal slider has nothing to slide along, and it would measure 0 while `.nav` is hidden. `.is-current` still marks the section by colour there.
