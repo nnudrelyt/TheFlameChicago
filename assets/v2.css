@@ -749,6 +749,13 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
      never grow past the chip stack, and without height:100% it stays SHORTER
      than the stretched stage on mid-widths and the readout floats off the photo. */
   width:100%;aspect-ratio:16/11;height:100%;min-height:380px}
+/* Jumping to #occasions should land heading + chips + the WHOLE card on one
+   screen. 270px of chrome sits above the photo (96 section pad + 102 heading
+   block + 32 + 40 chooser gap), so the photo gets the rest, less a small
+   buffer. Capped on BOTH stage and frame so they stay in lockstep — capping
+   only the frame lets the stretched stage run taller and the readout, which
+   anchors to the stage, floats off the bottom of the photo. */
+.oc-stage,.oc-frame{max-height:calc(100vh - 296px)}
 .oc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity .45s var(--ease)}
 .oc-img.is-on{opacity:1}
@@ -790,6 +797,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
      narrowing the window only cropped the photo harder (2.07:1 out of a 3:2
      source at 1000px). Now it scales down with the viewport and keeps its
      crop; max-height stops it dominating a short window. */
+  .oc-stage{max-height:none}
   .oc-frame{height:auto;aspect-ratio:16/10;max-height:72vh}
 }
 
