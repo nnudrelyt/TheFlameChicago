@@ -718,7 +718,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .chooser .oc-stage{display:none}
 /* align-items defaults to stretch, so the row is as tall as the chip stack and
    the photo matches it exactly at any width — no clamp to keep re-tuning. */
-.chooser.is-live{display:grid;gap:clamp(26px,3vw,52px);
+.chooser.is-live{display:grid;gap:clamp(18px,2.2vw,38px);
   grid-template-columns:minmax(210px,255px) minmax(0,1fr)}
 .chooser.is-live .oc-chips{display:flex}
 .chooser.is-live .oc-stage{display:block}
