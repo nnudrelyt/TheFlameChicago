@@ -32,10 +32,32 @@
    lines up exactly with the hero/section content at every width. Background
    stays full-bleed (header is block) while .nav-wrap carries the gutter. */
 .site-header{display:block;padding:15px 0}
-/* jump nav set in caps — smaller and letterspaced so caps don't read heavier
-   than the lowercase they replaced */
-.nav a.navlink{text-transform:uppercase;font-size:.78rem;letter-spacing:.15em}
-.nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+/* 1fr auto 1fr, not space-between: the brand and the tools cluster are very
+   different widths, so space-between parked the nav off-centre. The middle
+   track centres on the viewport regardless of what flanks it. */
+.nav-wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.nav-wrap .nav-tools{justify-self:end}
+
+/* jump nav set in caps, and the sliding indicator that tracks the section
+   you're actually looking at (positioned by global.js). */
+.nav{position:relative}
+.nav a.navlink{text-transform:uppercase;font-size:.92rem;letter-spacing:.13em}
+.nav a.navlink.is-current{color:var(--paper)}
+/* the per-link hover underline is retired — it sat exactly where the indicator
+   does, so hovering an inactive link drew two bars */
+.nav a.navlink::after{display:none}
+.nav-ind{
+  position:absolute;left:0;bottom:-8px;height:2px;width:0;opacity:0;
+  background:var(--amber);border-radius:2px;pointer-events:none;
+  box-shadow:0 0 12px rgba(255,182,74,.55);
+  transition:transform .38s var(--ease),width .38s var(--ease),opacity .3s var(--ease);
+}
+.nav-ind.is-on{opacity:1}
+@media(prefers-reduced-motion:reduce){.nav-ind{transition:opacity .3s var(--ease)}}
+/* the drawer stacks the links vertically, so a horizontal slider has nothing
+   to slide along — and it would be measured at 0 while .nav is display:none.
+   .is-current still marks the section by colour in the drawer. */
+@media(max-width:860px){.nav-ind{display:none}}
 /* the header runs closer to the browser edge than the content column — half the
    gutter. This deliberately breaks the wordmark's alignment with .wrap below. */
 .site-header .nav-wrap{padding-inline:35px}

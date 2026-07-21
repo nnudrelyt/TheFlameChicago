@@ -38,6 +38,12 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 - The "Open now" pill is JS time-gated (America/Chicago, 11–23h) in `global.js`; static fallback text says "Open daily", closed state styled via `.live.closed` in v2.css. `<noscript>` fallback in head un-hides `.reveal` blocks.
 - Kickers were deliberately removed from all sections except the hero (anti-scaffold); pillar accent colors are decorative, not strictly pillar-mapped.
 
+## Jump nav
+- `.nav-wrap` is a **1fr auto 1fr grid**, not flex `space-between` — the brand and the tools cluster are very different widths, so space-between parked the nav visibly off-centre. The middle track centres on the viewport regardless of what flanks it.
+- A **sliding indicator** (`.nav-ind`, built by global.js) tracks the section in view. An IntersectionObserver with `rootMargin:-45% 0px -50% 0px` marks whichever section crosses the upper-middle band; the bar is positioned in **px**, so it re-measures on resize and after `document.fonts.ready` (a font swap changes link widths).
+- It hides in the hero (no section active) and is `display:none` below 860px — the drawer stacks links vertically, so a horizontal slider has nothing to slide along, and it would measure 0 while `.nav` is hidden. `.is-current` still marks the section by colour there.
+- The old per-link hover underline is retired: it sat exactly where the indicator does, so hovering an inactive link drew two bars.
+
 ## Type scale
 - **One source of truth: `--fs-h2` / `--fs-h3` / `--fs-h4` in v2.css `:root`.** At 1693px they render 64 / 44 / 32. Snap components to a step rather than inventing a size.
 - Before 2026-07-20 only h2 was real. h3's nominal 32px was a **phantom** — every consumer overrode it — so sizes were scattered from 22 to 62 and the occasion title (62) collided with the section h2 (64). `.pillar h3` and `.games-note h3` were dead rules (0 uses) and are gone.

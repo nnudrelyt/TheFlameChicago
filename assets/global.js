@@ -33,6 +33,67 @@
     });
   }
 
+  /* --- jump nav: slide an indicator to the section you're looking at ------
+     The bar is built here rather than in the markup — it's decorative, and
+     this way the nav degrades to plain links with no stray element. */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav a.navlink"));
+  if (nav && navLinks.length) {
+    var indicator = document.createElement("span");
+    indicator.className = "nav-ind";
+    indicator.setAttribute("aria-hidden", "true");
+    nav.appendChild(indicator);
+
+    var navTargets = navLinks.map(function (a) {
+      var id = (a.getAttribute("href") || "").replace(/^#/, "");
+      return id ? document.getElementById(id) : null;
+    });
+    var currentNav = -1;
+
+    function placeIndicator(i) {
+      if (i < 0) { indicator.classList.remove("is-on"); return; }
+      var linkBox = navLinks[i].getBoundingClientRect();
+      var navBox = nav.getBoundingClientRect();
+      indicator.style.width = linkBox.width + "px";
+      indicator.style.transform = "translateX(" + (linkBox.left - navBox.left) + "px)";
+      indicator.classList.add("is-on");
+    }
+
+    function setCurrentNav(i) {
+      navLinks.forEach(function (a, n) {
+        var on = n === i;
+        a.classList.toggle("is-current", on);
+        if (on) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+      currentNav = i;
+      placeIndicator(i);
+    }
+
+    /* the active section is whichever one is crossing the upper-middle band,
+       so the bar changes at roughly the moment the section takes over the view */
+    if ("IntersectionObserver" in window) {
+      var visible = {};
+      var navIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          visible[en.target.id] = en.isIntersecting;
+        });
+        var next = -1;
+        for (var i = 0; i < navTargets.length; i++) {
+          if (navTargets[i] && visible[navTargets[i].id]) { next = i; break; }
+        }
+        if (next !== currentNav) setCurrentNav(next);
+      }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      navTargets.forEach(function (t) { if (t) navIO.observe(t); });
+    }
+
+    /* the bar is measured in px, so it has to be re-measured when the nav
+       reflows (font swap, resize) */
+    window.addEventListener("resize", function () { placeIndicator(currentNav); }, { passive: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { placeIndicator(currentNav); });
+    }
+  }
+
   /* --- reveal on scroll --- */
   var revealables = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
   if (reduce || !("IntersectionObserver" in window)) {
