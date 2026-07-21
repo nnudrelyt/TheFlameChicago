@@ -33,7 +33,8 @@
     });
   }
 
-  /* --- jump nav: slide an indicator to the section you're looking at ------
+  /* --- jump nav: slide an indicator to the section in view, or to the link
+     being rolled over / focused ------------------------------------------
      The bar is built here rather than in the markup — it's decorative, and
      this way the nav degrades to plain links with no stray element. */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav a.navlink"));
@@ -47,7 +48,8 @@
       var id = (a.getAttribute("href") || "").replace(/^#/, "");
       return id ? document.getElementById(id) : null;
     });
-    var currentNav = -1;
+    var currentNav = -1;   // the section in view
+    var hoverNav = -1;     // the link being pointed at / focused, if any
 
     function placeIndicator(i) {
       if (i < 0) { indicator.classList.remove("is-on"); return; }
@@ -66,7 +68,26 @@
         else a.removeAttribute("aria-current");
       });
       currentNav = i;
-      placeIndicator(i);
+      refreshIndicator();
+    }
+
+    /* hover wins while it lasts, so a scroll landing mid-hover can't yank the
+       bar out from under the pointer; on leave it falls back to the section. */
+    function refreshIndicator() {
+      placeIndicator(hoverNav >= 0 ? hoverNav : currentNav);
+    }
+
+    navLinks.forEach(function (a, i) {
+      /* focus is not gated on hover capability — keyboard users exist on
+         touch devices too */
+      a.addEventListener("focus", function () { hoverNav = i; refreshIndicator(); });
+      a.addEventListener("blur", function () { hoverNav = -1; refreshIndicator(); });
+      if (window.matchMedia("(hover: hover)").matches) {
+        a.addEventListener("pointerenter", function () { hoverNav = i; refreshIndicator(); });
+      }
+    });
+    if (window.matchMedia("(hover: hover)").matches) {
+      nav.addEventListener("pointerleave", function () { hoverNav = -1; refreshIndicator(); });
     }
 
     /* the active section is whichever one is crossing the upper-middle band,
@@ -88,9 +109,9 @@
 
     /* the bar is measured in px, so it has to be re-measured when the nav
        reflows (font swap, resize) */
-    window.addEventListener("resize", function () { placeIndicator(currentNav); }, { passive: true });
+    window.addEventListener("resize", function () { refreshIndicator(); }, { passive: true });
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { placeIndicator(currentNav); });
+      document.fonts.ready.then(function () { refreshIndicator(); });
     }
   }
 
