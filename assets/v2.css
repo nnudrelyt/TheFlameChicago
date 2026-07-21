@@ -376,7 +376,12 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 .footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit}
 /* the whole sentence in one colour and weight — .brand .fl is amber by
    default (global.css), so it has to be overridden here too */
-.footer-rich .foot-brandline{gap:.4ch;color:var(--paper);font-weight:400}
+/* plain inline, NOT inline-flex: as flex items the wordmark and the sentence
+   were unbreakable boxes, so on mobile the whole sentence dropped to its own
+   line instead of wrapping mid-phrase. The markup carries a literal space, so
+   the gap goes too. */
+.footer-rich .foot-brandline{display:inline;gap:0;color:var(--paper);font-weight:400}
+.footer-rich .foot-brandline .brand{display:inline;gap:0}
 .footer-rich .foot-brandline .fl{color:inherit}
 
 /* =========================================================================
