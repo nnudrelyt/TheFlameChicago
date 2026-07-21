@@ -38,6 +38,12 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 - The "Open now" pill is JS time-gated (America/Chicago, 11–23h) in `global.js`; static fallback text says "Open daily", closed state styled via `.live.closed` in v2.css. `<noscript>` fallback in head un-hides `.reveal` blocks.
 - Kickers were deliberately removed from all sections except the hero (anti-scaffold); pillar accent colors are decorative, not strictly pillar-mapped.
 
+## Type scale
+- **One source of truth: `--fs-h2` / `--fs-h3` / `--fs-h4` in v2.css `:root`.** At 1693px they render 64 / 44 / 32. Snap components to a step rather than inventing a size.
+- Before 2026-07-20 only h2 was real. h3's nominal 32px was a **phantom** — every consumer overrode it — so sizes were scattered from 22 to 62 and the occasion title (62) collided with the section h2 (64). `.pillar h3` and `.games-note h3` were dead rules (0 uses) and are gone.
+- Known outlier, deliberate: **`.footer-rich h2` is 96px**, above the h2 step. Tyler chose that (an attempt to bring it to the h2 step was reverted). Leave it.
+- `.oc-item h3` (the chooser's no-JS fallback list) stays off-scale at ~22px on purpose — it's a plain list, not a heading display.
+
 ## OPEN / placeholders (⚠️ replace before launch)
 - **Phone** `(773) 555-0199`, **hours** "11am–late", and **socials** (`sameAs: []`) are PLACEHOLDERS — get real values from client.
 - **Imagery**: hero/welcome/atmosphere art are CSS lighting treatments as stand-ins. Replace with venue-accurate assets regenerated to the real room (Higgsfield), then run `image-perf-pass` → WebP.

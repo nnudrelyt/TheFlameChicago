@@ -221,8 +221,6 @@ h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
 .pillar:hover { transform: translateY(-6px); border-color: var(--accent); }
 .pillar:hover::after { opacity: .3; }
 .pillar .p-num { font-family: var(--serif); font-size: 1rem; letter-spacing: .18em; color: var(--accent); }
-.pillar h3 { margin: 4px 0 14px; color: var(--paper); font-size: clamp(2rem, 2.8vw, 2.55rem); transition: color .3s var(--ease); }
-.pillar:hover h3 { color: var(--accent); }
 .pillar .p-hook { font-weight: 700; color: var(--accent); font-size: 1.08rem; margin-bottom: 10px; letter-spacing: .004em; }
 .pillar p { font-size: .98rem; color: var(--muted); line-height: 1.58; }
 .pillar[data-accent="people"]     { --accent: var(--teal); }
