@@ -789,7 +789,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
      200/300/400/500/600+ — so don't expect a 600/700 difference. */
   font-weight:400;font-size:clamp(2.4rem,4.3vw,3.9rem);line-height:1.02;color:var(--paper);margin:0 0 11px;
   text-shadow:0 2px 20px rgba(0,0,0,.7)}
-.oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.5vw,1.5rem);
+.oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.4vw,1.375rem);
   line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
 
 /* Below this the 255px chip column starves the photo — it goes square-ish
