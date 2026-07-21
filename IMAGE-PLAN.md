@@ -9,6 +9,16 @@
 
 ---
 
+## HARD RULE — match the real room, invent nothing (added 2026-07-20)
+
+Every generated scene must be built only from fixtures that appear in `creative-direction/references/space-0*.jpeg`. **Look at those photos before writing a prompt.** A round of Occasions shots was rejected for inventing a storefront window with a rain-streaked street view — the room has none.
+
+What the room actually contains: a long narrow **windowless** interior; white walls; white drop-ceiling with recessed cans; light grey-brown wood-look laminate floor; ONE wall carrying a single row of tall curved cabinets with white/blue LED edge trim, spaced with dark upholstered high-back swivel stools; large leafy potted plants between some cabinets; a wall-mounted "Chicago Sweepstakes" jackpot TV high on the far end wall; a dark carved red "THE FLAME" plaque; slim vertical wavy rust-red metal wall sculptures; a low white counter with stools along the opposite wall; a small round silver pedestal table holding the orange neon flame lamp; magenta/pink LED wash on the upper walls and ceiling cove, blue spill from the cabinets.
+
+There is **no window, no glass storefront, no street view, no daylight** inside. Weather, time of day and season can only be told through people and the things they carry in — wet coats, damp hair, a propped umbrella. **If a shot needs an angle the references don't cover, drop the shot rather than invent the angle.**
+
+Props people bring with them are fine; architecture and fixtures are not.
+
 ## Shared style block (prepend to every prompt)
 > Cinematic photograph inside The Flame, an intimate neighborhood sweepstakes gaming lounge in Wicker Park, Chicago. **The exact room:** white drop-ceiling with recessed can lights, light wood-look laminate floor, white walls washed with blue and magenta LED, a single row of "Great Balls of Fire" slot-style cabinets, a "Chicago Sweepstakes" jackpot TV, dark upholstered bar stools, a few potted plants, and a small glowing "THE FLAME" neon flame table lamp. **Lighting = premium through control, not brightness:** warm amber/gold key light, deep but not crushed blacks, cool neon as accent only, practical light sources visible in frame. Eye-level, shot as a participant, moderate depth of field. Real, diverse working-class locals 30–55, styled-candid, no dress code. Capture the genuine half-second *after* a moment (a laugh, a nod), never a posed grin. Warm, welcoming, authentic. No text overlays, no logos beyond the in-room neon lamp.
 
