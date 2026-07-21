@@ -748,7 +748,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
      the row ends up being. Both are needed: without the ratio the photo can
      never grow past the chip stack, and without height:100% it stays SHORTER
      than the stretched stage on mid-widths and the readout floats off the photo. */
-  width:100%;aspect-ratio:16/10;height:100%;min-height:380px}
+  width:100%;aspect-ratio:16/11;height:100%;min-height:380px}
 .oc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity .45s var(--ease)}
 .oc-img.is-on{opacity:1}
