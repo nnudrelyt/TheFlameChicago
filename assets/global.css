@@ -97,6 +97,9 @@ a { color: inherit; text-decoration: none; }
 .kicker {
   font-family: var(--sans); font-weight: 700; font-size: .82rem;
   letter-spacing: .22em; text-transform: uppercase; color: var(--amber);
+  /* body leading (1.65) is far too loose for an all-caps label — on two lines
+     it left ~12px of white between cap heights. 1.18 halves that gap. */
+  line-height: 1.18;
 }
 h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: .96; letter-spacing: .005em; color: var(--paper); }
 .display { font-size: clamp(3.4rem, 9vw, 8rem); }
