@@ -34,6 +34,7 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
   - Below 1180px it collapses to chips-above-photo (the 255px column starves the photo to 1.12:1 at 1024px); below 760px the chips become a horizontal scroll-snap filter bar and the copy drops below the photo.
   - Chips are a real tablist (roving tabindex, arrow/Home/End). The selected chip is scrolled into view by assigning `scrollLeft` directly — `scrollTo({behavior:"smooth"})` no-ops against a scroll-snap container.
   - Rail-specific 3:2 derivatives live in `assets/img/rail/` (~1MB total, generated from the full-size originals with ImageMagick) — regenerate there, not in `assets/img/`. Mapping + commands in IMAGE-PLAN.md.
+- **Card spotlight** (`.step` / `.faq-item`, pointer-driven glow via `--mx`/`--my` in global.js): the `.step:hover::before/::after{opacity:1}` rule MUST keep its own braces. It once ran on into `.faq-item::after` via a trailing comma and silently killed the whole effect — the step pseudo-elements inherited `opacity:0` and a 1px bottom-edge box. Broken 2026-07-20 in the chooser rebuild, fixed same day.
 - The "Open now" pill is JS time-gated (America/Chicago, 11–23h) in `global.js`; static fallback text says "Open daily", closed state styled via `.live.closed` in v2.css. `<noscript>` fallback in head un-hides `.reveal` blocks.
 - Kickers were deliberately removed from all sections except the hero (anti-scaffold); pillar accent colors are decorative, not strictly pillar-mapped.
 

@@ -25,6 +25,9 @@
    lines up exactly with the hero/section content at every width. Background
    stays full-bleed (header is block) while .nav-wrap carries the gutter. */
 .site-header{display:block;padding:15px 0}
+/* jump nav set in caps — smaller and letterspaced so caps don't read heavier
+   than the lowercase they replaced */
+.nav a.navlink{text-transform:uppercase;font-size:.78rem;letter-spacing:.15em}
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
 /* the header runs closer to the browser edge than the content column — half the
    gutter. This deliberately breaks the wordmark's alignment with .wrap below. */
@@ -156,13 +159,15 @@
 /* full-bleed shots read as cinematic photo; hide the on-canvas brief so it never fights copy */
 .v2hero .shot-tag,.v2hero .shot-brief,.invite .shot-tag,.invite .shot-brief{display:none}
 .v2hero-scrim{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(20,15,10,.55) 0%,rgba(20,15,10,.15) 34%,rgba(20,15,10,.72) 78%,var(--bg) 100%)}
-.v2hero-inner{position:relative;z-index:1;padding-block:0 clamp(24px,3.5vw,48px);padding-top:clamp(120px,18vh,200px)}
+.v2hero-inner{position:relative;z-index:1;padding-block:0 clamp(30px,4.4vw,64px);padding-top:clamp(120px,18vh,200px)}
 .v2hero .kicker{display:inline-flex;align-items:center;gap:12px;letter-spacing:.209em}
 .v2hero .kicker::before{content:"";width:30px;height:1px;background:var(--amber)}
 .v2hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.3rem,10vw,8.2rem);line-height:.9;letter-spacing:.01em;color:var(--paper);margin:.12em 0 .18em;text-shadow:0 2px 40px rgba(0,0,0,.5)}
 .v2hero .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);color:var(--ink-soft);max-width:62ch;margin-bottom:26px}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+/* margin-top matches .v2hero-inner's bottom padding so the tag row sits
+   centred between the CTA row and the bottom of the hero */
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:clamp(30px,4.4vw,64px)}
 /* the track/set wrappers exist only for the mobile ticker — at desktop they
    dissolve so the chips stay direct flex children of .chips and wrap as before */
 .chips-track,.chips-set{display:contents}
@@ -240,8 +245,12 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 }
 .step{transition:transform .35s var(--ease),border-color .35s var(--ease)}
 .step:hover,.step:focus-within{transform:translateY(-3px);border-color:rgba(var(--glow),.34)}
+/* NB: this rule needs its own braces. It once ran on into the .faq-item rule
+   below via a trailing comma, which silently killed the whole card spotlight —
+   the step pseudo-elements inherited opacity:0 and a 1px bottom-edge box. */
 .step:hover::before,.step:focus-within::before,
-.step:hover::after,.step:focus-within::after,
+.step:hover::after,.step:focus-within::after{opacity:1}
+
 /* FAQ rows are not cards, so the spotlight is a lit BOTTOM EDGE rather than a
    full ring — left/right/top strokes would draw a box that no longer exists. */
 .faq-item::after{
@@ -365,7 +374,10 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 /* one type treatment across the whole sentence — the wordmark keeps the amber
    but matches the size, family and weight of the line it now sits inside. */
 .footer-rich .foot-bottom .brand{font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit}
-.footer-rich .foot-brandline{gap:.4ch;color:var(--paper);font-weight:500}
+/* the whole sentence in one colour and weight — .brand .fl is amber by
+   default (global.css), so it has to be overridden here too */
+.footer-rich .foot-brandline{gap:.4ch;color:var(--paper);font-weight:400}
+.footer-rich .foot-brandline .fl{color:inherit}
 
 /* =========================================================================
    INVITE — full-bleed close
@@ -577,7 +589,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
 }
 .faqs .sec-head{max-width:none;margin-bottom:clamp(20px,2.6vw,32px)}
 
-.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-list{display:flex;flex-direction:column;gap:0;margin-bottom:clamp(28px,4vw,60px)}
 /* closing rule so the last question is enclosed like the rest */
 .faq-list::after{
   content:"";display:block;height:1px;
@@ -774,7 +786,11 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
   .oc-frame{aspect-ratio:auto}
   .oc-chips{flex-direction:row;flex-wrap:wrap;max-width:860px;gap:10px;
     margin-bottom:clamp(20px,2.4vw,30px)}
-  .oc-frame{height:clamp(340px,52vh,520px)}
+  /* width-driven, not vh-driven: a fixed height ignored the browser width, so
+     narrowing the window only cropped the photo harder (2.07:1 out of a 3:2
+     source at 1000px). Now it scales down with the viewport and keeps its
+     crop; max-height stops it dominating a short window. */
+  .oc-frame{height:auto;aspect-ratio:16/10;max-height:72vh}
 }
 
 @media(max-width:760px){
@@ -783,7 +799,7 @@ h3{font-family:var(--serif);font-weight:400;letter-spacing:.02em;color:var(--pap
     scrollbar-width:none;margin-inline:-22px;padding-inline:22px}
   .oc-chips::-webkit-scrollbar{display:none}
   .oc-chip{scroll-snap-align:start;font-size:.94rem;padding:9px 16px}
-  .oc-frame{height:auto;aspect-ratio:4/5}
+  .oc-frame{height:auto;aspect-ratio:4/5;max-height:none}
   /* the photo is too small to also carry the copy — drop it underneath, and
      lighten the vignette now that nothing has to be legible on top of it */
   .oc-readout{position:static;max-width:none;margin-top:18px}
