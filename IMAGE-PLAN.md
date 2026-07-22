@@ -45,6 +45,24 @@ The set so far skews to one demographic. Going forward, deliberately widen it. I
 
 Keep the room's real neighborhood mix — this is additive, not a replacement. Spread the new casting across the seven unshot evening occasions (Date night, With friends, When nobody can agree, Something to celebrate, Before the show, The afterparty) and any daytime reshoots.
 
+## MODEL PLAYBOOK — which model for what (learned 2026-07-22)
+
+**GPT Image 2 (`gpt_image_2`) — the default for scenes.** Best for building/composing a shot in the real room: layout, fixtures, lighting, framing. Feed the real reference photos as `--image` so the room locks. Iterating on it by feeding its own last output back as the anchor works well for surgical changes ("keep everything, change only X").
+
+**⚠️ GPT Image 2's weakness is SKIN.** It renders faces **mottled and blotchy** — patches of olive/green and grey mixed into warm tones across cheeks, forehead and jaw — and it is especially bad on medium and deep skin tones. **Re-prompting GPT Image 2 for "clean even skin" does NOT fix it.** Don't burn passes trying; escalate to Seedream.
+
+**Seedream 4.5 (`seedream_v4_5`) — the face/skin fixer.** Purpose-built for face editing. One pass cleans up mottled skin into even, consistent tone with realistic texture. Also returns much larger output (4992×3328 vs 2048×1360). Params differ from GPT Image 2: `--prompt` (required), `--image`, `--aspect_ratio`, `--quality high`.
+
+**Two things Seedream will do unless you explicitly forbid them — put BOTH in every face-retouch prompt:**
+1. **It invents signage and branding.** It fabricated a large "GREAT BALLS OF FIRE" wordmark onto the gaming cabinet's blank side panel unprompted. Always include: *"Do NOT add any text, logo, wordmark, painted graphic or branding that is not already present in the input. Add no signage or lettering anywhere."*
+2. **It recomposes and crops.** It will zoom/tighten and shift subjects out of position. Always include: *"Preserve the input's framing and composition exactly — do not crop, zoom, or move the subjects; they stay the same size and position in frame with the same room around them."*
+
+Budget ~3 passes for a face retouch and check each output for (a) invented signage and (b) framing drift before accepting.
+
+**Other models on the account worth knowing:** `nano_banana_2_skin_enhancer` (a dedicated skin enhancer, but takes `input_image` as an *object* — needs a pre-uploaded media id plus a `preset_id`, so it's more setup than Seedream), `nano_banana_2` (Nano Banana Pro, character work), `soul_*` family (lifestyle/editorial), `flux_2`, `seedream_v5_pro`.
+
+**Pure colour/exposure notes never need a regeneration.** Grade the approved file directly with ImageMagick — that keeps the composition pixel-identical, which matters once framing has been signed off. (`-brightness-contrast`, `-gamma`, `-level`.) Avoid LAB separate/recombine round-trips — they shifted luminance badly here. `-selective-blur` is far too slow on a full 2048px frame; crop the region, process, composite back.
+
 ## Shared style block (prepend to every prompt)
 > Cinematic photograph inside The Flame, an intimate neighborhood sweepstakes gaming lounge in Wicker Park, Chicago. **The exact room:** white drop-ceiling with recessed can lights, light wood-look laminate floor, white walls washed with blue and magenta LED, a single row of "Great Balls of Fire" slot-style cabinets, a "Chicago Sweepstakes" jackpot TV, dark upholstered bar stools, a few potted plants, and a small glowing "THE FLAME" neon flame table lamp. **Lighting = premium through control, not brightness:** warm amber/gold key light, deep but not crushed blacks, cool neon as accent only, practical light sources visible in frame. Eye-level, shot as a participant, moderate depth of field. Real, diverse working-class locals 30–55, styled-candid, no dress code. Capture the genuine half-second *after* a moment (a laugh, a nod), never a posed grin. Warm, welcoming, authentic. No text overlays, no logos beyond the in-room neon lamp.
 
