@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
 <link rel="stylesheet" href="/assets/global.css?v=14">
-<link rel="stylesheet" href="/assets/v2.css?v=127">
+<link rel="stylesheet" href="/assets/v2.css?v=128">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
 <!-- JSON-LD (real NAP from live site; socials TBD) -->
@@ -371,13 +371,29 @@
         </ul>
       </div>
     </div>
-    <figure class="foot-facade reveal">
-      <picture>
-        <source type="image/webp" srcset="/assets/img/img-12-window.webp">
-        <img src="/assets/img/img-12-window.jpg" width="980" height="551" loading="lazy"
-             alt="Looking in through The Flame's storefront window on Ashland at dusk: warm chandelier light, soft seating and glowing cabinets inside">
-      </picture>
-    </figure>
+    <form class="foot-form reveal" id="contactForm" novalidate>
+      <p class="ff-lead">Have a question? Drop us a line.</p>
+      <div class="ff-row">
+        <label class="ff-field">
+          <span>Name</span>
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label class="ff-field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+      </div>
+      <label class="ff-field">
+        <span>Message</span>
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <!-- honeypot: real people leave this empty -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="ff-hp">
+      <div class="ff-foot">
+        <button type="submit" class="btn btn-cta">Send message</button>
+        <p class="ff-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
   </div>
 
   <div class="wrap foot-bottom">
@@ -386,6 +402,6 @@
   </div>
 </footer>
 
-<script src="/assets/global.js?v=14"></script>
+<script src="/assets/global.js?v=15"></script>
 </body>
 </html>

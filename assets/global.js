@@ -362,4 +362,43 @@
       start();
     }
   }
+
+  /* --- contact form ---
+     Static site, no backend. Submits to a form service via fetch. Set
+     FORM_ENDPOINT to a Web3Forms/Formspree URL (or a Vercel /api route).
+     Until it's set, the form validates and tells the visitor to call. */
+  var FORM_ENDPOINT = ""; // TODO: paste Web3Forms/Formspree endpoint here
+  var cform = document.getElementById("contactForm");
+  if (cform) {
+    var status = cform.querySelector(".ff-status");
+    var setStatus = function (msg, kind) {
+      status.textContent = msg;
+      status.classList.remove("ok", "err");
+      if (kind) status.classList.add(kind);
+    };
+    cform.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (cform.querySelector('[name="_gotcha"]').value) return; // bot
+      if (!cform.checkValidity()) { cform.reportValidity(); return; }
+      if (!FORM_ENDPOINT) {
+        setStatus("Thanks! Email isn't wired up yet — please call (312) 218-7677.", "err");
+        return;
+      }
+      cform.classList.add("is-sending");
+      setStatus("Sending…", null);
+      fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(cform)
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        cform.reset();
+        setStatus("Got it — we'll be in touch soon.", "ok");
+      }).catch(function () {
+        setStatus("Something went wrong. Please call (312) 218-7677.", "err");
+      }).finally(function () {
+        cform.classList.remove("is-sending");
+      });
+    });
+  }
 })();

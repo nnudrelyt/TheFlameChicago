@@ -9,15 +9,34 @@
 
 ---
 
-## HARD RULE — match the real room, invent nothing (added 2026-07-20)
+## HARD RULE — match the real room, invent nothing (rewritten 2026-07-21 against full interior + front-door reference set)
 
-Every generated scene must be built only from fixtures that appear in `creative-direction/references/space-0*.jpeg`. **Look at those photos before writing a prompt.** A round of Occasions shots was rejected for inventing a storefront window with a rain-streaked street view — the room has none.
+Every generated scene must be built only from fixtures that appear in the real reference photos: `creative-direction/references/space-front-door-1231.jpg`, `space-window-wall-and-bar.jpg`, and the full set in `creative-direction/references/space-photos-2026-07/` (22 frames), plus the older `space-01…04.jpeg`. **Look at those photos before writing a prompt.**
 
-What the room actually contains: a long narrow **windowless** interior; white walls; white drop-ceiling with recessed cans; light grey-brown wood-look laminate floor; ONE wall carrying a single row of tall curved cabinets with white/blue LED edge trim, spaced with dark upholstered high-back swivel stools; large leafy potted plants between some cabinets; a wall-mounted "Chicago Sweepstakes" jackpot TV high on the far end wall; a dark carved red "THE FLAME" plaque; slim vertical wavy rust-red metal wall sculptures; a low white counter with stools along the opposite wall; a small round silver pedestal table holding the orange neon flame lamp; magenta/pink LED wash on the upper walls and ceiling cove, blue spill from the cabinets.
+⚠️ **CORRECTION (2026-07-21):** the earlier version of this rule called the room a "windowless interior" and banned windows/glass/daylight. **That was wrong** — written before we had photos of the front of the house. The real room DOES have a full storefront window wall. Discard the windowless assumption. Any shot built to it (the four live daytime Occasions + the couple set) was generated blind to this.
 
-There is **no window, no glass storefront, no street view, no daylight** inside. Weather, time of day and season can only be told through people and the things they carry in — wet coats, damp hair, a propped umbrella. **If a shot needs an angle the references don't cover, drop the shot rather than invent the angle.**
+**What the room actually contains** — a long narrow storefront running front-to-back:
+- **FRONT: a full-height storefront window wall** onto the street — floor-to-ceiling glass, daylight, cars and a low-rise building across the way. A frosted decal band across the lower glass reads (mirrored from inside) "WELCOME · YOU'RE ON FIRE · 312-218-…". Daytime shots are genuinely bright near the front; the room is only "dim and moody" deeper in / at night.
+- **RIGHT WALL: a proper bar** — bar-height counter with a **flames mural wrapping the front face**, dark stone top, tall black upholstered swivel stools with backs. Behind it: a POS register, a security-camera monitor showing the street, a wall TV, a small neon flame, and a "THE FLAME" fire mural on the wall.
+- **LEFT WALL: the gaming cabinets** — a single row of tall curved-screen units with white/blue LED edge trim, black high-back swivel chairs with chrome footrests, small orange neon flame lamps at floor level, large leafy potted plants between some cabinets, slim vertical wavy rust-red metal wall sculptures.
+- **CENTER: round tables** (marble-look tops, silver bases) with black chairs — a seating area away from the machines.
+- **BACK: an ATM, the restrooms, and a "Chicago Sweepstakes" jackpot TV.** More cabinets continue toward the back.
+- White walls, white drop-ceiling with recessed cans and rectangular vents, light grey plank floor with a dark runner rug down the center aisle, magenta/pink/purple LED wash on the upper walls, blue spill from the cabinets.
 
-Props people bring with them are fine; architecture and fixtures are not.
+**THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
+
+**PLANNED CHANGE — plain wall behind the bar (2026-07-21):** the giant "THE FLAME" fire mural on the **wall behind the counter** is being taken down. In all generated shots, render that wall **plain** (white/LED-washed, no fire graphic) even though it still appears in the reference photos. The flames wrapping the **front face of the counter** are unaffected — keep those.
+
+**Still true:** if a shot needs an angle the references don't cover, drop the shot rather than invent the angle. Props people bring with them are fine; architecture and fixtures are not.
+
+## CASTING DIRECTION (added 2026-07-21, per client)
+
+The set so far skews to one demographic. Going forward, deliberately widen it. Include:
+- **Young Caucasian men and women** (the set is currently short on these).
+- **A blonde woman** — the client asked for this specifically; make sure at least one prominent occasion features her.
+- **Young professional men in sports gear** — think a guy stopping in on the way to/from a game or the gym, team jersey or athletic wear, reads young and professional.
+
+Keep the room's real neighborhood mix — this is additive, not a replacement. Spread the new casting across the seven unshot evening occasions (Date night, With friends, When nobody can agree, Something to celebrate, Before the show, The afterparty) and any daytime reshoots.
 
 ## Shared style block (prepend to every prompt)
 > Cinematic photograph inside The Flame, an intimate neighborhood sweepstakes gaming lounge in Wicker Park, Chicago. **The exact room:** white drop-ceiling with recessed can lights, light wood-look laminate floor, white walls washed with blue and magenta LED, a single row of "Great Balls of Fire" slot-style cabinets, a "Chicago Sweepstakes" jackpot TV, dark upholstered bar stools, a few potted plants, and a small glowing "THE FLAME" neon flame table lamp. **Lighting = premium through control, not brightness:** warm amber/gold key light, deep but not crushed blacks, cool neon as accent only, practical light sources visible in frame. Eye-level, shot as a participant, moderate depth of field. Real, diverse working-class locals 30–55, styled-candid, no dress code. Capture the genuine half-second *after* a moment (a laugh, a nod), never a posed grin. Warm, welcoming, authentic. No text overlays, no logos beyond the in-room neon lamp.

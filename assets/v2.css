@@ -364,15 +364,39 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    rather than embedded so it carries brand colour, weighs ~2KB, needs no API
    key, and works offline.
    ========================================================================= */
-/* Swapped from the hand-drawn SVG map to a photograph (2026-07-20): a close
-   look in through the storefront glass sells the room better than wayfinding
-   the address line and the "Get directions" button already cover. */
-.footer-rich .foot-facade{
-  margin:0;border-radius:var(--radius);overflow:hidden;
+/* Swapped again (2026-07-21): the storefront photo → a simple contact form,
+   per Tyler. The address line + "Get directions" + phone already cover
+   wayfinding, so the right column now earns its space by capturing a lead. */
+.footer-rich .foot-form{
+  margin:0;border-radius:var(--radius);
   background:var(--bg-deep);border:1px solid var(--line);
-  min-height:clamp(300px,26vw,360px);display:flex;
+  padding:clamp(22px,2.4vw,32px);
+  display:flex;flex-direction:column;gap:14px;justify-content:center;
 }
-.footer-rich .foot-facade img{width:100%;height:100%;object-fit:cover;display:block}
+.footer-rich .ff-lead{color:var(--paper);font-size:1.16rem;font-weight:600;margin:0 0 2px}
+.footer-rich .ff-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.footer-rich .ff-row{grid-template-columns:1fr}}
+.footer-rich .ff-field{display:flex;flex-direction:column;gap:6px}
+.footer-rich .ff-field span{font-size:.8rem;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;font-weight:600}
+.footer-rich .ff-field input,
+.footer-rich .ff-field textarea{
+  font:inherit;color:var(--paper);background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+  transition:border-color .18s var(--ease),background .18s var(--ease);
+}
+.footer-rich .ff-field textarea{resize:vertical;min-height:96px}
+.footer-rich .ff-field input:focus,
+.footer-rich .ff-field textarea:focus{
+  outline:none;border-color:var(--amber);background:rgba(255,255,255,.05);
+}
+.footer-rich .ff-field input:user-invalid,
+.footer-rich .ff-field textarea:user-invalid{border-color:#c9603f}
+.footer-rich .ff-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.footer-rich .ff-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
+.footer-rich .ff-status{margin:0;font-size:.92rem;color:var(--muted)}
+.footer-rich .ff-status.ok{color:#7fd18a}
+.footer-rich .ff-status.err{color:#e08a6c}
+.footer-rich .foot-form.is-sending button{opacity:.6;pointer-events:none}
 .footer-rich .addr{font-size:1.38rem;color:var(--paper);font-weight:600;margin:2px 0 6px}
 .footer-rich .sub2{color:var(--muted);font-size:1.16rem;margin-bottom:18px}
 .footer-rich .hood-cta{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 24px}
