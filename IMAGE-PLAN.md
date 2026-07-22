@@ -33,7 +33,12 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 Repeated rounds were rejected for **inventing room layout** — a plausible-looking gaming lounge rather than THIS one. Before writing any prompt, open the reference photos and work out **what is actually visible from the camera position you're describing**, then describe that. Specific facts that kept getting invented:
 
-- **Machine count and the receding row.** Looking down the cabinet wall you see **a long row of five or more machines** receding into the distance, not two or three. If the angle looks down that wall, show the row.
+- **MACHINE INVENTORY — there are exactly nine, in known places (Tyler, 2026-07-22).** Don't guess a count and don't fill walls with extra cabinets:
+  - **FIVE** in a row across the **wall opposite the counter** (this is the wall in `space-2301.jpg`)
+  - **ONE** standing **in front, facing into the room**
+  - **TWO** on the **back wall**
+  - **ONE small standing game beside the ATM**
+  If a shot looks down the wall opposite the counter, show **five** machines receding — not six, seven or "a long row."
 - **The red ribbon wall art is NOT full height.** The wavy polished-red metal ribbons are an **upper-wall accent** — they hang in roughly the upper third-to-half of the wall and stop well above the floor, ending around the tops of the machines. Do not run them floor-to-ceiling.
 - **The far end of the cabinet wall,** past the furthest machine: a **flat white wall**, then a **doorway with a wall-mounted AC unit above it** and a red EXIT sign nearby, and the storefront window beyond showing the street (sidewalk planters, shopfronts opposite).
 - **The sweepstakes board belongs on the TVs only, in their real positions.** There are **two wall TVs**; the "CHICAGO SWEEPSTAKES" jackpot board lives on those, where they actually hang. **Do not force a sweepstakes screen into every composition** or invent extra ones to fill space — most frames don't need it visible at all.
