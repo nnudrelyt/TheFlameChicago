@@ -23,9 +23,21 @@ Every generated scene must be built only from fixtures that appear in the real r
 - **CENTER: round tables** (marble-look tops, silver bases) with black chairs — a seating area away from the machines.
 - **BACK: an ATM, the restrooms, and a "Chicago Sweepstakes" jackpot TV.** More cabinets continue toward the back.
 - White walls, white drop-ceiling with recessed cans and rectangular vents, light grey plank floor with a dark runner rug down the center aisle, magenta/pink/purple LED wash on the upper walls, blue spill from the cabinets.
-  - ⚠️ **WALL HEIGHT:** the walls run **FULL HEIGHT**, continuing up to meet the suspended drop-ceiling grid. There are **no half-walls, stub partitions or low dividers** with gaps above them. A generated date-night frame rendered a short partition behind the couple and had to be redone.
+  - ⚠️ **THE PARTITION — I got this wrong twice, read carefully.** The room is **partly divided**. There IS a partial wall: it ends in a clean **vertical edge** with an **open pass-through** beside it into the brighter front window area, and a **bulkhead/soffit** runs along the top where it meets the drop-ceiling grid. It is NOT an unbroken full-height wall spanning the background, and NOT a low knee-wall with ceiling floating above it. Reproduce the partition geometry **as photographed in `space-photos-2026-07/space-2301.jpg`** — including where the wall stops and what you can see past its edge.
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
+
+## ⚠️ LAYOUT FIDELITY — the recurring failure (Tyler, 2026-07-22)
+
+> *"All room compositions should match the layout of the room based on the images provided, not invented."*
+
+Repeated rounds were rejected for **inventing room layout** — a plausible-looking gaming lounge rather than THIS one. Before writing any prompt, open the reference photos and work out **what is actually visible from the camera position you're describing**, then describe that. Specific facts that kept getting invented:
+
+- **Machine count and the receding row.** Looking down the cabinet wall you see **a long row of five or more machines** receding into the distance, not two or three. If the angle looks down that wall, show the row.
+- **The red ribbon wall art is NOT full height.** The wavy polished-red metal ribbons are an **upper-wall accent** — they hang in roughly the upper third-to-half of the wall and stop well above the floor, ending around the tops of the machines. Do not run them floor-to-ceiling.
+- **The far end of the cabinet wall,** past the furthest machine: a **flat white wall**, then a **doorway with a wall-mounted AC unit above it** and a red EXIT sign nearby, and the storefront window beyond showing the street (sidewalk planters, shopfronts opposite).
+- **The sweepstakes board belongs on the TVs only, in their real positions.** There are **two wall TVs**; the "CHICAGO SWEEPSTAKES" jackpot board lives on those, where they actually hang. **Do not force a sweepstakes screen into every composition** or invent extra ones to fill space — most frames don't need it visible at all.
+- **The partition** — see the note in the room facts above.
 
 **PLANNED CHANGES — render the room as it WILL be, not as photographed (2026-07-21).** The client is changing several things; generate the future-state room, not the current reference state:
 1. **Plain wall behind the bar** — the giant "THE FLAME" fire mural on the wall behind the counter is being taken down. Render that wall **plain** (white/LED-washed, no fire graphic). The flames wrapping the **front face of the counter** stay.
