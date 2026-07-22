@@ -25,7 +25,11 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
 
-**PLANNED CHANGE — plain wall behind the bar (2026-07-21):** the giant "THE FLAME" fire mural on the **wall behind the counter** is being taken down. In all generated shots, render that wall **plain** (white/LED-washed, no fire graphic) even though it still appears in the reference photos. The flames wrapping the **front face of the counter** are unaffected — keep those.
+**PLANNED CHANGES — render the room as it WILL be, not as photographed (2026-07-21).** The client is changing several things; generate the future-state room, not the current reference state:
+1. **Plain wall behind the bar** — the giant "THE FLAME" fire mural on the wall behind the counter is being taken down. Render that wall **plain** (white/LED-washed, no fire graphic). The flames wrapping the **front face of the counter** stay.
+2. **No security monitor** — the CCTV/security-camera monitor behind the bar (the screen showing street/camera views) is removed. Do not render it.
+3. **Sweepstakes board on the TVs** — the wall-mounted TVs (both the back jackpot TV and the corner TV behind the bar) display the **"Chicago Sweepstakes" jackpot board**: a starfield background with the "CHICAGO SWEEPSTAKES" title and glowing jackpot-amount pills (see `space-01-machines-wide.jpeg` / `space-04.jpeg`). NOT news, sports, or any other content.
+4. **Clean storefront window** — no hanging signs, banners, or promotional placards in the storefront glass (the client will take them down). Keep the glass clean; daylight/street through it is fine.
 
 **Still true:** if a shot needs an angle the references don't cover, drop the shot rather than invent the angle. Props people bring with them are fine; architecture and fixtures are not.
 
