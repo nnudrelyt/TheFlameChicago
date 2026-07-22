@@ -17,11 +17,13 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 **What the room actually contains** — a long narrow storefront running front-to-back:
 - **FRONT: a full-height storefront window wall** onto the street — floor-to-ceiling glass, daylight, cars and a low-rise building across the way. A frosted decal band across the lower glass reads (mirrored from inside) "WELCOME · YOU'RE ON FIRE · 312-218-…". Daytime shots are genuinely bright near the front; the room is only "dim and moody" deeper in / at night.
-- **RIGHT WALL: a proper bar** — bar-height counter with a **flames mural wrapping the front face**, dark stone top, tall black upholstered swivel stools with backs. Behind it: a POS register, a security-camera monitor showing the street, a wall TV, a small neon flame, and a "THE FLAME" fire mural on the wall.
+- **RIGHT WALL: a proper bar** — bar-height counter with a **flames mural on its front face**, dark stone top, tall black upholstered swivel stools with backs. Behind it: a POS register, a security-camera monitor showing the street, a wall TV, a small neon flame, and a "THE FLAME" fire mural on the wall.
+  - ⚠️ **WHERE THE FLAMES GO (confirmed by Tyler 2026-07-22):** the flames mural appears **ONLY on the main bar's long front face** — the run that faces out into the room. Every **return, end cap and side section of the counter is PLAIN**: glossy black stone top over an unpatterned base. Do NOT wrap the fire graphic around the ends or onto perpendicular sections. A generated date-night frame put flames on the return section the couple was seated at and had to be redone.
 - **LEFT WALL: the gaming cabinets** — a single row of tall curved-screen units with white/blue LED edge trim, black high-back swivel chairs with chrome footrests, small orange neon flame lamps at floor level, large leafy potted plants between some cabinets, slim vertical wavy rust-red metal wall sculptures.
 - **CENTER: round tables** (marble-look tops, silver bases) with black chairs — a seating area away from the machines.
 - **BACK: an ATM, the restrooms, and a "Chicago Sweepstakes" jackpot TV.** More cabinets continue toward the back.
 - White walls, white drop-ceiling with recessed cans and rectangular vents, light grey plank floor with a dark runner rug down the center aisle, magenta/pink/purple LED wash on the upper walls, blue spill from the cabinets.
+  - ⚠️ **WALL HEIGHT:** the walls run **FULL HEIGHT**, continuing up to meet the suspended drop-ceiling grid. There are **no half-walls, stub partitions or low dividers** with gaps above them. A generated date-night frame rendered a short partition behind the couple and had to be redone.
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
 
@@ -44,6 +46,10 @@ The set so far skews to one demographic. Going forward, deliberately widen it. I
 - **Young professional men in sports gear** — think a guy stopping in on the way to/from a game or the gym, team jersey or athletic wear, reads young and professional.
 
 Keep the room's real neighborhood mix — this is additive, not a replacement. Spread the new casting across the seven unshot evening occasions (Date night, With friends, When nobody can agree, Something to celebrate, Before the show, The afterparty) and any daytime reshoots.
+
+⚠️ **NO BRANDED APPAREL — put this in every prompt with people in it.** Left to itself the generator dresses people in real licensed team jerseys: a "With friends" pass came back with Bears, Cubs, Bulls "JORDAN 23", White Sox and Blackhawks kit. Real trademarks and a player name on the client's marketing site is a licensing exposure (same reason the Doritos bag was rejected in batch 1). Always specify: *"All clothing must be GENERIC and UNBRANDED — no sports-team jerseys, team logos, crests, mascots, player names or numbers, league marks, or brand wordmarks on any garment, cap or bag. Plain solid colours only."* This applies to the **Seedream retouch pass too**, which will happily add logos back.
+
+**"Sports gear" casting means plain athletic wear** — solid-colour athletic tops, a zip track jacket, a blank ball cap. It reads "came from a game" without the trademark risk.
 
 ## MODEL PLAYBOOK — which model for what (learned 2026-07-22)
 
