@@ -28,8 +28,11 @@ Every generated scene must be built only from fixtures that appear in the real r
 **PLANNED CHANGES — render the room as it WILL be, not as photographed (2026-07-21).** The client is changing several things; generate the future-state room, not the current reference state:
 1. **Plain wall behind the bar** — the giant "THE FLAME" fire mural on the wall behind the counter is being taken down. Render that wall **plain** (white/LED-washed, no fire graphic). The flames wrapping the **front face of the counter** stay.
 2. **No security monitor** — the CCTV/security-camera monitor behind the bar (the screen showing street/camera views) is removed. Do not render it.
-3. **Sweepstakes board on the TVs** — the wall-mounted TVs (both the back jackpot TV and the corner TV behind the bar) display the **"Chicago Sweepstakes" jackpot board**: a starfield background with the "CHICAGO SWEEPSTAKES" title and glowing jackpot-amount pills (see `space-01-machines-wide.jpeg` / `space-04.jpeg`). NOT news, sports, or any other content.
+3. **Two different screen types — don't mix them up:**
+   - **Wall-mounted TVs** (the back jackpot TV and the corner TV behind the bar) display the **"Chicago Sweepstakes" jackpot board**: a starfield background with the "CHICAGO SWEEPSTAKES" title and glowing jackpot-amount pills (see `space-01-machines-wide.jpeg` / `space-04.jpeg`). NOT news, sports, or other content.
+   - **Gaming cabinets / kiosks** display their **native game screen** — e.g. "GREAT BALLS OF FIRE": jackpot pills across the top, the game title, then a grid of colorful slot-game reel tiles below (see the cabinets in `space-01`/`space-04`). A cabinet must NOT show the plain starfield sweepstakes board — that lives only on the wall TVs.
 4. **Clean storefront window** — no hanging signs, banners, or promotional placards in the storefront glass (the client will take them down). Keep the glass clean; daylight/street through it is fine.
+5. **Keep the cabinet at the end of the counter** — a tall curved-screen gaming cabinet stands at the far end of the bar counter; don't drop it or replace it with a monitor sitting on the countertop.
 
 **Still true:** if a shot needs an angle the references don't cover, drop the shot rather than invent the angle. Props people bring with them are fine; architecture and fixtures are not.
 
