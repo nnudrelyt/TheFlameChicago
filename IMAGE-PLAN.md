@@ -15,15 +15,47 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 ⚠️ **CORRECTION (2026-07-21):** the earlier version of this rule called the room a "windowless interior" and banned windows/glass/daylight. **That was wrong** — written before we had photos of the front of the house. The real room DOES have a full storefront window wall. Discard the windowless assumption. Any shot built to it (the four live daytime Occasions + the couple set) was generated blind to this.
 
-**What the room actually contains** — a long narrow storefront running front-to-back:
-- **FRONT: a full-height storefront window wall** onto the street — floor-to-ceiling glass, daylight, cars and a low-rise building across the way. A frosted decal band across the lower glass reads (mirrored from inside) "WELCOME · YOU'RE ON FIRE · 312-218-…". Daytime shots are genuinely bright near the front; the room is only "dim and moody" deeper in / at night.
-- **RIGHT WALL: a proper bar** — bar-height counter with a **flames mural on its front face**, dark stone top, tall black upholstered swivel stools with backs. Behind it: a POS register, a security-camera monitor showing the street, a wall TV, a small neon flame, and a "THE FLAME" fire mural on the wall.
-  - ⚠️ **WHERE THE FLAMES GO (confirmed by Tyler 2026-07-22):** the flames mural appears **ONLY on the main bar's long front face** — the run that faces out into the room. Every **return, end cap and side section of the counter is PLAIN**: glossy black stone top over an unpatterned base. Do NOT wrap the fire graphic around the ends or onto perpendicular sections. A generated date-night frame put flames on the return section the couple was seated at and had to be redone.
-- **LEFT WALL: the gaming cabinets** — a single row of tall curved-screen units with white/blue LED edge trim, black high-back swivel chairs with chrome footrests, small orange neon flame lamps at floor level, large leafy potted plants between some cabinets, slim vertical wavy rust-red metal wall sculptures.
-- **CENTER: round tables** (marble-look tops, silver bases) with black chairs — a seating area away from the machines.
-- **BACK: an ATM, the restrooms, and a "Chicago Sweepstakes" jackpot TV.** More cabinets continue toward the back.
-- White walls, white drop-ceiling with recessed cans and rectangular vents, light grey plank floor with a dark runner rug down the center aisle, magenta/pink/purple LED wash on the upper walls, blue spill from the cabinets.
-  - ⚠️ **THE PARTITION — I got this wrong twice, read carefully.** The room is **partly divided**. There IS a partial wall: it ends in a clean **vertical edge** with an **open pass-through** beside it into the brighter front window area, and a **bulkhead/soffit** runs along the top where it meets the drop-ceiling grid. It is NOT an unbroken full-height wall spanning the background, and NOT a low knee-wall with ceiling floating above it. Reproduce the partition geometry **as photographed in `space-photos-2026-07/space-2301.jpg`** — including where the wall stops and what you can see past its edge.
+## ★ CANONICAL ROOM MAP — confirmed accurate by Tyler, 2026-07-23
+
+> **This section supersedes every earlier layout note in this file.** Prior versions had the two side walls **inverted** (they said "bar on the right, cabinets on the left") and invented a room-dividing partition that does not exist. If any older note conflicts with this map, this map wins.
+
+**Orientation for everything below: standing at the front window, looking toward the back.** In that view the **bar is on your LEFT** and the **machine row is on your RIGHT**. On a plan drawn with the front at the top, the bar is the **EAST** wall (drawn right) and the machines the **WEST** wall (drawn left).
+
+**FRONT — the storefront.** Full-height glass onto Ashland, frosted "WELCOME · YOU'RE ON FIRE · 312-218-…" decal band across the lower panes, three dark flat TVs mounted high in front of the glass facing into the room. **No door on this wall.**
+
+**WEST WALL — entrance and the machine row** *(your RIGHT facing back)*
+- The **ENTRANCE DOOR** at the front end of this wall. This is why the door falls just off-frame to the right in `space-2312`, past the EXIT sign.
+- **FIVE** tall curved-screen machines running back from it, generously spaced with clear wall between each, every one with a **black high-back swivel chair**.
+- The tall **dark carved wooden figure** stands among them; ornate carved **FLAME plaques** on the wall between machines; slim wavy **red metal ribbons as UPPER-WALL accents only** (upper portion, ending well above the machine tops); large leafy **potted plants**.
+
+**EAST WALL — the bar and the service corner** *(your LEFT facing back)*
+- **Front half — the bar:** a continuous counter, glossy black stone top, solid base. The **flames mural wraps ONLY its long front face** — the run facing out into the room. Every **return, end cap and side section is PLAIN**: black stone top over an unpatterned base. Tall **black swivel stools with round studded seats** tucked along it.
+- Behind it: the **POS**, the **sweepstakes tv**, a small **neon flame**, and the **"THE FLAME" fire wall mural** — which is being removed, so render that stretch **plain**.
+- A **ninth, FULL-SIZE cabinet stands free at the bar's front end, turned to FACE INTO THE ROOM**, with its own chair. Same size as the wall machines — not the small kiosk. Clearly visible in `space-2312`.
+- **Back half, in order along the wall:** an **exit door with an EXIT sign above it** → the **restroom door** beside it → the **ATM** → the **standalone kiosk** (smaller than the wall machines) → a **supply closet door** past the kiosk. A **framed mirror** hangs above the ATM and kiosk, with a **NO SMOKING sign** above the mirror.
+
+**BACK WALL**
+- **Two cabinets** standing against it, with a **sweepstakes TV centred directly above the pair**, the trio **flanked by red ribbon wall art** on both sides.
+- A **white marble round table with four chairs** in front of it.
+
+**FLOOR / CEILING / LIGHT**
+- Light **grey plank floor** with a **dark runner rug** running the length of the centre aisle.
+- White **suspended drop-ceiling**: recessed cans, square air vents.
+- House light: saturated **magenta / pink / violet** wash on walls and ceiling, **cyan-blue** spill from the machine LED trim, warm amber accents, deep controlled blacks.
+
+**MACHINE COUNT — exactly nine, and they reconcile:**
+
+| Where | Count |
+|---|---|
+| West wall row | 5 |
+| Back wall, flanking the sweepstakes TV | 2 |
+| Full-size, free-standing at the bar's front end, facing into the room | 1 |
+| Standalone kiosk beside the ATM (smaller) | 1 |
+| **Total** | **9** |
+
+**TWO SWEEPSTAKES SCREENS, TWO PLACES.** One above the bar on the east wall, one on the back wall centred over the two cabinets. Those are the only places the board belongs — never invent a third, and never centre one behind a subject to fill space.
+
+**NO PARTITION.** Earlier notes claimed a partial dividing wall with a pass-through. That was my inference from a misread photo and is **not in the room**. Do not render one.
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
 
@@ -71,7 +103,7 @@ Repeated rounds were rejected for **inventing room layout** — a plausible-look
 - **The red ribbon wall art is NOT full height.** The wavy polished-red metal ribbons are an **upper-wall accent** — they hang in roughly the upper third-to-half of the wall and stop well above the floor, ending around the tops of the machines. Do not run them floor-to-ceiling.
 - **The far end of the cabinet wall,** past the furthest machine: a **flat white wall**, then a **doorway with a wall-mounted AC unit above it** and a red EXIT sign nearby, and the storefront window beyond showing the street (sidewalk planters, shopfronts opposite).
 - **The sweepstakes board belongs on the TVs only, in their real positions.** There are **two wall TVs**; the "CHICAGO SWEEPSTAKES" jackpot board lives on those, where they actually hang. **Do not force a sweepstakes screen into every composition** or invent extra ones to fill space — most frames don't need it visible at all.
-- **The partition** — see the note in the room facts above.
+- **There is NO partition.** An earlier note here described a partial dividing wall with a pass-through and a bulkhead. That was inferred from a misread photo and is wrong — see the canonical room map at the top of this file.
 
 **PLANNED CHANGES — render the room as it WILL be, not as photographed (2026-07-21).** The client is changing several things; generate the future-state room, not the current reference state:
 1. **Plain wall behind the bar** — the giant "THE FLAME" fire mural on the wall behind the counter is being taken down. Render that wall **plain** (white/LED-washed, no fire graphic). The flames wrapping the **front face of the counter** stay.
