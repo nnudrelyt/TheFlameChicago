@@ -262,7 +262,11 @@ Gravity matters: cropping the 4:5 portraits `north` cut the warm flame-lamp key 
 
 Two rejected siblings from the same round are filed at `creative-direction/occasions-afterparty/` with the contact sheet: **A the bar** (most room-accurate but reads like the existing "night with friends" chip) and **C the front window, late** (real night on Ashland — the only frame that says *late* — but the group sits small and far right; worth revisiting if the afterparty copy ever needs the clock to read).
 
-⚠️ **Known blemish in the shipped frame:** the two nearest cabinets carry blank black bars where the jackpot pills belong — unlit panels rather than a game screen. The crop pushes most of it out of frame; what remains is small at rail size. Fix in a future pass, don't repaint by hand.
+**v2, same day — Tyler's four tweaks.** The blank-panel blemish is fixed. One surgical GPT Image 2 pass anchored on the v1 crop (`fix1.txt`, "change only two things, do not reframe") repaired both near cabinet screens into proper jackpot-pills-over-tile-grid displays, and changed the standing man's head-back laugh to a level, warm grin — the set already had several head-back laughs and they were starting to read forced. **Expression notes are a legitimate render edit; wardrobe/lighting/colour still are not.** Because the pass was anchored on the *crop*, it came back at full 2048×1360, which bought back the resolution the v1 crop had spent.
+
+Then post only: crop `1635x1090+65+30` (centres the group, drops the empty machine-row third and the foreground floor), grade `-gamma 1.22 -brightness-contrast 4x3`, Lanczos to 1600×1067, webp q72 → 117KB.
+
+**Calibrate brightness against the set, don't eyeball it.** Mean grey (`magick f -colorspace Gray -format '%[fx:mean*100]' info:`) across the occasion rail runs 17–29. v1 sat at 14 — genuinely too dark, which is what Tyler flagged. v2 lands at 21.5: mid-pack, still the latest-feeling frame in the chooser, blacks uncrushed.
 
 ## Notes / open
 - **Room-accuracy is the gate.** The four earlier concept frames (`references/01–04`) depict a larger, wrong venue and are **mood-only** — do not reuse. Every new asset must read as *this* storefront room.
