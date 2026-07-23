@@ -244,7 +244,7 @@ Each occasion owns one photograph. The order is deliberate — the room gets bus
 | 8:45–9:30 | When nobody can agree | IMG-03 |
 | 9:30–10:15 | Something to celebrate | IMG-05 |
 | 10:15–11:00 | Before or after the main event | IMG-12 |
-| late | The afterparty | IMG-13 |
+| late | The afterparty | occ-afterparty |
 
 **Rail derivatives** live in `assets/img/rail/` — a 3:2 centre-crop of each source at webp q72, sized to the source rather than one fixed width (landscape sources at 1600×1067, the 4:5 portraits at their native 1120×747 rather than upscaled). ~1MB for all nine, but only one loads before interaction. Regenerate with:
 
@@ -256,7 +256,13 @@ Gravity matters: cropping the 4:5 portraits `north` cut the warm flame-lamp key 
 
 `hero-01` is deliberately **not** in the rail — it stays exclusive to the hero so the page doesn't repeat its strongest frame.
 
-**IMG-13 does double duty** (added 2026-07-20 for "The afterparty"): it is the invite section's full-bleed background, but there it sits under a heavy scrim behind centred type, so it is barely read as a photograph. Seeing it clearly in the chooser costs little. It was the least-bad option — every other frame was already spoken for, and hero-01 was the only real alternative. **A dedicated late-night group shot would serve this chip better if a generation round is worth it.**
+**The afterparty got its own frame, 2026-07-23** — the last chip still on a borrowed image. IMG-13's double duty is over; it is now only the invite section's full-bleed background, and `rail/img-13.webp` is orphaned (left in place, unreferenced).
+
+`occ-afterparty` is the machine row: five friends crowded on ONE cabinet partway down the row, one seated playing with the others leaning in over her shoulder. Deliberately **a different camera to the rest of the set** (Tyler's call) — every other occasion looks down the room or across the bar; this one runs along the machine wall. Generated with GPT Image 2 (3:2, 2k) anchored on `space-2301.jpg`, then **cropped in on the group** rather than regenerated: `magick r2-B.png -crop 1229x819+570+329 +repage`, Lanczos to 1600×1067, webp q72. Masters in `assets/img/_masters/occasions/` (`occ-afterparty_76d5732d.png` full frame, `occ-afterparty_crop.png` the shipped crop).
+
+Two rejected siblings from the same round are filed at `creative-direction/occasions-afterparty/` with the contact sheet: **A the bar** (most room-accurate but reads like the existing "night with friends" chip) and **C the front window, late** (real night on Ashland — the only frame that says *late* — but the group sits small and far right; worth revisiting if the afterparty copy ever needs the clock to read).
+
+⚠️ **Known blemish in the shipped frame:** the two nearest cabinets carry blank black bars where the jackpot pills belong — unlit panels rather than a game screen. The crop pushes most of it out of frame; what remains is small at rail size. Fix in a future pass, don't repaint by hand.
 
 ## Notes / open
 - **Room-accuracy is the gate.** The four earlier concept frames (`references/01–04`) depict a larger, wrong venue and are **mood-only** — do not reuse. Every new asset must read as *this* storefront room.
