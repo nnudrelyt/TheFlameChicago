@@ -240,7 +240,7 @@ Each occasion owns one photograph. The order is deliberate — the room gets bus
 | 3:00–5:00 | An hour that's yours | IMG-11 |
 | 5:00–6:30 | After the shift | IMG-02 |
 | 6:30–8:00 | An easy date night | IMG-10 |
-| 8:00–8:45 | A night with friends | IMG-06 |
+| 8:00–8:45 | A night with friends | IMG-06 (room-corrected 7/23) |
 | 8:45–9:30 | When nobody can agree | IMG-03 |
 | 9:30–10:15 | Something to celebrate | IMG-05 |
 | 10:15–11:00 | Before or after the main event | IMG-12 |
@@ -279,6 +279,16 @@ Fix: a luminance mask isolating only the 44–60% band (the hair rim + screen ti
 **Two lasting rules from this:** the last occasion chip gets the strongest soft-light wash, so its frame must not carry a big smooth near-white region; and resize the rail webp with **Triangle, not Lanczos** — Lanczos rings bright edges up.
 
 **Calibrate brightness against the set, don't eyeball it.** Mean grey (`magick f -colorspace Gray -format '%[fx:mean*100]' info:`) across the occasion rail runs 17–29. v1 sat at 14 — genuinely too dark, which is what Tyler flagged. v2 lands at 21.5: mid-pack, still the latest-feeling frame in the chooser, blacks uncrushed.
+
+## Room-sync corrections — bringing earlier frames onto the canonical map (started 2026-07-23)
+
+Several occasion frames were generated **before** the canonical room map was confirmed (the map firmed up 7/23; most occasions were shot 7/20–7/22), so their backgrounds drift from it. The job: keep the people, poses, composition and lighting a client already signed off on, and rebuild **only the room behind them** to the map. This is a background-only edit, not a reshoot.
+
+**Method (works, verified on "A night with friends"):** feed the approved master as the single `--image` to GPT Image 2, and write a prompt that (1) names each person + every table item as photo-identical and off-limits, (2) locks camera/framing/crop/lighting, then (3) lists the specific background corrections. GPT Image 2 held all three faces, the necklace, and every drink pixel-stable while rebuilding the wall behind a subject's head — confirmed by stacking old/new face crops. Grade to the frame's prior mean, export **Triangle** to the rail size, done.
+
+**IMG-06 "A night with friends" (`occ-friends`), fixed 7/23** — master `occ6-friends-PICKED.png`. Diffed against `space-2308`/`space-2316`: two deviations. (1) The red ribbon wall art ran long, ceiling-to-below-the-TV — the map is explicit that ribbons are **slim UPPER-wall accents ending well above the machine tops, never floor-to-ceiling**. (2) The two back-wall cabinets were spread apart; the real wall has them as a **tight pair directly under the centred CHICAGO SWEEPSTAKES board**. Surgical pass (`friends-fix.txt`) shortened the ribbons and paired the cabinets, kept the plain (mural-free) bar wall, no CCTV monitor. Graded `-brightness-contrast -1.5x0` to mean 28.7 (matching the prior 28.9), Triangle → 1920×1280 webp. Master `assets/img/_masters/occasions/occ-friends-roomfix_63c8525e.png`; the board came back as a blank-pill starfield (no readable title) — safer than risking garbled "CHICAGO SWEEPSTAKES" text, acceptable at background scale.
+
+**Still to audit against the map** (Tyler: "a few images"): walk each remaining occasion frame the same way — most likely suspects are the other pre-7/23 frames with prominent backgrounds. Diff each against the nearest real reference photo before deciding it needs a pass; don't regenerate a frame that's already accurate.
 
 ## Notes / open
 - **Room-accuracy is the gate.** The four earlier concept frames (`references/01–04`) depict a larger, wrong venue and are **mood-only** — do not reuse. Every new asset must read as *this* storefront room.
