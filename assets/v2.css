@@ -286,7 +286,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .step::before{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
   border-radius:inherit;transition:opacity .35s var(--ease);
-  background:radial-gradient(320px circle at var(--mx) var(--my),rgba(var(--glow),.17),transparent 68%);
+  /* 640px against a ~420px-wide card: the pool is wider than the card, so this
+     reads as the whole card warming toward the cursor rather than a puck that
+     tracks it. Deliberate (Tyler, 2026-07-22). The edge light below stays at
+     260 — it is what keeps the effect legible as pointer-driven. */
+  background:radial-gradient(640px circle at var(--mx) var(--my),rgba(var(--glow),.17),transparent 68%);
 }
 /* the lit edge — a 1px gradient ring, masked so only the border shows */
 .step::after{
