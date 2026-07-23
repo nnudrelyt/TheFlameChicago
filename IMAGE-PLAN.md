@@ -27,6 +27,35 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
 
+## METHOD — how to actually get an accurate frame (adopted 2026-07-22)
+
+Tyler, on why a run of shots came back wrong: *"The exercise is not to use the same elements to invent new scenes, it's to invent new scenes within the room we've defined."* A prose list of the room's contents reads to the model as "scatter these props into a plausible space." The photographs are the definition of the room; prose is only a caption on them.
+
+**What went wrong, mechanically.** Generations got chained off previous generations — my own output passed as the first `--image`, over and over. Each render is then a copy of a copy and the room drifts toward a generic lounge. Worse, when an anchor frame already contained an error (a centred sweepstakes TV, floor-to-ceiling ribbons), instructing the model to "keep the casting from this reference" faithfully preserved its *room* too. The error was inherited on purpose.
+
+**The rules:**
+1. **A real photograph is always the first `--image`.** Never a previous render in that slot.
+2. **Name a real vantage.** "Standing where `space-2309` was shot, looking down the room" — not an abstract description of a space.
+3. **One step maximum off any prior render.** If a frame needs more correction than that, go back to the photographs and rebuild, don't iterate on an iteration.
+4. **Casting travels as description, not by copying a frame** — so people can be carried forward without carrying that frame's room with them.
+5. **Verify before presenting.** Crop-compare the result against the reference. State only what has actually been checked — do not publish a "rules applied" checklist on trust.
+6. **Treat approved frames as canonical plates.** `occ-overnight`, `occ-shift`, `hero-01`, `img-05`, `img-13` are the reference standard for how this room renders; new work should sit beside them without looking like a different venue.
+
+**Corollary:** fewer, better options per round. Confirm the room reads correctly before adding people, rather than presenting three finished-looking frames that are wrong underneath.
+
+## WALKTHROUGH — the room in order, front door inward (Tyler's series, 2026-07-22)
+
+Source: `space-2298` (exterior door), then `space-2310 → 2311 → 2312 → 2308 → 2316` moving inward. Use these to place a camera, not just to list objects.
+
+- **The door.** Glass storefront door at street level, "THE FLAME" fire decal and an 18+ sticker on the glass, window AC unit above, concrete step up from the sidewalk.
+- **Immediately inside — the front corner.** The storefront window wall runs beside you. On the wall: a NO SMOKING sign, a "smile you're on camera" notice, a slim red ribbon. A single machine with a black swivel chair sits in this corner. An EXIT sign overhead.
+- **The counter begins on your LEFT.** Two flat WALL TVs are mounted above it (usually dark — these are the room's only two TVs, and the CHICAGO SWEEPSTAKES board belongs on them, nowhere else). The counter is white-based with a glossy black stone top; its aisle-facing front run carries the flames mural, with tall black studded swivel stools along it. Ends and returns are plain.
+- **At the counter's near end: one machine stands free, turned to FACE INTO THE ROOM,** with its own chair. This is the "one in front" of the nine.
+- **Down the room:** a row of machines with black swivel chairs, the tall dark carved wooden figure standing among them, ornate carved FLAME plaques on the wall between, slim red wavy ribbons as upper-wall accents, large potted plants.
+- **The opposite wall** carries a machine with a chair, near a framed notice, a thermostat and a bin.
+- **The floor:** light grey plank with a DARK RUNNER RUG running the length of the centre aisle. White drop-ceiling above with recessed cans, vents and a blue cove wash.
+- **The back:** round marble-top tables with black chairs, the ATM with a small standing game beside it, the restrooms, and the FLAME wall mural (being removed — render plain).
+
 ## ⚠️ LAYOUT FIDELITY — the recurring failure (Tyler, 2026-07-22)
 
 > *"All room compositions should match the layout of the room based on the images provided, not invented."*

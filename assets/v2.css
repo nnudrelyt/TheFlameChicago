@@ -368,10 +368,27 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    per Tyler. The address line + "Get directions" + phone already cover
    wayfinding, so the right column now earns its space by capturing a lead. */
 .footer-rich .foot-form{
+  position:relative;
   margin:0;border-radius:var(--radius);
-  background:var(--bg-deep);border:1px solid var(--line);
+  /* the edge is the ::after ring below; the border only holds geometry */
+  background:var(--bg-deep);border:1px solid transparent;
   padding:clamp(22px,2.4vw,32px);
   display:flex;flex-direction:column;gap:14px;justify-content:center;
+}
+/* Card edge: the same masked pillar gradient as the controls inside it, but
+   held well back. The stack has to read in one direction — card .2, controls
+   .5 at rest, controls 1 on focus — so the container never competes with the
+   thing you're actually filling in. inset:-1px because an abs-positioned child
+   is laid out against the padding box, and this ring belongs on the border. */
+.footer-rich .foot-form::after{
+  content:"";position:absolute;inset:-1px;border-radius:var(--radius);
+  padding:1px;pointer-events:none;opacity:.2;
+  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
+  filter:saturate(.78);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
 }
 .footer-rich .ff-lead{color:var(--paper);font-size:1.16rem;font-weight:600;margin:0 0 2px}
 .footer-rich .ff-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
