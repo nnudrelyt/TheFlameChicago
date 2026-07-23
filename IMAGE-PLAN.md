@@ -266,6 +266,8 @@ Two rejected siblings from the same round are filed at `creative-direction/occas
 
 Then post only: crop `1635x1090+65+30` (centres the group, drops the empty machine-row third and the foreground floor), grade `-gamma 1.22 -brightness-contrast 4x3`, Lanczos to 1600×1067, webp q72 → 117KB.
 
+**v3 — the blonde's gaze.** She was pointing at the screen while looking away from it. One more surgical pass (`fix2.txt`, anchored on the v2 crop *before* grading) turns only her head and eyes toward the cabinet; everything else held, including the man's grin and the repaired screens. Regraded `-gamma 1.26 -brightness-contrast 4x3` to land back at mean 21.6. Note each surgical pass comes back at roughly the same raw mean (~13.7), so the grade has to be re-applied every time — never grade before a render pass, only after.
+
 **Calibrate brightness against the set, don't eyeball it.** Mean grey (`magick f -colorspace Gray -format '%[fx:mean*100]' info:`) across the occasion rail runs 17–29. v1 sat at 14 — genuinely too dark, which is what Tyler flagged. v2 lands at 21.5: mid-pack, still the latest-feeling frame in the chooser, blacks uncrushed.
 
 ## Notes / open

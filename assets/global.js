@@ -388,10 +388,12 @@
   }
 
   /* --- contact form ---
-     Static site, no backend. Submits to a form service via fetch. Set
-     FORM_ENDPOINT to a Web3Forms/Formspree URL (or a Vercel /api route).
-     Until it's set, the form validates and tells the visitor to call. */
-  var FORM_ENDPOINT = ""; // TODO: paste Web3Forms/Formspree endpoint here
+     Static site, no backend. Submits to Web3Forms, which delivers to
+     info@theflamechicago.com. The destination is set by the access_key
+     hidden field in index.html, not here — swapping where mail lands means
+     issuing a new key, not editing this file.
+     Until the key is filled in, the form validates and tells the visitor to call. */
+  var FORM_ENDPOINT = "https://api.web3forms.com/submit";
   var cform = document.getElementById("contactForm");
   if (cform) {
     var status = cform.querySelector(".ff-status");
@@ -404,7 +406,8 @@
       e.preventDefault();
       if (cform.querySelector('[name="_gotcha"]').value) return; // bot
       if (!cform.checkValidity()) { cform.reportValidity(); return; }
-      if (!FORM_ENDPOINT) {
+      var akey = cform.querySelector('[name="access_key"]');
+      if (!FORM_ENDPOINT || !akey || !akey.value) {
         setStatus("Thanks! Email isn't wired up yet — please call (312) 218-7677.", "err");
         return;
       }
