@@ -10,3 +10,6 @@ assets/img/_masters/
 
 # scratch exploration (do not deploy/commit)
 _explore.html
+
+# Claude Code session scratch — worktrees are separate repos, never commit them
+.claude/worktrees/
