@@ -31,12 +31,14 @@ Every generated scene must be built only from fixtures that appear in the real r
 **EAST WALL — the bar and the service corner** *(your LEFT facing back)*
 - **Front half — the bar:** a continuous counter, glossy black stone top, solid base. The **flames mural wraps ONLY its long front face** — the run facing out into the room. Every **return, end cap and side section is PLAIN**: black stone top over an unpatterned base. Tall **black swivel stools with round studded seats** tucked along it.
 - Behind it: the **POS**, the **sweepstakes tv**, a small **neon flame**, and the **"THE FLAME" fire wall mural** — which is being removed, so render that stretch **plain**.
+  - ⚠️ **THE BAR-SIDE TV IS CORNER-MOUNTED ON A BUMP-OUT (Tyler, 2026-07-23).** It is not flush against a flat wall — it hangs high in the corner on a projecting bump-out and sits at an **angle to the room**. That bump-out is also why shots down this side can look like a different far end: the wall turns there.
+  - ⚠️ **NEVER RENDER THE CCTV / CAMERA-FEED MONITOR.** It exists below the TV in the photos; leave it out of every shot.
 - A **ninth, FULL-SIZE cabinet stands free at the bar's front end, turned to FACE INTO THE ROOM**, with its own chair. Same size as the wall machines — not the small kiosk. Clearly visible in `space-2312`.
-- **Back half, in order along the wall:** an **exit door with an EXIT sign above it** → the **restroom door** beside it → the **ATM** → the **standalone kiosk** (smaller than the wall machines) → a **supply closet door** past the kiosk. A **framed mirror** hangs above the ATM and kiosk, with a **NO SMOKING sign** above the mirror.
+- **Back half — same wall/side as the bar, continuing around its back return.** In order: an **exit door with an EXIT sign above it** → the **restroom door** beside it → the **ATM** → the **standalone kiosk** (smaller than the wall machines) → a **supply closet door** past the kiosk. A **framed mirror** hangs above the ATM and kiosk, with a **NO SMOKING sign** above the mirror.
 
 **BACK WALL**
-- **Two cabinets** standing against it, with a **sweepstakes TV centred directly above the pair**, the trio **flanked by red ribbon wall art** on both sides.
-- A **white marble round table with four chairs** in front of it.
+- **Two cabinets** standing against it, **facing directly away from the front windows** (i.e. facing back up the room toward the entrance), with a **sweepstakes TV centred directly above the pair**, the trio **flanked by red ribbon wall art** on both sides.
+- A **white marble round table with four chairs** in front of it. ⚠️ The table top is **not plain marble — "THE FLAME" is printed across it**.
 
 **FLOOR / CEILING / LIGHT**
 - Light **grey plank floor** with a **dark runner rug** running the length of the centre aisle.
