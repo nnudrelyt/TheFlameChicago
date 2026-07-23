@@ -221,18 +221,8 @@
    dissolve so the chips stay direct flex children of .chips and wrap as before */
 .chips-track,.chips-set{display:contents}
 .chips-set[aria-hidden="true"]{display:none}
-.chip{position:relative;font-size:.82rem;font-weight:600;color:var(--ink-soft);background:rgba(244,237,225,.05);border:1px solid transparent;border-radius:100px;padding:7px 14px;backdrop-filter:blur(3px)}
+.chip{font-size:.82rem;font-weight:600;color:var(--ink-soft);background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;padding:7px 14px;backdrop-filter:blur(3px)}
 .chip b{color:var(--amber);font-weight:700;margin-right:5px}
-/* Pillar stroke on the pills. NB ::BEFORE, not ::after — below 640px the chips
-   become a ticker and .chips-set .chip::after is the dot separator. Passive
-   labels, so they sit at .45: below the controls, above the cards. */
-.chip::before{
-  content:"";position:absolute;inset:-1px;border-radius:100px;padding:1px;
-  pointer-events:none;opacity:.45;
-  background:var(--stroke-grad);filter:saturate(.78);
-  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
-  mask:var(--stroke-mask);mask-composite:exclude;
-}
 
 /* =========================================================================
    SHARED SECTION BITS
@@ -532,17 +522,9 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* tags, not a dot-separated run-on — same pill language as the hero chips and
    the occasion chooser, so the page has one way of showing a set of facts. */
 .footer-rich .foot-facts{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:26px}
-.footer-rich .foot-facts li{position:relative;font-size:.92rem;font-weight:600;color:var(--ink-soft);
-  background:rgba(244,237,225,.05);border:1px solid transparent;border-radius:100px;
+.footer-rich .foot-facts li{font-size:.92rem;font-weight:600;color:var(--ink-soft);
+  background:rgba(244,237,225,.05);border:1px solid var(--line);border-radius:100px;
   padding:8px 16px;white-space:nowrap}
-/* same passive-label level as the hero chips — the pill language stays one thing */
-.footer-rich .foot-facts li::before{
-  content:"";position:absolute;inset:-1px;border-radius:100px;padding:1px;
-  pointer-events:none;opacity:.45;
-  background:var(--stroke-grad);filter:saturate(.78);
-  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
-  mask:var(--stroke-mask);mask-composite:exclude;
-}
 .footer-rich .foot-facts li b{color:var(--amber);font-weight:700;margin-right:6px}
 .footer-rich .foot-brandline{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;color:var(--muted)}
 /* one type treatment across the whole sentence — the wordmark keeps the amber
@@ -661,8 +643,6 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
     display:inline-flex;align-items:center;white-space:nowrap;
     font-size:.9rem;color:var(--ink-soft);
   }
-  /* no pill here, so nothing for the stroke to trace */
-  .chip::before{display:none}
   .chips-set .chip::after{
     content:"";flex:none;width:3px;height:3px;border-radius:50%;
     background:var(--faint);margin-inline:16px;
@@ -910,26 +890,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* the chips — a vertical menu in the left column. They hug their text rather
    than filling the column, so they stay pills and don't read as nav buttons. */
 .oc-chips{flex-direction:column;align-items:flex-start;gap:10px}
-.oc-chip{position:relative;font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
-  color:var(--ink-soft);border:1px solid transparent;border-radius:999px;
+.oc-chip{font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;
   padding:11px 20px;white-space:nowrap;
   transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
-/* A real control, so it takes the control level: .5 at rest, full on hover. */
-.oc-chip::before{
-  content:"";position:absolute;inset:-1px;border-radius:999px;padding:1px;
-  pointer-events:none;opacity:.5;transition:opacity .2s var(--ease);
-  background:var(--stroke-grad);filter:saturate(.78);
-  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
-  mask:var(--stroke-mask);mask-composite:exclude;
-}
-.oc-chip:hover::before,.oc-chip:focus-visible::before{opacity:1}
-.oc-chip:hover{color:var(--paper)}
-/* The selected chip stays a solid amber fill — it is the loudest state in the
-   section and has to beat nine neighbours at a glance. A gradient edge on top
-   of that fill would only blur the one signal that has to stay unambiguous. */
+.oc-chip:hover{border-color:var(--amber);color:var(--paper)}
 .oc-chip[aria-selected="true"]{background:var(--amber);border-color:var(--amber);
   color:#201200;font-weight:600}
-.oc-chip[aria-selected="true"]::before{opacity:0}
 
 /* the stage */
 .oc-stage{position:relative}

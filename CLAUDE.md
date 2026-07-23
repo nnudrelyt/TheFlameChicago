@@ -54,10 +54,9 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 
 ## Pillar stroke
 - **One source of truth: `--stroke-grad` + `--stroke-mask` in v2.css `:root`, and the `.gr-ring` utility class.** The masked four-hue conic edge started on the FAQ `+` ring and now runs across the site; it was pasted verbatim six times before being tokenised 2026-07-22. Snap new components to the token — don't paste the gradient a seventh time.
-- **Opacity IS the hierarchy** — one ladder, read it before picking a number: form card `.2` → content cards (`.step`, `.oc-frame`) `.3` → passive pills (`.chip`, `.foot-facts li`) `.45` → controls (`.oc-chip`, inputs, submit) `.5` at rest → step numerals `.55` → controls `1` on hover/focus. Containers must stay below the thing you interact with.
+- **Opacity IS the hierarchy** — one ladder, read it before picking a number: form card `.2` → content cards (`.step`, `.oc-frame`) `.3` → step numerals `.55` → controls (inputs, submit) `.5` at rest → controls `1` on hover/focus. Containers must stay below the thing you interact with.
 - `.gr-ring` must be a **child element** on `.step` (and `.btn-ring`) — `::before`/`::after` there already carry the pointer spotlight, and that rule is the one that silently broke once. Free pseudo-elements (`.step-n::after`, `.ff-ctrl::after`, `.foot-form::after`) just copy the three properties.
 - Hosts set their own border to `transparent` and keep it for geometry only, so lighting the ring never shifts layout. Use `inset:-1px` normally; use `inset:0` where the host has `overflow:hidden` (`.step`, `.oc-frame`) since the clip is to the padding box.
-- **Chips and tags** (2026-07-22) all carry it, keeping the one pill language: hero `.chip`, footer `.foot-facts li`, occasion `.oc-chip`. Two traps — the hero chip must use **`::before`**, because below 640px the chips become a ticker and `.chips-set .chip::after` is the dot separator (the ring is `display:none`d there too, since the pill chrome is gone); and the **selected** `.oc-chip` zeroes its ring, keeping the solid amber fill as the one unambiguous signal against nine neighbours.
 - The step cards' hover no longer lights `border-color` with the per-card `--glow` — the ring owns the edge and brightens instead. The `--glow` pointer spotlight is untouched and still gives each card its own hue.
 
 ## Type scale
