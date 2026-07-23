@@ -898,10 +898,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .oc-chip{font:inherit;font-size:1rem;cursor:pointer;background:var(--surface);
   color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;
   padding:11px 20px;white-space:nowrap;
-  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),
+    box-shadow .2s var(--ease)}
 .oc-chip:hover{border-color:var(--amber);color:var(--paper)}
+/* the glow is .btn-primary's (global.css:120) scaled to pill size, so the lit
+   chip reads as the same species of control as the hero CTA */
 .oc-chip[aria-selected="true"]{background:var(--amber);border-color:var(--amber);
-  color:#201200;font-weight:600}
+  color:#201200;font-weight:600;box-shadow:0 8px 26px -10px rgba(255,182,74,.7)}
 
 /* the stage */
 .oc-stage{position:relative}
@@ -911,6 +914,10 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
      the padding box, so the ring sits at inset:0 (inside the 1px border) rather
      than the -1px the unclipped cards use. */
   border:1px solid transparent;background:#171009;
+  /* lifts the photo off the band: a tight contact shadow plus a wide ambient
+     one, in near-black violet (the cool pillar crushed almost to black) so the
+     dark stays cool against the warm ground instead of reading neutral */
+  box-shadow:0 10px 24px -12px rgba(20,8,38,.72),0 32px 70px -28px rgba(20,8,38,.72);
   /* aspect-ratio sets the row's natural height; height:100% then fills whatever
      the row ends up being. Both are needed: without the ratio the photo can
      never grow past the chip stack, and without height:100% it stays SHORTER
