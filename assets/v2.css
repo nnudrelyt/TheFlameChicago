@@ -477,7 +477,12 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .footer-rich .ff-ctrl{position:relative;display:block}
 .footer-rich .ff-ctrl::after{
   content:"";position:absolute;inset:0;border-radius:10px;padding:1px;
-  pointer-events:none;opacity:.5;transition:opacity .18s var(--ease);
+  /* .25 against the submit's .5: four fields versus one button, so at equal
+     weight the fields won the section on mass alone. Half the weight is what
+     makes the button lead. This is at the low end of legible against
+     --bg-deep — don't go further without re-checking the field edges are
+     still findable. Focus still goes to full. */
+  pointer-events:none;opacity:.25;transition:opacity .18s var(--ease);
   background:var(--stroke-grad);filter:saturate(.78);
   -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
   mask:var(--stroke-mask);mask-composite:exclude;
