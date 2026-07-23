@@ -283,8 +283,15 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* the wash — sits above the photo, below the copy */
 .step .shot{z-index:0}
 .step-body{position:relative;z-index:2}
+/* Carries a resting glow (2026-07-22): the wash sits at .42 at rest and fades
+   to full on hover, so each card is quietly lit in its own pillar hue before
+   anyone touches it. --mx/--my default to 50% 50%, so the resting pool is
+   centred and only starts tracking once the pointer is over the card. Only the
+   WASH rests visible — the lit edge below stays a pure hover reward, because
+   the edge already belongs to the .gr-ring gradient and a second, pillar-hued
+   edge at rest would muddy it. */
 .step::before{
-  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.42;
   border-radius:inherit;transition:opacity .35s var(--ease);
   /* 640px against a ~420px-wide card: the pool is wider than the card, so this
      reads as the whole card warming toward the cursor rather than a puck that
@@ -324,10 +331,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 }
 .faq-item:hover::after,.faq-item:focus-within::after{opacity:1}
 
-/* no pointer to follow, and the lift costs layout work on scroll-heavy phones */
+/* no pointer to follow, and the lift costs layout work on scroll-heavy phones.
+   The wash stays: since 2026-07-22 it is a RESTING glow, not a pointer effect,
+   so on touch it simply sits centred (--mx/--my never leave 50%). Only the
+   things that need a cursor to mean anything are dropped. */
 @media (hover:none){
   .step:hover,.step:focus-within{transform:none}
-  .step::before,.step::after,.faq-item::after{display:none}
+  .step::after,.faq-item::after{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   .step{transition:none}
