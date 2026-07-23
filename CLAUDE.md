@@ -49,6 +49,13 @@ Static single-page site for **theflamechicago.com** (Main Sequence client Dana &
 - It hides in the hero (no section active) and is `display:none` below 860px — the drawer stacks links vertically, so a horizontal slider has nothing to slide along, and it would measure 0 while `.nav` is hidden. `.is-current` still marks the section by colour there.
 - The old per-link hover underline is retired: it sat exactly where the indicator does, so hovering an inactive link drew two bars.
 
+## Pillar stroke
+- **One source of truth: `--stroke-grad` + `--stroke-mask` in v2.css `:root`, and the `.gr-ring` utility class.** The masked four-hue conic edge started on the FAQ `+` ring and now runs across the site; it was pasted verbatim six times before being tokenised 2026-07-22. Snap new components to the token — don't paste the gradient a seventh time.
+- **Opacity IS the hierarchy** — one ladder, read it before picking a number: form card `.2` → content cards (`.step`, `.oc-frame`) `.3` → step numerals `.55` → controls (inputs, submit) `.5` at rest → controls `1` on hover/focus. Containers must stay below the thing you interact with.
+- `.gr-ring` must be a **child element** on `.step` (and `.btn-ring`) — `::before`/`::after` there already carry the pointer spotlight, and that rule is the one that silently broke once. Free pseudo-elements (`.step-n::after`, `.ff-ctrl::after`, `.foot-form::after`) just copy the three properties.
+- Hosts set their own border to `transparent` and keep it for geometry only, so lighting the ring never shifts layout. Use `inset:-1px` normally; use `inset:0` where the host has `overflow:hidden` (`.step`, `.oc-frame`) since the clip is to the padding box.
+- The step cards' hover no longer lights `border-color` with the per-card `--glow` — the ring owns the edge and brightens instead. The `--glow` pointer spotlight is untouched and still gives each card its own hue.
+
 ## Type scale
 - **One source of truth: `--fs-h2` / `--fs-h3` / `--fs-h4` in v2.css `:root`.** At 1693px they render 64 / 44 / 32. Snap components to a step rather than inventing a size.
 - Before 2026-07-20 only h2 was real. h3's nominal 32px was a **phantom** — every consumer overrode it — so sizes were scattered from 22 to 62 and the occasion title (62) collided with the section h2 (64). `.pillar h3` and `.games-note h3` were dead rules (0 uses) and are gone.

@@ -26,7 +26,25 @@
      consumer overrode it) and sizes were scattered from 22 to 62. */
   --fs-h2:clamp(2.3rem,5vw,4rem);
   --fs-h3:clamp(1.9rem,2.8vw,2.75rem);
-  --fs-h4:clamp(1.4rem,2vw,2rem)}
+  --fs-h4:clamp(1.4rem,2vw,2rem);
+  /* PILLAR STROKE — one source of truth for the masked gradient edge now worn
+     by the FAQ + ring, the submit button, the form fields and card, the step
+     cards and their numerals, and the occasion photo. Snap new components to
+     it rather than pasting the conic gradient an eighth time. */
+  --stroke-grad:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
+  --stroke-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0)}
+
+/* The ring itself. Draws a 1px gradient edge by masking out everything inside
+   the padding box. Use as a child element wherever ::before/::after are already
+   spoken for (.step, .btn-ring), or copy the three properties onto a free
+   pseudo-element. Callers set opacity — that is the whole hierarchy:
+   card .2 → content cards .3 → controls .5 at rest → controls 1 on focus. */
+.gr-ring{
+  position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
+}
 
 /* header rides the SAME track as .wrap, so the wordmark's left edge
    lines up exactly with the hero/section content at every width. Background
@@ -146,9 +164,11 @@
 .firststeps{background:var(--bg-deep)}
 
 /* first-visit step numbers stepped through the pillar palette */
-.firststeps .steps .step:nth-child(1) .step-n{color:var(--teal);background:rgba(69,214,208,.12);border-color:rgba(69,214,208,.42)}
-.firststeps .steps .step:nth-child(2) .step-n{color:var(--magenta);background:rgba(255,92,146,.12);border-color:rgba(255,92,146,.42)}
-.firststeps .steps .step:nth-child(3) .step-n{color:var(--violet);background:rgba(166,132,255,.12);border-color:rgba(166,132,255,.42)}
+/* The per-card teal/magenta/violet numerals were retired 2026-07-22 when the
+   numerals took the pillar stroke — a hue-tinted digit inside a four-hue ring
+   read as two competing accents. Each card still declares its own --glow, so
+   the spotlight keeps the cards distinct. Restore these three rules if the
+   numerals ever need to carry the colour again. */
 
 /* =========================================================================
    THE PHOTOGRAPHIC SLOT SYSTEM
@@ -234,7 +254,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .firststeps .sec-head{max-width:none}
 .firststeps .sec-head .lead{max-width:none;margin-top:16px;text-wrap:balance}
 .firststeps .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.step{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+/* border transparent — the edge is the .gr-ring child. It has to be a child and
+   not ::before/::after: both of those already carry the pointer spotlight, and
+   the last time something reached into those rules it silently killed the whole
+   effect (see the .step:hover::before note below). */
+.step{background:var(--bg-2);border:1px solid transparent;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.step .gr-ring{z-index:3;opacity:.3;transition:opacity .35s var(--ease)}
+.step:hover .gr-ring,.step:focus-within .gr-ring{opacity:.75}
 .step .shot{border:0;border-radius:0;min-height:200px}
 .step-body{padding:22px 24px 26px;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:14px;align-items:center}
 
@@ -273,8 +299,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
 }
-.step{transition:transform .35s var(--ease),border-color .35s var(--ease)}
-.step:hover,.step:focus-within{transform:translateY(-3px);border-color:rgba(var(--glow),.34)}
+/* the hover edge used to be a per-card pillar border-color; the .gr-ring now
+   owns the edge and brightens instead, so lighting the border too would double
+   up. The pointer spotlight below still carries each card's own --glow. */
+.step{transition:transform .35s var(--ease)}
+.step:hover,.step:focus-within{transform:translateY(-3px)}
 /* NB: this rule needs its own braces. It once ran on into the .faq-item rule
    below via a trailing comma, which silently killed the whole card spotlight —
    the step pseudo-elements inherited opacity:0 and a 1px bottom-edge box. */
@@ -297,10 +326,24 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .step::before,.step::after,.faq-item::after{display:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .step{transition:border-color .35s var(--ease)}
+  .step{transition:none}
   .step:hover,.step:focus-within{transform:none}
+  .step .gr-ring,.step-n::after{transition:none}
 }
-.step-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:100px;background:rgba(255,182,74,.12);border:1px solid rgba(255,182,74,.4);color:var(--amber);font-weight:800;font-size:1.15rem;grid-column:1;grid-row:1}
+/* The numeral wears the same edge as the card it sits in: gradient ring, no
+   fill of its own, numeral in paper rather than a pillar hue — the four-hue
+   stroke IS the colour, so tinting the digit too would be two accents on one
+   40px object. Each card's identity still comes through in its --glow
+   spotlight, which is untouched. */
+.step-n{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid transparent;color:var(--paper);font-weight:800;font-size:1.15rem;grid-column:1;grid-row:1}
+.step-n::after{
+  content:"";position:absolute;inset:-1px;border-radius:100px;padding:1px;
+  pointer-events:none;opacity:.55;transition:opacity .35s var(--ease);
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
+}
+.step:hover .step-n::after,.step:focus-within .step-n::after{opacity:1}
 .step h3{grid-column:2;grid-row:1;font-size:var(--fs-h4);margin:0}
 .step p{grid-column:1 / -1;grid-row:2;color:var(--muted);font-size:1rem;margin:0}
 
@@ -383,12 +426,9 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .footer-rich .foot-form::after{
   content:"";position:absolute;inset:-1px;border-radius:var(--radius);
   padding:1px;pointer-events:none;opacity:.2;
-  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
-  filter:saturate(.78);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
 }
 .footer-rich .ff-lead{color:var(--paper);font-size:1.16rem;font-weight:600;margin:0 0 2px}
 .footer-rich .ff-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -417,12 +457,9 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .footer-rich .ff-ctrl::after{
   content:"";position:absolute;inset:0;border-radius:10px;padding:1px;
   pointer-events:none;opacity:.5;transition:opacity .18s var(--ease);
-  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
-  filter:saturate(.78);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
 }
 .footer-rich .ff-ctrl:focus-within::after{opacity:1}
 /* the error colour has to read on its own — drop the gradient rather than
@@ -741,12 +778,9 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .faq-pm-ring{
   position:absolute;inset:-1px;border-radius:50%;padding:1px;pointer-events:none;
   opacity:0;transition:opacity .25s var(--ease);
-  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
-  filter:saturate(.78);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
 }
 .faq-item summary:hover .faq-pm,.faq-item summary:focus-visible .faq-pm{
   background:none;border-color:transparent;transform:scale(1.06);
@@ -847,7 +881,10 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .oc-stage{position:relative}
 .oc-stage:focus-visible{outline-offset:6px}
 .oc-frame{position:relative;overflow:hidden;border-radius:var(--radius);
-  border:1px solid var(--line);background:#171009;
+  /* transparent — the edge is the .gr-ring child. NB overflow:hidden clips to
+     the padding box, so the ring sits at inset:0 (inside the 1px border) rather
+     than the -1px the unclipped cards use. */
+  border:1px solid transparent;background:#171009;
   /* aspect-ratio sets the row's natural height; height:100% then fills whatever
      the row ends up being. Both are needed: without the ratio the photo can
      never grow past the chip stack, and without height:100% it stays SHORTER
@@ -891,6 +928,10 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   text-shadow:0 2px 20px rgba(0,0,0,.7)}
 .oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.4vw,1.375rem);
   line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
+
+/* matches the step cards — same content-card level, and it sits above the
+   photo, wash and vignette so the edge stays legible over any frame */
+.oc-frame .gr-ring{z-index:4;opacity:.3}
 
 /* auto-advance dial — shows how long the current occasion has left. It is only
    present while autoplay is genuinely running: global.js adds .is-auto in
@@ -1010,12 +1051,9 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .btn-ring-line{
   position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
   opacity:.5;transition:opacity .25s var(--ease);
-  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
-  filter:saturate(.78);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
+  background:var(--stroke-grad);filter:saturate(.78);
+  -webkit-mask:var(--stroke-mask);-webkit-mask-composite:xor;
+  mask:var(--stroke-mask);mask-composite:exclude;
 }
 .btn-ring:hover,.btn-ring:focus-visible{background:rgba(255,182,74,.06);color:var(--amber);transform:translateY(-2px)}
 .btn-ring:hover .btn-ring-line,.btn-ring:focus-visible .btn-ring-line{opacity:1}
