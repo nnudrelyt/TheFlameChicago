@@ -55,6 +55,8 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 **TWO SWEEPSTAKES SCREENS, TWO PLACES.** One above the bar on the east wall, one on the back wall centred over the two cabinets. Those are the only places the board belongs — never invent a third, and never centre one behind a subject to fill space.
 
+⚠️ **BOTH SCREENS DO NOT BELONG IN EVERY SHOT (Tyler, 2026-07-23).** They exist in the room, but a screen should only appear when **the camera is actually pointed at the wall it hangs on**. Do not add a sweepstakes TV to a frame just because the room has them — if the angle looks at a stretch of wall that carries something else (the service corner, a plain run), render *that*, not a screen. A group shot looking toward the back had a sweepstakes TV floating on a bare left wall where the **exit door and restroom door** actually are.
+
 **NO PARTITION.** Earlier notes claimed a partial dividing wall with a pass-through. That was my inference from a misread photo and is **not in the room**. Do not render one.
 
 **THE FRONT DOOR / EXTERIOR** (`space-front-door-1231.jpg`): a plain glass storefront door at **1231 N Ashland**, with the "THE FLAME" fire decal + an "18+" sticker on the glass, a window AC unit above, a concrete step up from the sidewalk. It sits between a **criminal-law office** (grey window graphics: "CRIMINAL LAW / DUI / TRAFFIC") on the left and the lounge's own storefront window on the right. Honest, humble, unmistakably this Wicker Park block — do NOT invent a grander entrance.
