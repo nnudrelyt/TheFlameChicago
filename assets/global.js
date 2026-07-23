@@ -282,13 +282,27 @@
          good the moment someone picks a chip — advancing away from a deliberate
          choice would be worse than having no motion at all. */
       var ocTimer = null, ocPicked = false, OC_DELAY = 3800;
-      function ocStop() { if (ocTimer) { clearInterval(ocTimer); ocTimer = null; } }
+      /* one source of truth for the cadence: the .oc-timer dial's CSS sweep
+         reads the same number the interval runs on */
+      chooser.style.setProperty("--oc-delay", OC_DELAY + "ms");
+      var ocDial = chooser.querySelector(".oc-timer-arc");
+      function ocStop() {
+        if (ocTimer) { clearInterval(ocTimer); ocTimer = null; }
+        chooser.classList.remove("is-auto");
+      }
       function ocStart() {
         if (reduce || ocPicked) return;
         ocStop();
+        /* Restart the sweep from zero in the same tick the interval begins, or
+           a hover pause leaves the dial mid-arc and out of phase. ocStop() has
+           just removed .is-auto; without flushing layout here the remove+add
+           collapse into no change within the frame and the animation never
+           restarts — hence the deliberate forced reflow. */
+        if (ocDial) { void ocDial.getBoundingClientRect(); }
         ocTimer = window.setInterval(function () {
           ocSelect((ocShown + 1) % items.length);
         }, OC_DELAY);
+        chooser.classList.add("is-auto");
       }
 
       chips.forEach(function (c, i) {

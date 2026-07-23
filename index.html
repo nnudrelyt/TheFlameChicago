@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
 <link rel="stylesheet" href="/assets/global.css?v=14">
-<link rel="stylesheet" href="/assets/v2.css?v=128">
+<link rel="stylesheet" href="/assets/v2.css?v=129">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
 <!-- JSON-LD (real NAP from live site; socials TBD) -->
@@ -90,14 +90,14 @@
             <span class="chip"><b>✓</b>No cover</span>
             <span class="chip"><b>✓</b>Smoke-free</span>
             <span class="chip"><b>✓</b>Free snacks &amp; drinks</span>
-            <span class="chip"><b>✓</b>21+</span>
+            <span class="chip"><b>✓</b>18+</span>
             <span class="chip"><b>✓</b>Open daily 11–11</span>
           </div>
           <div class="chips-set" aria-hidden="true">
             <span class="chip"><b>✓</b>No cover</span>
             <span class="chip"><b>✓</b>Smoke-free</span>
             <span class="chip"><b>✓</b>Free snacks &amp; drinks</span>
-            <span class="chip"><b>✓</b>21+</span>
+            <span class="chip"><b>✓</b>18+</span>
             <span class="chip"><b>✓</b>Open daily 11–11</span>
           </div>
         </div>
@@ -120,6 +120,14 @@
           <div class="oc-frame"><!-- the two crossfade layers are built by global.js -->
             <span class="oc-wash" aria-hidden="true"></span>
             <span class="oc-vig" aria-hidden="true"></span>
+            <!-- auto-advance countdown; only visible while autoplay is actually
+                 running (global.js toggles .is-auto on the chooser) -->
+            <span class="oc-timer" aria-hidden="true">
+              <svg viewBox="0 0 36 36" focusable="false">
+                <circle class="oc-timer-track" cx="18" cy="18" r="16"></circle>
+                <circle class="oc-timer-arc" cx="18" cy="18" r="16"></circle>
+              </svg>
+            </span>
           </div>
           <!-- outside .oc-frame so it can drop below the photo on small screens -->
           <div class="oc-readout">
@@ -160,8 +168,8 @@
           </li>
           <li class="oc-item" data-chip="Date night" data-when="After work · 5 – 8pm"
               data-from="1110" data-to="1200"
-              data-img="/assets/img/rail/occ-datenight-v9.webp"
-              data-alt="A couple on stools at the counter, drinks and a bowl of snacks between them, turned toward each other laughing">
+              data-img="/assets/img/rail/occ-datenight-v10.webp"
+              data-alt="A couple at a marble table, drinks and a bowl of snacks between them, turned toward each other laughing">
             <h3>An easy date night</h3>
             <p>Low-key and close together, with the snacks on us.</p>
           </li>
@@ -318,7 +326,7 @@
         </details>
         <details class="faq-item">
           <summary><span class="faq-q">Who can come in?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
-          <div class="faq-a"><p>Guests 21 and up, with a valid ID.</p></div>
+          <div class="faq-a"><p>Guests 18 and up, with a valid ID.</p></div>
         </details>
         <details class="faq-item">
           <summary><span class="faq-q">Where do I park?</span><span class="faq-pm" aria-hidden="true"><span class="faq-pm-ring"></span></span></summary>
@@ -367,7 +375,7 @@
           <li><b>✓</b>Open daily · 11am–11pm</li>
           <li><b>✓</b>Smoke-free</li>
           <li><b>✓</b>Complimentary snacks &amp; drinks</li>
-          <li><b>✓</b>21+</li>
+          <li><b>✓</b>18+</li>
         </ul>
       </div>
     </div>
@@ -375,14 +383,18 @@
       <p class="ff-lead">Have a question? Drop us a line.</p>
       <div class="ff-row">
         <label class="ff-field">
-          <span>Name</span>
-          <input type="text" name="name" autocomplete="name" required>
+          <span>First name</span>
+          <input type="text" name="first_name" autocomplete="given-name" required>
         </label>
         <label class="ff-field">
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required>
+          <span>Last name</span>
+          <input type="text" name="last_name" autocomplete="family-name" required>
         </label>
       </div>
+      <label class="ff-field">
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
       <label class="ff-field">
         <span>Message</span>
         <textarea name="message" rows="4" required></textarea>
@@ -390,7 +402,7 @@
       <!-- honeypot: real people leave this empty -->
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="ff-hp">
       <div class="ff-foot">
-        <button type="submit" class="btn btn-cta">Send message</button>
+        <button type="submit" class="btn btn-ring"><span>Send message</span><span class="btn-ring-line" aria-hidden="true"></span></button>
         <p class="ff-status" role="status" aria-live="polite"></p>
       </div>
     </form>
@@ -398,10 +410,10 @@
 
   <div class="wrap foot-bottom">
     <span class="foot-brandline"><span class="brand"><span class="fl">The Flame</span></span> <span>is a welcoming neighborhood gaming lounge in Wicker Park.</span></span>
-    <span>&copy; 2026 The Flame Chicago · 21+ · Please play responsibly.</span>
+    <span>&copy; 2026 The Flame Chicago · 18+ · Please play responsibly.</span>
   </div>
 </footer>
 
-<script src="/assets/global.js?v=15"></script>
+<script src="/assets/global.js?v=16"></script>
 </body>
 </html>

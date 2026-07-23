@@ -831,7 +831,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
      title's, so it froze while the type grew. Sized off the frame instead,
      wide enough to keep the longest support line unwrapped (797px at 24px);
      the body scales on vw so the ratio holds down to the 1180px collapse. */
-  bottom:clamp(20px,2.8vw,38px);max-width:min(92%,900px)}
+  /* Reserve keeps the last body line clear of the .oc-timer dial in the
+     bottom-right of the same frame. NB: the % resolves against .oc-stage, not
+     against this box's inset width, so the number is the dial (34) + its inset
+     (24) + a real gutter — 96 measured out to a 2px miss. */
+  bottom:clamp(20px,2.8vw,38px);max-width:min(calc(100% - 132px),900px)}
 .oc-readout .oc-when{font-family:var(--sans);font-weight:700;font-size:.9rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin:0 0 11px;
   text-shadow:0 1px 12px rgba(0,0,0,.85)}
@@ -843,6 +847,32 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   text-shadow:0 2px 20px rgba(0,0,0,.7)}
 .oc-readout .oc-body{color:var(--paper);font-size:clamp(1.15rem,1.4vw,1.375rem);
   line-height:1.45;margin:0;text-shadow:0 1px 16px rgba(0,0,0,.85)}
+
+/* auto-advance dial — shows how long the current occasion has left. It is only
+   present while autoplay is genuinely running: global.js adds .is-auto in
+   ocStart() and drops it in ocStop(), so hover, focus, an off-screen section,
+   a deliberate chip pick and prefers-reduced-motion all hide it rather than
+   leaving a stalled or lying indicator on the photo. --oc-delay is written by
+   global.js from OC_DELAY so the sweep and the interval share one number. */
+.oc-timer{
+  position:absolute;right:clamp(16px,1.8vw,24px);bottom:clamp(16px,1.8vw,24px);
+  width:34px;height:34px;pointer-events:none;
+  opacity:0;transition:opacity .3s var(--ease);
+  filter:drop-shadow(0 1px 6px rgba(0,0,0,.5));
+}
+.chooser.is-auto .oc-timer{opacity:.55}
+.oc-timer svg{width:100%;height:100%;transform:rotate(-90deg);display:block}
+.oc-timer circle{fill:none;stroke-width:2.5;stroke-linecap:round}
+.oc-timer-track{stroke:rgba(255,255,255,.28)}
+/* r=16 → circumference 100.53 */
+.oc-timer-arc{stroke:#fff;stroke-dasharray:100.53;stroke-dashoffset:100.53}
+.chooser.is-auto .oc-timer-arc{
+  animation:oc-sweep var(--oc-delay,3800ms) linear infinite;
+}
+@keyframes oc-sweep{from{stroke-dashoffset:100.53}to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){
+  .oc-timer{display:none}
+}
 
 /* Below this the 255px chip column starves the photo — it goes square-ish
    (1.12:1 at 1024px) against a 3:2 source. Back to chips over photo. */
@@ -927,6 +957,30 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   background:var(--amber);color:#241300;border:1px solid transparent;
 }
 .btn-cta:hover{background:#ffc76e;transform:translateY(-2px)}
+/* hollow button carrying the same masked pillar-gradient stroke as the FAQ +
+   ring (.faq-pm-ring). Same idle→rollover grammar too: the stroke sits back at
+   rest and lights on hover/focus, so the two controls read as one family.
+   The stroke is a child span, not a ::before — .btn's own pseudo-elements are
+   spoken for elsewhere, and a real element keeps the mask off the label. */
+.btn-ring{position:relative;background:transparent;color:var(--paper);border-color:transparent}
+.btn-ring-line{
+  position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  opacity:.5;transition:opacity .25s var(--ease);
+  background:conic-gradient(from 210deg,var(--teal),var(--amber) 30%,var(--magenta) 62%,var(--violet) 88%,var(--teal));
+  filter:saturate(.78);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+}
+.btn-ring:hover,.btn-ring:focus-visible{background:rgba(255,182,74,.06);color:var(--amber);transform:translateY(-2px)}
+.btn-ring:hover .btn-ring-line,.btn-ring:focus-visible .btn-ring-line{opacity:1}
+/* the label must clear the masked stroke layer */
+.btn-ring>:not(.btn-ring-line){position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){
+  .btn-ring,.btn-ring-line{transition:none}
+  .btn-ring:hover,.btn-ring:focus-visible{transform:none}
+}
 @media(max-width:640px){
   .cta-band{min-height:0}
   .cta-inner{padding-block:clamp(44px,11vw,64px)}
