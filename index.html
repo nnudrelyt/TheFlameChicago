@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
 <link rel="stylesheet" href="/assets/global.css?v=14">
-<link rel="stylesheet" href="/assets/v2.css?v=129">
+<link rel="stylesheet" href="/assets/v2.css?v=130">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
 <!-- JSON-LD (real NAP from live site; socials TBD) -->
@@ -363,7 +363,7 @@
     <div class="foot-visit-copy">
       <div class="foot-copy-top">
         <p class="kicker reveal">Your neighborhood spot</p>
-        <h2 class="reveal" id="visit-h">Find us on Ashland.</h2>
+        <h2 class="reveal" id="visit-h">Find us on Ashland Ave.</h2>
         <p class="addr reveal">1231 N Ashland Ave · Wicker Park / West Town</p>
         <p class="sub2 reveal">Two minutes from the Division Blue Line, with street parking nearby.</p>
         <div class="hood-cta reveal">
@@ -381,23 +381,25 @@
     </div>
     <form class="foot-form reveal" id="contactForm" novalidate>
       <p class="ff-lead">Have a question? Drop us a line.</p>
+      <!-- every control is wrapped in .ff-ctrl: ::before/::after don't apply to
+           <input>, so the masked gradient stroke needs a real box to hang on -->
       <div class="ff-row">
         <label class="ff-field">
           <span>First name</span>
-          <input type="text" name="first_name" autocomplete="given-name" required>
+          <span class="ff-ctrl"><input type="text" name="first_name" autocomplete="given-name" required></span>
         </label>
         <label class="ff-field">
           <span>Last name</span>
-          <input type="text" name="last_name" autocomplete="family-name" required>
+          <span class="ff-ctrl"><input type="text" name="last_name" autocomplete="family-name" required></span>
         </label>
       </div>
       <label class="ff-field">
         <span>Email</span>
-        <input type="email" name="email" autocomplete="email" required>
+        <span class="ff-ctrl"><input type="email" name="email" autocomplete="email" required></span>
       </label>
       <label class="ff-field">
         <span>Message</span>
-        <textarea name="message" rows="4" required></textarea>
+        <span class="ff-ctrl"><textarea name="message" rows="4" required></textarea></span>
       </label>
       <!-- honeypot: real people leave this empty -->
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="ff-hp">
