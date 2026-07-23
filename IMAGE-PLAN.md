@@ -19,6 +19,8 @@ Every generated scene must be built only from fixtures that appear in the real r
 
 > **This section supersedes every earlier layout note in this file.** Prior versions had the two side walls **inverted** (they said "bar on the right, cabinets on the left") and invented a room-dividing partition that does not exist. If any older note conflicts with this map, this map wins.
 
+> 🗺️ **VISUAL VERSION — open this first.** This text map is drawn 1:1 as a top-down floor plan at **`ROOM-MAP.html`** (repo root, and mirrored to `creative-direction/references/ROOM-MAP.html` + `.png` in Dropbox). It plots all 9 machines, both sweepstakes TVs, the bar, the full service corner, plants, the carved figure, FLAME plaques, ribbons and the marble table, with the count reconciliation and hard rules in a side panel. **Open it before writing any room prompt** — three separate frames drifted (a floating TV, invented EXIT doors, a phantom bump-out) precisely because the room was being reconstructed from prose instead of a layout. Remember it is a *plan* view, so the bar reads right and the machine row left — the mirror of the "standing at the front looking back" description.
+
 **Orientation for everything below: standing at the front window, looking toward the back.** In that view the **bar is on your LEFT** and the **machine row is on your RIGHT**. On a plan drawn with the front at the top, the bar is the **EAST** wall (drawn right) and the machines the **WEST** wall (drawn left).
 
 **FRONT — the storefront.** Full-height glass onto Ashland, frosted "WELCOME · YOU'RE ON FIRE · 312-218-…" decal band across the lower panes, three dark flat TVs mounted high in front of the glass facing into the room. **No door on this wall.**
