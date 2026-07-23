@@ -138,8 +138,18 @@
   /* --- spotlight cards: pointer position drives the glow (see v2.css) --- */
   if (window.matchMedia("(hover: hover)").matches) {
     var SPOT = ".step, .faq-item";
+    var spotAt = null;
     document.addEventListener("pointermove", function (e) {
       var card = e.target.closest && e.target.closest(SPOT);
+      /* Leaving a card has to hand the glow back to its CSS resting origin.
+         These are inline props, so without clearing them the wash would stay
+         parked wherever the cursor exited — invisible back when the resting
+         opacity was 0, but the wash rests visible now (2026-07-22). */
+      if (spotAt && spotAt !== card) {
+        spotAt.style.removeProperty("--mx");
+        spotAt.style.removeProperty("--my");
+      }
+      spotAt = card;
       if (!card) return;
       var r = card.getBoundingClientRect();
       card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");

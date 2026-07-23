@@ -275,6 +275,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    50%/50% default so a keyboard-focused card lights from its centre rather
    than a stale pointer position. */
 .step,.faq-item{position:relative;--mx:50%;--my:50%}
+/* Resting origin for the step wash: low and to the LEFT, with the centre pushed
+   past the bottom edge so the colour rises INTO the card from beneath its
+   bottom-left corner rather than sitting inside it. Only the top of the 640px
+   pool reaches the card, which is what keeps it a gradient rather than a blob.
+   global.js overwrites both as inline props while the pointer is over a card,
+   and clears them on the way out so the card falls back to here. */
+.step{--mx:10%;--my:120%}
 .steps .step:nth-child(1){--glow:69,214,208}
 .steps .step:nth-child(2){--glow:255,92,146}
 .steps .step:nth-child(3){--glow:166,132,255}
