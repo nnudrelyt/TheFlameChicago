@@ -1164,7 +1164,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   position:fixed;top:0;right:0;z-index:200;
   height:100dvh;width:min(86vw,360px);
   display:flex;flex-direction:column;overflow-y:auto;
-  background:linear-gradient(202deg,#1d150c 0%,#140f0a 62%);
+  /* translucent + frosted so the dimmed hero reads through the panel as
+     blurred colour behind the type */
+  background:linear-gradient(202deg,rgba(28,20,11,.68) 0%,rgba(19,14,9,.78) 62%);
+  backdrop-filter:blur(22px) saturate(1.15);
+  -webkit-backdrop-filter:blur(22px) saturate(1.15);
   border-left:1px solid var(--line);
   box-shadow:-30px 0 60px -22px rgba(0,0,0,.72);
   transform:translateX(100%);
@@ -1175,10 +1179,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 
 .menu-inner{display:flex;flex-direction:column;min-height:100%;padding:22px 30px 34px}
 
-/* top row: open/closed status pill on the left, close button on the right */
+/* top row: open/closed status pill on the left, close button on the right —
+   both vertically centred on the row (no offset nudge on the close button). */
 .menu-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:6px}
 .menu-close{
-  flex:none;width:46px;height:46px;margin:-4px -8px 0 0;
+  flex:none;width:46px;height:46px;margin:0 -8px 0 0;
   display:inline-flex;align-items:center;justify-content:center;
   background:none;border:0;border-radius:100px;color:var(--paper);cursor:pointer;
   transition:color .2s var(--ease),background .2s var(--ease);
@@ -1186,14 +1191,23 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .menu-close:hover{color:var(--amber);background:rgba(255,255,255,.05)}
 .menu-close svg{width:26px;height:26px}
 
-/* the links fill the space between the top row and the phone CTA and spread
-   evenly down it — large serif type, h2-scale and up */
-.menu-nav{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin:6px 0}
+/* the header hamburger is a flex button but its glyph was top-aligned, leaving
+   the icon sitting ~9px above the status pill's centre — centre it so the two
+   line up. */
+.nav-toggle{align-items:center;justify-content:center}
+
+/* each link is an equal-height slice that fills the space between the top row
+   and the phone CTA, with a rule line above it — so the lines read as
+   separators sitting midway between items. Text is centred in its slice. */
+.menu-nav{flex:1;display:flex;flex-direction:column;margin:6px 0}
 .menu-nav a{
-  position:relative;font-family:var(--serif);font-size:clamp(2.3rem,8.5vw,3.1rem);
+  flex:1;display:flex;align-items:center;
+  position:relative;font-family:var(--serif);font-size:clamp(2.07rem,7.65vw,2.79rem);
   line-height:1.02;color:var(--paper);
+  border-top:1px solid rgba(255,240,222,.12);
   transition:color .2s var(--ease),padding-left .25s var(--ease);
 }
+.menu-nav a:first-child{border-top:0}
 .menu-nav a::before{
   content:"";position:absolute;left:0;top:50%;width:0;height:2px;
   background:var(--amber);border-radius:2px;transform:translateY(-50%);
