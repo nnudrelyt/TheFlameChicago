@@ -640,6 +640,12 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
     padding:2px 0 6px;
     overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    /* horizontal-only scroller. overflow-x:auto silently promotes overflow-y
+       to auto (spec), which let the strip wobble ~20px vertically; clip pins
+       it. touch-action:pan-x hands the browser the gesture so a slightly
+       diagonal swipe scrolls the cards instead of the page; overscroll
+       contain stops the swipe chaining to the page / back-gesture. */
+    overflow-y:clip;touch-action:pan-x;overscroll-behavior-x:contain;
   }
   .firststeps .steps::-webkit-scrollbar{display:none}
   .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
