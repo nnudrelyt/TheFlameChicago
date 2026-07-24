@@ -14,22 +14,72 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* --- mobile nav --- */
-  function closeNav() {
-    if (!nav) return;
-    nav.classList.remove("open");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  /* --- mobile menu: full-height off-canvas panel that slides in from the
+     right. Holds the jump links + phone CTA at the widths where the header
+     collapses to logo + hamburger. Elements are resolved fresh on each call
+     rather than cached at load, so the handlers always act on the live nodes. --- */
+  var lastFocus = null;
+
+  function isMenuOpen() {
+    var panel = document.getElementById("menuPanel");
+    return !!panel && panel.classList.contains("is-open");
   }
-  if (toggle && nav) {
+
+  function setMenu(open, skipFocusRestore) {
+    var panel = document.getElementById("menuPanel");
+    if (!panel) return;
+    var scrim = document.getElementById("menuScrim");
+    var closeBtn = document.getElementById("menuClose");
+    panel.classList.toggle("is-open", open);
+    if (scrim) scrim.classList.toggle("is-on", open);
+    document.body.classList.toggle("menu-locked", open);
+    if (toggle) toggle.setAttribute("aria-expanded", String(open));
+    /* inert keeps the off-canvas links out of the tab order (and the a11y
+       tree) while the panel is parked off-screen. */
+    if (open) {
+      panel.removeAttribute("inert");
+      lastFocus = document.activeElement;
+      if (closeBtn) closeBtn.focus({ preventScroll: true });
+    } else {
+      panel.setAttribute("inert", "");
+      /* preventScroll so restoring focus to the hamburger never yanks the
+         page — and skip it entirely when we're following an in-page jump. */
+      if (!skipFocusRestore && lastFocus && lastFocus.focus) {
+        lastFocus.focus({ preventScroll: true });
+      }
+    }
+  }
+  function closeMenu(skipFocusRestore) { setMenu(false, skipFocusRestore); }
+
+  if (toggle && document.getElementById("menuPanel")) {
     toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(open));
+      setMenu(!isMenuOpen());
     });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) closeNav();
+    var closeBtn = document.getElementById("menuClose");
+    var scrim = document.getElementById("menuScrim");
+    if (closeBtn) closeBtn.addEventListener("click", function () { closeMenu(); });
+    if (scrim) scrim.addEventListener("click", function () { closeMenu(); });
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest(".menu-panel a");
+      if (!link || !isMenuOpen()) return;
+      var href = link.getAttribute("href") || "";
+      if (href.charAt(0) === "#" && href.length > 1) {
+        /* same-page jump: close first (without stealing focus back to the top),
+           then drive the scroll ourselves so the close doesn't fight the
+           browser's own fragment navigation. */
+        var target = document.getElementById(href.slice(1));
+        e.preventDefault();
+        closeMenu(true);
+        if (target) {
+          history.pushState(null, "", href);
+          target.scrollIntoView();
+        }
+      } else {
+        closeMenu();   /* tel: / external — let the default action run */
+      }
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeNav();
+      if (e.key === "Escape" && isMenuOpen()) closeMenu();
     });
   }
 

@@ -1119,3 +1119,79 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .step-n{width:48px;height:48px;font-size:1.3rem}
   .step p{font-size:1.2rem}
 }
+
+/* =========================================================================
+   MOBILE MENU — full-height off-canvas panel, slides in from the right.
+   Only reachable ≤860px, where the header collapses to logo + hamburger.
+   The phone CTA moves out of the header and lives at the foot of the panel.
+   ========================================================================= */
+
+/* hamburger sits ~40px off the right edge across the mobile range (overrides
+   the tighter header gutters set above) and the standalone phone button is
+   retired here — it now lives inside the panel. */
+@media(max-width:860px){
+  /* the desktop 1fr/auto/1fr grid mis-places the tools cluster once the
+     horizontal nav is display:none, so collapse to a plain flex row: brand
+     left, hamburger hard right, 40px off each edge. */
+  .site-header .nav-wrap{display:flex;justify-content:space-between;padding-inline:40px}
+  .site-header .nav-tools .btn{display:none}
+}
+
+.menu-scrim{
+  position:fixed;inset:0;z-index:190;
+  background:rgba(8,5,2,.58);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .4s var(--ease),visibility .4s var(--ease);
+}
+.menu-scrim.is-on{opacity:1;visibility:visible;pointer-events:auto}
+
+.menu-panel{
+  position:fixed;top:0;right:0;z-index:200;
+  height:100dvh;width:min(86vw,360px);
+  display:flex;flex-direction:column;overflow-y:auto;
+  background:linear-gradient(202deg,#1d150c 0%,#140f0a 62%);
+  border-left:1px solid var(--line);
+  box-shadow:-30px 0 60px -22px rgba(0,0,0,.72);
+  transform:translateX(100%);
+  transition:transform .46s var(--ease);
+  will-change:transform;
+}
+.menu-panel.is-open{transform:translateX(0)}
+
+.menu-inner{display:flex;flex-direction:column;min-height:100%;padding:22px 30px 34px}
+
+.menu-close{
+  align-self:flex-end;width:46px;height:46px;margin:-2px -8px 4px 0;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:none;border:0;border-radius:100px;color:var(--paper);cursor:pointer;
+  transition:color .2s var(--ease),background .2s var(--ease);
+}
+.menu-close:hover{color:var(--amber);background:rgba(255,255,255,.05)}
+.menu-close svg{width:26px;height:26px}
+
+.menu-nav{display:flex;flex-direction:column;margin-top:4px}
+.menu-nav a{
+  position:relative;font-family:var(--serif);font-size:1.7rem;line-height:1.15;
+  color:var(--paper);padding:16px 0 16px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:color .2s var(--ease),padding-left .25s var(--ease);
+}
+.menu-nav a::before{
+  content:"";position:absolute;left:0;top:50%;width:0;height:2px;
+  background:var(--amber);border-radius:2px;transform:translateY(-50%);
+  box-shadow:0 0 10px rgba(255,182,74,.55);
+  transition:width .25s var(--ease);
+}
+.menu-nav a:hover,.menu-nav a:focus-visible{color:var(--amber);padding-left:22px}
+.menu-nav a:hover::before,.menu-nav a:focus-visible::before{width:14px}
+
+.menu-foot{margin-top:auto;padding-top:28px;display:flex;flex-direction:column;gap:16px}
+.menu-foot .live{align-self:flex-start}
+.menu-call{width:100%;justify-content:center;font-size:1.05rem}
+
+body.menu-locked{overflow:hidden}
+
+@media(prefers-reduced-motion:reduce){
+  .menu-panel{transition:transform .001s linear}
+  .menu-scrim{transition:opacity .2s linear,visibility .2s linear}
+}
