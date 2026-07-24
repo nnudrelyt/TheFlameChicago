@@ -1,4 +1,12 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "theflamechicago.com" }],
+      "destination": "https://www.theflamechicago.com/:path*",
+      "permanent": true
+    }
+  ]
 }
