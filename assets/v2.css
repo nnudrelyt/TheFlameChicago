@@ -638,6 +638,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .firststeps .steps{
     display:flex;grid-template-columns:none;gap:14px;
     padding:2px 0 6px;
+    /* full-bleed: strip spans 100vw so the next card peeks in at the true
+       screen edge; padding-inline + scroll-padding re-inset so the first card
+       still snaps left-aligned under the heading. */
+    width:100vw;margin-left:calc(50% - 50vw);
+    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);
     overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
     /* horizontal-only scroller. overflow-x:auto silently promotes overflow-y
@@ -1042,10 +1047,14 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 
 @media(max-width:760px){
   /* a filter bar, not five rows of wrapped chips — keeps the photo near the top.
-     Contained within the text column (no -22px bleed) so the row starts
-     left-aligned with the heading; still scrolls (and auto-cycles) inside it. */
+     Full-bleed: the strip spans 100vw (same breakout as the hero ticker) so
+     chips scroll to the true screen edge instead of stopping a gutter short.
+     The leading padding + scroll-padding re-inset the first chip so it still
+     starts left-aligned with the heading; only the scroll runs edge to edge. */
   .oc-chips{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
-    scrollbar-width:none;margin-inline:0;padding-inline:0}
+    scrollbar-width:none;
+    width:100vw;margin-left:calc(50% - 50vw);
+    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter)}
   .oc-chips::-webkit-scrollbar{display:none}
   .oc-chip{scroll-snap-align:start;font-size:.94rem;padding:9px 16px}
   /* the frame is a tap target here (global.js): tapping steps to the next
@@ -1053,7 +1062,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
      tactile feedback; the ::after chevron is the standing "there's more, tap"
      cue — a pointer affordance only, so it's aria-hidden by being a pseudo. It
      mirrors the auto-advance dial in the opposite corner (skip vs. time). */
+  /* full-bleed: the photo spans 100vw and drops its corner radius so it meets
+     the screen edges cleanly. The readout below stays inset (aligned to the
+     heading), giving a full-bleed image + indented caption. */
   .oc-frame{height:auto;aspect-ratio:4/5;max-height:none;
+    width:100vw;margin-left:calc(50% - 50vw);border-radius:0;
     cursor:pointer;-webkit-tap-highlight-color:transparent}
   .oc-frame:active{filter:brightness(.93)}
   .oc-frame::after{content:"";position:absolute;left:12px;bottom:12px;z-index:5;
