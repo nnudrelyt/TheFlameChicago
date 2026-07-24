@@ -598,13 +598,24 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   /* relative, not static: the base rule gives .shot-img z-index:2, and a static
      box ignores z-index — the photo would paint under .shot::before's placeholder
      wash. The wash and grain are for empty slots anyway, so drop them here. */
-  /* pinned right so the lit cabinet stays in frame through the narrow crop */
-  .v2hero .shot .shot-img{position:relative;z-index:2;width:100%;height:44vh;object-fit:cover;object-position:calc(100% - 20px) 32%}
-  .v2hero .shot::before,.v2hero .shot::after{display:none}
+  /* framed right so the lit cabinet stays in view — a PERCENTAGE, not
+     calc(100% - 20px): subtracting a length from 100% pushes a cover image
+     left of the container's right edge, exposing the dark .shot ground as a
+     strip. A percent always keeps the image covering. */
+  .v2hero .shot .shot-img{position:relative;z-index:2;width:100%;height:44vh;object-fit:cover;object-position:84% 32%}
+  .v2hero .shot::before{display:none}
+  /* top-down scrim baked onto the photo: darkens the top edge so the wordmark
+     and menu icon hold contrast over a bright hero, clearing by mid-frame.
+     z-index outranks .shot-img (2) so it sits over the photo. */
+  .v2hero .shot::after{
+    display:block;inset:0;z-index:3;box-shadow:none;background:
+      linear-gradient(180deg,rgba(9,6,3,.82) 0%,rgba(9,6,3,.52) 13%,rgba(9,6,3,.14) 30%,transparent 46%);
+  }
   .v2hero-scrim{display:none}          /* type is on solid dark — no scrim needed */
   .v2hero-inner{
     position:static;background:var(--bg);
-    padding-top:30px;padding-bottom:40px;
+    display:flex;flex-direction:column;
+    padding-top:22px;padding-bottom:40px;
   }
   /* narrowed so the line breaks after "HARD-WORKING" rather than after "PEOPLE" */
   .v2hero .kicker{max-width:250px;align-items:flex-start}
@@ -633,9 +644,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   /* trust claims run as a right-to-left ticker: pill chrome dropped, dot
      separators, full-bleed. The second .chips-set is a verbatim copy that
      seams the loop — aria-hidden so the claims are announced once. */
+  /* order:-1 lifts the ticker to the top of the stacked hero — a full-bleed
+     band directly under the photo and above the eyebrow, separating image
+     from copy. (Parent .v2hero-inner is flex-column so order applies.) */
   .chips{
+    order:-1;
     display:block;flex-wrap:nowrap;overflow:hidden;
-    width:100vw;margin-left:calc(50% - 50vw);margin-top:24px;
+    width:100vw;margin-left:calc(50% - 50vw);margin-top:0;margin-bottom:28px;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
   }
@@ -1194,4 +1209,21 @@ body.menu-locked{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .menu-panel{transition:transform .001s linear}
   .menu-scrim{transition:opacity .2s linear,visibility .2s linear}
+}
+
+/* At ≤560 the section copy drops to a 22px gutter while the header stayed at
+   40px — pull the wordmark + menu icon onto the same gutter so they line up
+   with the hero/section copy below. (After the ≤860 rule so it wins.) */
+@media(max-width:560px){
+  .site-header .nav-wrap{padding-inline:22px}
+}
+
+/* 861–1120px: with the horizontal nav shown, the tools cluster is tight and
+   the status pill + phone CTA were wrapping into blobs. Never let them wrap,
+   and drop the (secondary) open/closed pill in this band so the phone CTA
+   keeps its shape. Below 861 the hamburger takes over; above 1120 there's room
+   and the pill returns. (The ≤640 rule already hides the pill on mobile.) */
+.site-header .live,.site-header .nav-tools .btn{white-space:nowrap}
+@media(min-width:861px) and (max-width:1120px){
+  .site-header .live{display:none}
 }
