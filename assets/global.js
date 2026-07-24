@@ -478,4 +478,39 @@
       });
     });
   }
+
+  /* --- first-visit steps: a small pager for the mobile one-card carousel.
+     Dots match the step count, the active one tracks whichever card is in
+     view, and tapping a dot scrolls to that card. Hidden by CSS on desktop
+     where the steps are a grid. --- */
+  var stepsRail = document.querySelector(".firststeps .steps");
+  if (stepsRail && "IntersectionObserver" in window) {
+    var stepEls = Array.prototype.slice.call(stepsRail.querySelectorAll(".step"));
+    if (stepEls.length > 1) {
+      var stepsDots = document.createElement("div");
+      stepsDots.className = "steps-dots";
+      stepsDots.setAttribute("aria-hidden", "true");
+      var stepDotEls = stepEls.map(function (s, i) {
+        var d = document.createElement("button");
+        d.type = "button";
+        d.className = "steps-dot";
+        d.addEventListener("click", function () {
+          s.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+        });
+        stepsDots.appendChild(d);
+        return d;
+      });
+      stepsRail.insertAdjacentElement("afterend", stepsDots);
+      stepDotEls[0].classList.add("is-on");
+
+      var stepsIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var idx = stepEls.indexOf(e.target);
+          stepDotEls.forEach(function (d, n) { d.classList.toggle("is-on", n === idx); });
+        });
+      }, { root: stepsRail, threshold: 0.6 });
+      stepEls.forEach(function (s) { stepsIO.observe(s); });
+    }
+  }
 })();

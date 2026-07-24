@@ -254,6 +254,7 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .firststeps .sec-head{max-width:none}
 .firststeps .sec-head .lead{max-width:none;margin-top:16px;text-wrap:balance}
 .firststeps .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.steps-dots{display:none}   /* only shown for the mobile one-card carousel */
 /* border transparent — the edge is the .gr-ring child. It has to be a child and
    not ::before/::after: both of those already carry the pointer spotlight, and
    the last time something reached into those rules it silently killed the whole
@@ -617,11 +618,12 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
     display:flex;flex-direction:column;
     padding-top:22px;padding-bottom:40px;
   }
-  /* narrowed so the line breaks after "HARD-WORKING" rather than after "PEOPLE" */
-  .v2hero .kicker{max-width:250px;align-items:flex-start}
-  .v2hero .kicker::before{margin-top:.62em;flex:none}
-  .v2hero h1{text-shadow:none;margin:.1em 0 .16em}
-  .v2hero .lead{max-width:none;margin-bottom:24px}
+  /* eyebrow removed on mobile — headline leads the stacked hero. With the
+     eyebrow gone the .16em under the headline read as cramped; open it up so
+     headline + lead sit as a balanced group. */
+  .v2hero .kicker{display:none}
+  .v2hero h1{text-shadow:none;margin:.08em 0 .34em}
+  .v2hero .lead{max-width:none;margin-bottom:26px}
   /* with the sticky bar gone these are the mobile CTAs — give them the width.
      Scoped to the hero: .hero-actions is reused by the invite section, whose
      single centred CTA should stay as it is. */
@@ -630,16 +632,24 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   /* one CTA on mobile — "Find us" is covered by the footer and the nav */
   .v2hero .hero-actions .btn-ghost{display:none}
 
-  /* three steps as a side-swipe rail — full-bleed so cards run to the edge,
-     snap so each lands square, and the third peeks to signal there is more */
+  /* one-and-a-peek: each card is ~82% so the next peeks in from the right; the
+     3-dot pager (built in global.js) sits centred below. First card still
+     left-aligns with the heading (snap-start within the text column). */
   .firststeps .steps{
     display:flex;grid-template-columns:none;gap:14px;
-    width:100vw;margin-left:calc(50% - 50vw);padding:2px 22px 14px;
-    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:2px 0 6px;
+    overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .firststeps .steps::-webkit-scrollbar{display:none}
   .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
+  .steps-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
+  .steps-dot{
+    width:7px;height:7px;padding:0;border:0;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.3);
+    transition:background .25s var(--ease),transform .25s var(--ease);
+  }
+  .steps-dot.is-on{background:#fff;transform:scale(1.15)}
 
   /* trust claims run as a right-to-left ticker: pill chrome dropped, dot
      separators, full-bleed. The second .chips-set is a verbatim copy that
@@ -650,7 +660,7 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .chips{
     order:-1;
     display:block;flex-wrap:nowrap;overflow:hidden;
-    width:100vw;margin-left:calc(50% - 50vw);margin-top:0;margin-bottom:28px;
+    width:100vw;margin-left:calc(50% - 50vw);margin-top:0;margin-bottom:18px;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
   }
@@ -1025,9 +1035,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 }
 
 @media(max-width:760px){
-  /* a filter bar, not five rows of wrapped chips — keeps the photo near the top */
+  /* a filter bar, not five rows of wrapped chips — keeps the photo near the top.
+     Contained within the text column (no -22px bleed) so the row starts
+     left-aligned with the heading; still scrolls (and auto-cycles) inside it. */
   .oc-chips{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
-    scrollbar-width:none;margin-inline:-22px;padding-inline:22px}
+    scrollbar-width:none;margin-inline:0;padding-inline:0}
   .oc-chips::-webkit-scrollbar{display:none}
   .oc-chip{scroll-snap-align:start;font-size:.94rem;padding:9px 16px}
   .oc-frame{height:auto;aspect-ratio:4/5;max-height:none}
@@ -1189,12 +1201,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   transition:color .2s var(--ease),background .2s var(--ease);
 }
 .menu-close:hover{color:var(--amber);background:rgba(255,255,255,.05)}
-.menu-close svg{width:26px;height:26px}
+.menu-close svg{width:22px;height:22px}
 
 /* the header hamburger is a flex button but its glyph was top-aligned, leaving
    the icon sitting ~9px above the status pill's centre — centre it so the two
    line up. */
 .nav-toggle{align-items:center;justify-content:center}
+.nav-toggle svg{width:22px;height:22px}
 
 /* each link is an equal-height slice that fills the space between the top row
    and the phone CTA, with a rule line above it — so the lines read as
