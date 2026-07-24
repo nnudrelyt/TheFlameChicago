@@ -307,14 +307,42 @@
       }
 
       /* the chip bar scrolls horizontally on small screens, so the selected
-         chip has to be brought into view or the active state is invisible */
+         chip has to be brought into view or the active state is invisible.
+         Advancing glides the strip to the new chip rather than jumping — the
+         chips visibly shift left as you move down the list. */
+      var ocScrollRAF = null;
       /* NB: scrollTo({behavior:"smooth"}) silently no-ops against this bar's
-         scroll-snap container — assign scrollLeft directly instead. */
+         scroll-snap container, so tween scrollLeft by hand and suspend snap for
+         the duration (snap would otherwise fight the intermediate positions). */
+      /* clearing the inline value lets the stylesheet's scroll-snap-type resume;
+         restoring to "" (not the captured inline) is what keeps overlapping
+         glides from stranding the bar at snap:none forever. */
+      function ocSnapResume() { chipBar.style.scrollSnapType = ""; }
+      function ocGlideBar(target) {
+        var max = chipBar.scrollWidth - chipBar.clientWidth;
+        target = Math.max(0, Math.min(target, max));
+        if (ocScrollRAF) { cancelAnimationFrame(ocScrollRAF); ocScrollRAF = null; }
+        var start = chipBar.scrollLeft, dist = target - start;
+        /* reduced-motion or a negligible move: land immediately (and make sure
+           an interrupted prior glide didn't leave snap suspended) */
+        if (reduce || Math.abs(dist) < 1) { chipBar.scrollLeft = target; ocSnapResume(); return; }
+        var t0 = null, dur = 420;
+        chipBar.style.scrollSnapType = "none";
+        ocScrollRAF = requestAnimationFrame(function step(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min(1, (ts - t0) / dur);
+          /* easeInOutQuad */
+          var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          chipBar.scrollLeft = start + dist * e;
+          if (p < 1) { ocScrollRAF = requestAnimationFrame(step); }
+          else { ocScrollRAF = null; ocSnapResume(); }
+        });
+      }
       function ocRevealChip(i) {
         if (chipBar.scrollWidth <= chipBar.clientWidth) return;
         var barRect = chipBar.getBoundingClientRect();
         var cRect = chips[i].getBoundingClientRect();
-        chipBar.scrollLeft += (cRect.left - barRect.left) - (barRect.width - cRect.width) / 2;
+        ocGlideBar(chipBar.scrollLeft + (cRect.left - barRect.left) - (barRect.width - cRect.width) / 2);
       }
 
       function ocSelect(i) {
