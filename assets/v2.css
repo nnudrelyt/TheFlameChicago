@@ -1048,7 +1048,19 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
     scrollbar-width:none;margin-inline:0;padding-inline:0}
   .oc-chips::-webkit-scrollbar{display:none}
   .oc-chip{scroll-snap-align:start;font-size:.94rem;padding:9px 16px}
-  .oc-frame{height:auto;aspect-ratio:4/5;max-height:none}
+  /* the frame is a tap target here (global.js): tapping steps to the next
+     occasion. cursor + no tap-flash + a quick brightness dip give the press
+     tactile feedback; the ::after chevron is the standing "there's more, tap"
+     cue — a pointer affordance only, so it's aria-hidden by being a pseudo. It
+     mirrors the auto-advance dial in the opposite corner (skip vs. time). */
+  .oc-frame{height:auto;aspect-ratio:4/5;max-height:none;
+    cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .oc-frame:active{filter:brightness(.93)}
+  .oc-frame::after{content:"";position:absolute;left:12px;bottom:12px;z-index:5;
+    width:34px;height:34px;border-radius:50%;pointer-events:none;
+    border:1px solid rgba(255,255,255,.28);background:rgba(20,14,8,.5) center/17px no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");
+    backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
   /* the photo is too small to also carry the copy — drop it underneath, and
      lighten the vignette now that nothing has to be legible on top of it */
   .oc-readout{position:static;max-width:none;margin-top:18px}

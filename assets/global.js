@@ -387,6 +387,22 @@
       chooser.addEventListener("focusin", ocStop);
       chooser.addEventListener("focusout", ocStart);
 
+      /* Mobile: the photo IS the affordance. The chip bar is a cramped filter
+         strip at this width, so tapping the frame steps to the next occasion —
+         the same step autoplay takes — and, like picking a chip, retires
+         autoplay so a deliberate tap isn't immediately overridden. Pointer-only
+         convenience: the chips remain the full keyboard/AT path (arrow keys +
+         selection), so this adds nothing to the a11y tree. Gated by the same
+         760px breakpoint where the CSS drops the readout below the photo, and
+         read live so a resize past the breakpoint just stops advancing. */
+      var ocTapMQ = window.matchMedia("(max-width:760px)");
+      ocFrame.addEventListener("click", function () {
+        if (!ocTapMQ.matches) return;
+        ocPicked = true;
+        ocStop();
+        ocSelect((ocShown + 1) % items.length);
+      });
+
       chooser.classList.add("is-live");
       /* always opens on the first chip, so autoplay reads as a clean sweep down
          the list rather than starting somewhere arbitrary */
