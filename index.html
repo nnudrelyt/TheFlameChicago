@@ -453,16 +453,17 @@
     display:flex;align-items:center;justify-content:center;border:1px solid #2b2633;
     color:#9a94a2;background:rgba(255,255,255,.03);font-size:16px;line-height:1;cursor:pointer;padding:0;z-index:2}
   .fest-x:hover{color:var(--paper);border-color:#3a3442}
-  .fest-head{display:flex;align-items:center;gap:9px;padding-right:44px}
-  .fest-mark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:.05em;color:var(--paper);line-height:1}
-  .fest-flame{width:22px;height:auto;display:block;flex:0 0 auto}
-  .fest-tag{margin-left:auto;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#ff6b2c}
+  .fest-head{display:flex;align-items:flex-start;gap:9px;padding-right:44px}
+  .fest-wm{display:inline-flex;flex-direction:column;gap:3px;line-height:1}
+  .fest-wm-name{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:.05em;color:var(--paper);line-height:.82}
+  .fest-wm-place{display:flex;align-items:center;gap:.7em;font-family:var(--sans);font-weight:600;font-size:8px;color:var(--amber)}
+  .fest-wm-place .t{text-transform:uppercase;letter-spacing:.34em;padding-left:.34em}
+  .fest-wm-place .d{color:#ff6b2c}
+  .fest-tag{margin-left:auto;padding-top:2px;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#ff6b2c}
   .fest-big{font-family:var(--serif);font-weight:700;font-size:58px;line-height:.85;letter-spacing:1px;margin:18px 0 0;color:var(--paper)}
   .fest-big .amt{color:var(--amber)}
-  .fest-body{font-family:var(--sans);font-size:14px;line-height:1.55;color:#d9d2c6;margin:13px 0 0}
-  .fest-perf{position:relative;margin:20px -22px 0;border-top:2px dashed #3a3442;height:0}
-  .fest-perf::before,.fest-perf::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:#0b0a0f}
-  .fest-perf::before{left:-10px}.fest-perf::after{right:-10px}
+  .fest-body{font-family:var(--sans);font-size:16px;line-height:1.5;color:#d9d2c6;margin:13px 0 0}
+  .fest-perf{margin:20px -22px 0;border-top:2px dashed #3a3442;height:0}
   .fest-cta{width:100%;justify-content:center;margin-top:18px}
   .fest-fine{font-family:var(--sans);font-size:11.5px;color:#9a94a2;text-align:center;margin:12px 0 0;letter-spacing:.2px}
   html.fest-lock,html.fest-lock body{overflow:hidden}
@@ -478,15 +479,17 @@
   <div class="fest-card" role="dialog" aria-modal="true" aria-label="The Flame — Wicker Park Fest offer">
     <button class="fest-x" type="button" data-fest-close aria-label="Close">&times;</button>
     <div class="fest-head">
-      <span class="fest-mark">THE&nbsp;FLAME</span>
-      <svg class="fest-flame" viewBox="0 0 396 492" aria-hidden="true"><use href="#festFlame"/></svg>
+      <span class="fest-wm">
+        <span class="fest-wm-name">THE&nbsp;FLAME</span>
+        <span class="fest-wm-place"><span class="d">&#8226;</span><span class="t">Chicago</span><span class="d">&#8226;</span></span>
+      </span>
       <span class="fest-tag">Fest Pass</span>
     </div>
     <div class="fest-big"><span class="amt">$5</span> FREE PLAY</div>
     <p class="fest-body">Take a break from the crowd: Come in and enjoy a $5 free play when you spend $20, plus free snacks, cold drinks, and no cover.</p>
     <div class="fest-perf"></div>
     <a class="btn btn-primary fest-cta" href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Come see us</a>
-    <p class="fest-fine">Show at the counter &middot; valid through Sun 11:59pm.</p>
+    <p class="fest-fine">Valid through Sun, 7/26 11:59pm.</p>
   </div>
 </div>
 <script>
