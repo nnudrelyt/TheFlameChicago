@@ -515,6 +515,9 @@
         if (!r.ok) throw new Error(r.status);
         cform.reset();
         setStatus("Got it — we'll be in touch soon.", "ok");
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "generate_lead", { location: "footer_contact", form_id: "contactForm" });
+        }
       }).catch(function () {
         setStatus("Something went wrong. Please call (312) 218-7677.", "err");
       }).finally(function () {

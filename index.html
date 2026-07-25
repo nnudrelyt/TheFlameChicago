@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Google tag (gtag.js) — GA4 property G-C0D2Y3T29Y -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0D2Y3T29Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C0D2Y3T29Y');
+</script>
+
 <!-- ============ SEO ============ -->
-<title>The Flame Chicago — After Your Shift, This Seat's Yours | Wicker Park</title>
+<title>The Flame Chicago | Wicker Park</title>
 <meta name="description" content="A welcoming neighborhood gaming lounge in Wicker Park, Chicago. Clock out, kick back, and enjoy a little excitement — no cover, smoke-free, complimentary snacks & drinks. Open daily 11am–11pm.">
 <link rel="canonical" href="https://www.theflamechicago.com/">
 <link rel="alternate" hreflang="en" href="https://www.theflamechicago.com/">
@@ -14,7 +23,7 @@
 
 <meta property="og:type" content="business.business">
 <meta property="og:site_name" content="The Flame Chicago">
-<meta property="og:title" content="The Flame Chicago • 1231 N Ashland Ave">
+<meta property="og:title" content="The Flame Chicago | Wicker Park">
 <meta property="og:description" content="Your neighborhood escape in Wicker Park. No cover, smoke-free, free snacks & drinks.">
 <meta property="og:url" content="https://www.theflamechicago.com/">
 <meta name="theme-color" content="#140f0a">
@@ -435,7 +444,7 @@
   </div>
 </footer>
 
-<script src="/assets/global.js?v=21"></script>
+<script src="/assets/global.js?v=22"></script>
 
 <!-- ===== Wicker Park Fest promo modal — time-boxed; auto-expires Sun 2026-07-26 23:59 CT. Safe to delete after the fest. ===== -->
 <style>
@@ -520,5 +529,37 @@
 })();
 </script>
 <!-- ===== /Wicker Park Fest promo modal ===== -->
+
+<!-- GA4 CTA event tracking — delegated; infers intent from each control -->
+<script>
+(function(){
+  if (typeof window.gtag !== 'function') return;
+  function locationOf(el){
+    if (el.closest('.fest-card'))   return 'wpf_modal';
+    if (el.closest('.menu-panel'))  return 'mobile_menu';
+    if (el.closest('.site-header')) return 'nav';
+    if (el.closest('.site-footer')) return 'footer';
+    if (el.closest('.v2hero'))      return 'hero';
+    var s = el.closest('section[id],[id]');
+    return (s && s.id) || 'body';
+  }
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('a.btn, button.btn');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    var name;
+    if (el.classList.contains('fest-cta'))       name = 'promo_cta';
+    else if (href.indexOf('tel:') === 0)         name = 'phone_call';
+    else if (/google\.[^\/]*\/maps/.test(href))  name = 'get_directions';
+    else if (href.charAt(0) === '#')             name = 'cta_click';
+    else return; // submit button etc. tracked elsewhere
+    gtag('event', name, {
+      location: locationOf(el),
+      link_text: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
+      link_url: href
+    });
+  }, true);
+})();
+</script>
 </body>
 </html>
