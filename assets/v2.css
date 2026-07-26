@@ -563,7 +563,7 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    RESPONSIVE
    ========================================================================= */
 @media(max-width:960px){
-  .firststeps .steps,.regulars .tcards{grid-template-columns:1fr}
+  .regulars .tcards{grid-template-columns:1fr}
   .daymirror .wrap,.reassure .wrap{grid-template-columns:1fr}
   .daymirror .shot,.reassure .shot{min-height:320px}
   .footer-rich .footer-visit{grid-template-columns:1fr}
@@ -571,6 +571,26 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .footer-rich .footer-meta{grid-template-columns:1fr 1fr}
   .roomgallery .mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:170px}
   .roomgallery .shot.big{grid-column:span 2}
+}
+/* TABLET (Tyler 2026-07-25): the step cards run as the same horizontal
+   one-and-peek swipe carousel as mobile (was a tall single-column stack).
+   JS pager in global.js is not width-gated, so the dots work here too. */
+@media(max-width:960px){
+  .firststeps .steps{
+    display:flex;grid-template-columns:none;gap:14px;padding:2px 0 6px;
+    width:100vw;margin-left:calc(50% - 50vw);
+    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);
+    overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    overflow-y:clip;touch-action:pan-x;overscroll-behavior-x:contain;
+  }
+  .firststeps .steps::-webkit-scrollbar{display:none}
+  .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
+  .steps-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
+  .steps-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.3);
+    transition:background .25s var(--ease),transform .25s var(--ease)}
+  .steps-dot.is-on{background:#fff;transform:scale(1.15)}
 }
 /* mobile header: sticky bottom bar handles actions, so keep the header to logo + menu */
 @media(max-width:640px){
@@ -1043,6 +1063,17 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
      crop; max-height stops it dominating a short window. */
   .oc-stage{max-height:none}
   .oc-frame{height:auto;aspect-ratio:16/10;max-height:72vh}
+}
+/* TABLET (Tyler 2026-07-25): occasion chips array as the single-row horizontal
+   filter bar (like mobile) instead of wrapping into several rows — keeps the
+   photo near the top. Matches the ≤760 mobile treatment. */
+@media(max-width:960px){
+  .oc-chips{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:none;max-width:none;
+    width:100vw;margin-left:calc(50% - 50vw);
+    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter)}
+  .oc-chips::-webkit-scrollbar{display:none}
+  .oc-chip{scroll-snap-align:start}
 }
 
 @media(max-width:760px){
