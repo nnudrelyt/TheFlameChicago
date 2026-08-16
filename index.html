@@ -462,89 +462,119 @@
 
 <script src="/assets/global.js?v=22"></script>
 
-<!-- ===== Wicker Park Fest promo modal — time-boxed; auto-expires Sun 2026-07-26 23:59 CT. Safe to delete after the fest. ===== -->
+<!-- ===== Big Winner modal — swap the photo, amount and alt text to feature a
+     new winner; delete this whole block to retire it. Replaces the expired
+     Wicker Park Fest modal, which self-removed after 2026-07-26. ===== -->
 <style>
-  .fest-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;
-    padding:20px;background:rgba(7,6,11,.8);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
-    opacity:0;transition:opacity .25s ease}
-  .fest-overlay[hidden]{display:none}
-  .fest-overlay.is-open{opacity:1}
-  .fest-card{position:relative;width:100%;max-width:340px;color:var(--paper);
-    background:linear-gradient(180deg,#151119,#0f0c14);border:1px solid #2b2633;border-radius:20px;
-    padding:26px 22px 24px;box-shadow:0 24px 60px rgba(0,0,0,.55);
-    transform:translateY(12px) scale(.985);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
-  .fest-overlay.is-open .fest-card{transform:none}
-  .fest-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;border:1px solid #2b2633;
-    color:#9a94a2;background:rgba(255,255,255,.03);font-size:16px;line-height:1;cursor:pointer;padding:0;z-index:2}
-  .fest-x:hover{color:var(--paper);border-color:#3a3442}
-  .fest-head{display:flex;gap:9px}
-  .fest-wm{display:inline-flex;flex-direction:column;align-items:center;gap:4px;line-height:1}
-  .fest-wm-name{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:.05em;color:var(--paper);line-height:.82}
-  .fest-wm-place{display:flex;align-items:center;gap:.7em;font-family:var(--sans);font-weight:600;font-size:8px;color:var(--amber)}
-  .fest-wm-place .t{text-transform:uppercase;letter-spacing:.34em;padding-left:.34em}
-  .fest-wm-place .d{color:#ff6b2c}
-  .fest-big{font-family:var(--serif);font-weight:700;font-size:58px;line-height:.85;letter-spacing:1px;margin:20px 0 0;color:var(--paper)}
-  .fest-big .amt{color:var(--amber)}
-  .fest-body{font-family:var(--sans);font-size:16px;line-height:1.5;color:#d9d2c6;margin:14px 0 0}
-  .fest-perf{margin:22px -22px 0;border-top:2px dashed #3a3442;height:0}
-  .fest-cta{width:100%;justify-content:center;margin-top:20px}
-  .fest-fine{font-family:var(--sans);font-size:11.5px;color:#9a94a2;text-align:center;margin:13px 0 0;letter-spacing:.2px}
-  html.fest-lock,html.fest-lock body{overflow:hidden}
-  @media(prefers-reduced-motion:reduce){.fest-overlay,.fest-card{transition:none}.fest-card{transform:none}}
+  .win-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;
+    padding:20px;background:rgba(8,6,4,.82);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    opacity:0;transition:opacity .3s ease}
+  .win-overlay[hidden]{display:none}
+  .win-overlay.is-open{opacity:1}
+  .win-card{position:relative;width:100%;max-width:360px;border-radius:var(--radius);overflow:hidden;
+    background:var(--bg-deep);border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.55);
+    /* never taller than the viewport: the close button sits at the card's top
+       edge, so an overflowing card would push it out of reach */
+    max-height:calc(100vh - 40px);overflow-y:auto;
+    transform:translateY(22px) scale(.97);opacity:0;
+    transition:transform .5s cubic-bezier(.2,.8,.25,1),opacity .4s ease}
+  .win-overlay.is-open .win-card{transform:none;opacity:1}
+  .win-shot{position:relative;overflow:hidden}
+  /* height:auto is load-bearing — the width/height attrs (kept for CLS) are
+     presentational hints that otherwise beat aspect-ratio and render the photo
+     at its full 1000px intrinsic height */
+  .win-shot img{display:block;width:100%;height:auto;aspect-ratio:4/3.4;
+    object-fit:cover;object-position:52% 22%}
+  /* short screens (laptops, landscape phones): give the photo less of the card
+     so the amount and CTA stay in view */
+  @media(max-height:760px){.win-shot img{aspect-ratio:4/2.3}}
+  /* fades the photo into the panel so the type below has a clean ground */
+  .win-shot::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,15,10,0) 55%,rgba(20,15,10,.55) 85%,var(--bg-deep))}
+  .win-panel{position:relative;z-index:2;margin-top:-38px;padding:4px 24px 24px;text-align:center}
+  .win-eyebrow{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--amber);margin:0}
+  .win-amt{font-family:var(--serif);font-weight:700;font-size:70px;line-height:.85;letter-spacing:.5px;
+    color:var(--paper);margin:10px 0 0;font-variant-numeric:tabular-nums}
+  .win-cta{width:auto;justify-content:center;margin-top:18px}
+  .win-fine{font-family:var(--sans);font-size:10.5px;line-height:1.5;color:#8a7c68;margin:20px 0 0}
+  .win-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;z-index:5;
+    display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1;cursor:pointer;padding:0;
+    color:#cfc6b8;background:rgba(12,9,6,.6);border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .win-x:hover{color:var(--paper);border-color:var(--amber)}
+  html.win-lock,html.win-lock body{overflow:hidden}
+  @media(prefers-reduced-motion:reduce){.win-overlay,.win-card{transition:none}.win-card{transform:none}}
 </style>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="festFire" x1="0" y1="1" x2="0" y2="0">
-    <stop offset="0" stop-color="#FF4D18"/><stop offset=".5" stop-color="#FF852B"/><stop offset="1" stop-color="#FFC24B"/>
-  </linearGradient>
-  <symbol id="festFlame" viewBox="0 0 396 492"><path d="M313.7,365.9c18.9-18.6,30.5-39,30.5-39,27.4-40.9-7.3-102.8-7.3-102.8,0,0-16.4-33.4-33.3-28.2-10.8,3.3-9.7,14.6-15,32.8-1.6,5.6-6.8,8.2-5.4,1.1,1.6-7.9,4-29.9,4-29.9,4-76.8-60.7-125.6-96-138.9s-34.5,12.2-33.3,17.2c2.7,11.2,7.6,30.2,8.2,33.3.6,3.1,4.8,15.2-18.9,28.2-31.9,17.5-17.8,61.3-17.8,61.3,0,0,11.5,43-2.5,44-12.9.9-16.9-22-16.7-29.1.4-11.7,4.4-17.8-1.6-19.7-11.6-3.7-22.2,11.6-22.2,11.6-53.1,68.6-5.8,132.4,1.3,140.8,6.8,8.1-.7,10.7-.7,10.7-12.9,6.4-13.1,18.3-13.1,18.3-.3,26,29.4,35.9,37.6,38.8,9.2,3.3,51.3,18.6,51.3,18.6,53.5,11.9,83.1,2.3,86.5,1.8,3.4-.6,42.1-17.5,65.7-30.6,28.1-15.5,18.3-30.9,4.8-33.6-12-2.4-5.9-6.8-5.9-6.8ZM195.2,397c-2.2-1.9-5.1-3.9-8.1-7.1-7-7.6-27.2-23.2-22.7-49.3.5-2.9,1.6-9.3,2.5-12.1,4.8-14.1,15.1-27.1,21.9-37.3,11.1-16.8,10.4-18.6,9.8-36.2-.1-3.9,3.2,4.4,9,12.4,5.8,8,13.6,15.3,19,20,6.5,5.6,12.8,11.3,16.4,22.3,3.2,9.9,4.6,18.7-3.5,38.8-8.9,21.9-15.2,36.3-22,46.3-6.9,10.2-12.6,10.6-22.4,2.2ZM298.1,378.3c19,9.6,2.8,17.2,2.8,17.2,0,0-54.5,26-64.9,25.7s4.6-31,14.4-50.5c6.1-12.2,27.1-46,9.9-73.1s-30.4-35.2-43.2-50.1c-15.8-18.4-22.8-77.9-34.5-4.4-3.7,23.2,4.6,17.7-21,57.4-5.7,8.9-30.4,42-10.1,75.3,20.3,33.3,45,45.7,24.2,40.7,0,0-28.5-8.4-41-12-13.9-4-41.6-13.4-35.1-25.2,6.5-11.9,16.6-14.2,12.4-29.6-4.6-17.1-29.7-24.5-30.2-77.1,0,0-2-28.2,14.4-49.4,0,0,7.9-11.8.1,12.9-4.8,15.2,7.8,33.6,39.1,27.1,22-4.5,21.2-28,19.5-36.4-1.7-8.5-22.8-61.3,3.5-71.3,28.7-10.9,32.6-26.7,30.9-45.6-1.7-18.9-6.8-28.2-6.8-28.2,0,0-2.3-3.8,8.2,1.1,13.1,6.2,70.6,35.1,73.2,94.3,2.4,54.6-1.5,62.9-1.5,62.9,0,0-5.3,19.6,23.1,18.1,27.4-1.5,24.8-38.4,24.8-38.4.4-.1-1.5-7.3,4.8,2.5,5.3,8.3,33.4,56.4,17.1,88.8s-37.7,47.2-37.7,47.2c0,0-12.4,12.1,3.4,20Z" fill="url(#festFire)"/></symbol>
-</defs></svg>
-<div class="fest-overlay" id="festModal" hidden>
-  <div class="fest-card" role="dialog" aria-modal="true" aria-label="The Flame — Wicker Park Fest offer">
-    <button class="fest-x" type="button" data-fest-close aria-label="Close">&times;</button>
-    <div class="fest-head">
-      <span class="fest-wm">
-        <span class="fest-wm-name">THE&nbsp;FLAME</span>
-        <span class="fest-wm-place"><span class="d">&#8226;</span><span class="t">Chicago</span><span class="d">&#8226;</span></span>
-      </span>
+
+<div class="win-overlay" id="winnerModal" hidden>
+  <div class="win-card" role="dialog" aria-modal="true" aria-labelledby="win-amt">
+    <button class="win-x" type="button" data-win-close aria-label="Close">&times;</button>
+    <div class="win-shot">
+      <picture>
+        <source type="image/webp" srcset="/assets/img/winner-664.webp">
+        <img src="/assets/img/winner-664.jpg" width="800" height="1000" loading="eager" decoding="async"
+          alt="A guest at The Flame smiling beside a game screen showing a winning spin">
+      </picture>
     </div>
-    <div class="fest-big"><span class="amt">$5</span> FREE PLAY</div>
-    <p class="fest-body">Take a break from the crowd: Come in and enjoy a $5 free play when you spend $20, plus free snacks, cold drinks, and no cover.</p>
-    <div class="fest-perf"></div>
-    <a class="btn btn-primary fest-cta" href="https://www.google.com/maps/dir/?api=1&destination=1231+N+Ashland+Ave+Chicago+IL+60622" target="_blank" rel="noopener">Come see us</a>
-    <p class="fest-fine">Show at the counter &middot; Valid thru Sun, 7/26 11:59pm.</p>
+    <div class="win-panel">
+      <p class="win-eyebrow">Big winner</p>
+      <p class="win-amt" id="win-amt"><span data-win-count="664">$664</span></p>
+      <a class="btn btn-primary win-cta" href="#visit">Claim your seat</a>
+      <p class="win-fine">Actual guest, actual win. Winning is not guaranteed.</p>
+    </div>
   </div>
 </div>
 <script>
 (function(){
-  var KEY='festSeen-wpf2026', DEADLINE=new Date('2026-07-26T23:59:00-05:00').getTime();
-  var el=document.getElementById('festModal'); if(!el) return;
-  if(Date.now()>DEADLINE){ el.remove(); return; }
+  var KEY='winnerSeen-664';
+  var el=document.getElementById('winnerModal'); if(!el) return;
+  /* once per session — a modal that returns on every scroll-back is a nuisance */
   try{ if(sessionStorage.getItem(KEY)){ el.remove(); return; } }catch(e){}
-  var last;
+  var last, hideT;
+
   function onKey(e){ if(e.key==='Escape') close(); }
+
+  /* counts the amount up; skipped entirely under reduced-motion */
+  function countUp(){
+    var span=el.querySelector('[data-win-count]'); if(!span) return;
+    var target=parseInt(span.getAttribute('data-win-count'),10);
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){ span.textContent='$'+target; return; }
+    var dur=1100, t0=null;
+    span.textContent='$0';
+    requestAnimationFrame(function step(t){
+      if(!t0) t0=t;
+      var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3);
+      span.textContent='$'+Math.round(target*e);
+      if(p<1) requestAnimationFrame(step);
+    });
+  }
+
   function open(){
+    if(hideT){ clearTimeout(hideT); hideT=null; }
     last=document.activeElement; el.hidden=false;
-    document.documentElement.classList.add('fest-lock');
-    requestAnimationFrame(function(){ el.classList.add('is-open'); });
-    var x=el.querySelector('.fest-x'); if(x) x.focus();
+    document.documentElement.classList.add('win-lock');
+    requestAnimationFrame(function(){ el.classList.add('is-open'); countUp(); });
+    var x=el.querySelector('.win-x'); if(x) x.focus();
     document.addEventListener('keydown', onKey);
   }
   function close(){
-    el.classList.remove('is-open'); document.documentElement.classList.remove('fest-lock');
+    el.classList.remove('is-open'); document.documentElement.classList.remove('win-lock');
     document.removeEventListener('keydown', onKey);
     try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
-    setTimeout(function(){ el.hidden=true; }, 280);
+    hideT=setTimeout(function(){ el.hidden=true; hideT=null; }, 300);
     if(last && last.focus) last.focus();
   }
+
   el.addEventListener('click', function(e){ if(e.target===el) close(); });
-  el.querySelectorAll('[data-fest-close]').forEach(function(b){ b.addEventListener('click', close); });
-  var cta=el.querySelector('.fest-cta'); if(cta) cta.addEventListener('click', close);
-  var start=function(){ setTimeout(open, 700); };
+  el.querySelectorAll('[data-win-close]').forEach(function(b){ b.addEventListener('click', close); });
+  var cta=el.querySelector('.win-cta'); if(cta) cta.addEventListener('click', close);
+
+  var start=function(){ setTimeout(open, 600); };
   if(document.readyState==='complete') start(); else window.addEventListener('load', start);
 })();
 </script>
-<!-- ===== /Wicker Park Fest promo modal ===== -->
+<!-- ===== /Big Winner modal ===== -->
 
 <!-- GA4 CTA event tracking — delegated; infers intent from each control -->
 <script>
