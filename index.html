@@ -484,12 +484,24 @@
      full height of the card */
   .win-shot{position:absolute;inset:0;z-index:0;overflow:hidden}
   .win-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:54% 20%}
-  /* translucent, never opaque: dark enough to hold white type over the bright
-     machine glass, light enough that the photo still reads underneath */
+  /* Anchored to the BOTTOM in px, not percentages of the card. Percentage stops
+     scale with the card, so a taller card just spread the same darkness over
+     more of the photo and kept the guest's face in shadow. In px from the
+     bottom, the dark band always hugs the type block (~225px tall) and nothing
+     above it is touched — so growing the card genuinely lifts her into the
+     clear. Contrast under the type is identical at every card height. */
   .win-shot::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(16,12,8,0) 34%,rgba(16,12,8,.55) 56%,rgba(14,10,7,.95) 78%,rgba(14,10,7,1) 100%)}
+    background:linear-gradient(to top,
+      rgba(14,10,7,1) 0px,
+      rgba(14,10,7,.95) 120px,
+      rgba(16,12,8,.82) 200px,
+      rgba(16,12,8,.45) 270px,
+      rgba(16,12,8,0) 340px)}
   /* padding-top is what opens the clear window onto the photo above the type */
   .win-panel{position:relative;z-index:2;padding:300px 24px 24px;text-align:center}
+  /* tall phones have the room — a taller card pulls the gradient further off
+     her face without costing the type any contrast */
+  @media(min-height:800px){.win-panel{padding-top:390px}}
   /* short screens: pull the type up rather than let the card overflow */
   @media(max-height:760px){.win-panel{padding-top:200px}}
   @media(max-height:620px){.win-panel{padding-top:150px}}
