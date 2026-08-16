@@ -475,7 +475,7 @@
     background:var(--bg-deep);border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.55);
     /* never taller than the viewport: the close button sits at the card's top
        edge, so an overflowing card would push it out of reach */
-    max-height:calc(100vh - 40px);
+    max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);
     transform:translateY(22px) scale(.97);opacity:0;
     transition:transform .5s cubic-bezier(.2,.8,.25,1),opacity .4s ease}
   .win-overlay.is-open .win-card{transform:none;opacity:1}
@@ -497,14 +497,18 @@
       rgba(16,12,8,.82) 200px,
       rgba(16,12,8,.45) 270px,
       rgba(16,12,8,0) 340px)}
-  /* padding-top is what opens the clear window onto the photo above the type */
-  .win-panel{position:relative;z-index:2;padding:300px 24px 24px;text-align:center}
-  /* tall phones have the room — a taller card pulls the gradient further off
-     her face without costing the type any contrast */
-  @media(min-height:800px){.win-panel{padding-top:390px}}
-  /* short screens: pull the type up rather than let the card overflow */
-  @media(max-height:760px){.win-panel{padding-top:200px}}
-  @media(max-height:620px){.win-panel{padding-top:150px}}
+  /* padding-top opens the clear window onto the photo above the type, and it
+     scales with the viewport instead of stepping at breakpoints. Height
+     breakpoints are a trap here: Safari's visible viewport is ~100px shorter
+     than the device (URL bar + status bar), so a phone-sized min-height query
+     silently never fires on the phone it was written for.
+     The type block is ~240px, the overlay adds 40px of padding, so
+     100vh - 300px is the tallest window that still fits, clamped at both ends. */
+  .win-panel{position:relative;z-index:2;text-align:center;
+    padding:clamp(140px,calc(100vh - 300px),430px) 24px 24px}
+  /* dvh tracks iOS's collapsing toolbar; ignored by browsers that lack it, which
+     fall back to the vh line above */
+  .win-panel{padding-top:clamp(140px,calc(100dvh - 300px),430px)}
   .win-eyebrow{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.3em;
     text-transform:uppercase;color:var(--amber);margin:0}
   .win-amt{font-family:var(--serif);font-weight:700;font-size:70px;line-height:.85;letter-spacing:.5px;
