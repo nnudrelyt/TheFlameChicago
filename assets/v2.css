@@ -422,6 +422,14 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    pinned to the bottom of the photo */
 .footer-rich .foot-copy-top .hood-cta{margin:14px 0 0}
 .footer-rich .foot-copy-bottom .foot-facts{margin-top:0}
+/* Two-column only: space-between pins the tags to the bottom of the COLUMN,
+   which lines them up with the form card's bottom edge — but the eye reads the
+   Send button, not the card. Inset the column by the card's own bottom padding
+   so the tag row bottoms out level with the button instead. Same clamp as
+   .foot-form's padding, so the two stay locked as the viewport scales. */
+@media(min-width:961px){
+  .footer-rich .foot-visit-copy{padding-bottom:clamp(22px,2.4vw,32px)}
+}
 /* =========================================================================
    FOOTER MAP — hand-drawn, geographically true.
    Ashland runs N-S, Division E-W, Milwaukee cuts NW at ~45 degrees, and the
@@ -521,9 +529,12 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* .footer-rich .wrap{display:block} above kills global.css's flex on .foot-bottom,
    which is why the copyright was running on straight after the brand line instead
    of sitting at the right edge. Re-assert the row here, and drop the hairline. */
+/* Gap under the form, tightened twice: clamp(40px,5vw,60px) originally, then
+   48px, now 20px. The visible gap is this margin PLUS the brand line's own
+   leading, so the margin has to come down harder than the target percentage. */
 .footer-rich .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;
   align-items:center;gap:12px 28px;
-  border-top:0;margin-top:clamp(40px,5vw,60px)}
+  border-top:0;margin-top:clamp(13px,1.7vw,20px)}
 /* compact inline facts, folded under the CTAs (replaces the old meta row) */
 /* tags, not a dot-separated run-on — same pill language as the hero chips and
    the occasion chooser, so the page has one way of showing a set of facts. */
@@ -545,6 +556,23 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .footer-rich .foot-brandline{display:inline;gap:0;color:var(--paper);font-weight:400}
 .footer-rich .foot-brandline .brand{display:inline;gap:0}
 .footer-rich .foot-brandline .fl{color:inherit}
+
+/* legalese — copyright and disclosure as one 11px line, left-aligned off the
+   same margin as the 13px brand line above it. No measure cap: the whole thing
+   has to sit on one line at desktop widths, so nothing may constrain it but the
+   wrap padding. It still wraps normally once the viewport can't hold it.
+   max-width:none defeats global.css's `.site-footer p{max-width:34ch}`, which
+   otherwise squeezes the disclosure into a narrow column many lines tall. */
+.footer-rich .foot-legal{margin-top:10px}
+.footer-rich .foot-legal p{font-size:11px;line-height:1.6;color:var(--faint);margin:0;max-width:none;text-align:left}
+/* brand line sits at 13px — one step up from the legal line, and the row no
+   longer needs the space-between now that the copyright has moved out of it */
+.footer-rich .foot-bottom{font-size:13px;justify-content:flex-start}
+/* the hotline is styled as plain running copy — same colour, no underline — so
+   the disclosure reads as one flat sentence. It stays a live tel: link, and the
+   amber on hover/focus is the only thing that surfaces it as tappable. */
+.footer-rich .foot-legal a{color:inherit;text-decoration:none}
+.footer-rich .foot-legal a:hover,.footer-rich .foot-legal a:focus-visible{color:var(--amber)}
 
 /* =========================================================================
    INVITE — full-bleed close

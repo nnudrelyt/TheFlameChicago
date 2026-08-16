@@ -14,6 +14,15 @@
   gtag('config', 'AW-18354699193');
 </script>
 
+<!-- Event snippet for Page view conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18354699193/T-MdCIvNktkcELn3mbBE',
+      'value': 1.0,
+      'currency': 'USD'
+  });
+</script>
+
 <!-- ============ SEO ============ -->
 <title>The Flame Chicago | Wicker Park</title>
 <meta name="description" content="A welcoming neighborhood gaming lounge in Wicker Park, Chicago. Clock out, kick back, and enjoy a little excitement — no cover, smoke-free, complimentary snacks & drinks. Open daily 11am–11pm.">
@@ -32,7 +41,7 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/tvp7hvq.css">
 <link rel="stylesheet" href="/assets/global.css?v=17">
-<link rel="stylesheet" href="/assets/v2.css?v=153">
+<link rel="stylesheet" href="/assets/v2.css?v=163">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
 <!-- JSON-LD (real NAP from live site; socials TBD) -->
@@ -441,7 +450,13 @@
 
   <div class="wrap foot-bottom">
     <span class="foot-brandline"><span class="brand"><span class="fl">The Flame</span></span> <span>is a welcoming neighborhood gaming lounge in Wicker Park.</span></span>
-    <span>&copy; 2026 The Flame Chicago · 18+ · Please play responsibly.</span>
+  </div>
+
+  <!-- Copyright + responsible-gaming disclosure run together as one 11px line
+       below the 13px brand line. Kept in a single <p> on purpose: as separate
+       elements they'd never sit on one line at any width. -->
+  <div class="wrap foot-legal">
+    <p>&copy; 2026 The Flame Chicago · 18+ · Please play responsibly. Video gaming is intended for entertainment purposes only. Winning is not guaranteed. If you or someone you know has a gambling problem, help is available. Call or text <a href="tel:+18004265537">1-800-GAMBLER</a>.</p>
   </div>
 </footer>
 
