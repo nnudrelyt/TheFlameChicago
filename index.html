@@ -537,7 +537,10 @@
     <div class="win-panel">
       <p class="win-eyebrow">Big winner</p>
       <p class="win-amt" id="win-amt"><span data-win-count="664">$664</span></p>
-      <a class="btn btn-primary win-cta" href="#visit">Claim your seat</a>
+      <!-- a <button>, not an <a href="#visit">: the CTA dismisses the modal and
+           leaves the visitor at the top of the page. Jumping them to the footer
+           skips the whole site, which is exactly backwards for a first-timer. -->
+      <button type="button" class="btn btn-primary win-cta" data-win-close>Claim your seat</button>
       <p class="win-fine">Actual guest, actual win. Winning is not guaranteed.</p>
     </div>
   </div>
@@ -585,7 +588,14 @@
 
   el.addEventListener('click', function(e){ if(e.target===el) close(); });
   el.querySelectorAll('[data-win-close]').forEach(function(b){ b.addEventListener('click', close); });
-  var cta=el.querySelector('.win-cta'); if(cta) cta.addEventListener('click', close);
+  /* the CTA closes via data-win-close like the x; it only needs its own event,
+     since the delegated GA4 tracker keys on href and this button has none */
+  var cta=el.querySelector('.win-cta');
+  if(cta) cta.addEventListener('click', function(){
+    if(typeof window.gtag==='function'){
+      window.gtag('event','promo_cta',{location:'winner_modal',link_text:'Claim your seat'});
+    }
+  });
 
   var start=function(){ setTimeout(open, 600); };
   if(document.readyState==='complete') start(); else window.addEventListener('load', start);
