@@ -529,14 +529,14 @@
     <button class="win-x" type="button" data-win-close aria-label="Close">&times;</button>
     <div class="win-shot">
       <picture>
-        <source type="image/webp" srcset="/assets/img/winner-664.webp">
-        <img src="/assets/img/winner-664.jpg" width="800" height="1000" loading="eager" decoding="async"
-          alt="A guest at The Flame smiling beside a game screen showing a winning spin">
+        <source type="image/webp" srcset="/assets/img/winner-1371.webp">
+        <img src="/assets/img/winner-1371.jpg" width="800" height="1000" loading="eager" decoding="async"
+          alt="A guest at The Flame smiling beside a Golden Age game screen showing her winning total">
       </picture>
     </div>
     <div class="win-panel">
       <p class="win-eyebrow">Big winner</p>
-      <p class="win-amt" id="win-amt"><span data-win-count="664">$664</span></p>
+      <p class="win-amt" id="win-amt"><span data-win-count="1371">$1,371</span></p>
       <!-- a <button>, not an <a href="#visit">: the CTA dismisses the modal and
            leaves the visitor at the top of the page. Jumping them to the footer
            skips the whole site, which is exactly backwards for a first-timer. -->
@@ -547,7 +547,7 @@
 </div>
 <script>
 (function(){
-  var KEY='winnerSeen-664';
+  var KEY='winnerSeen-1371';
   var el=document.getElementById('winnerModal'); if(!el) return;
   /* once per session — a modal that returns on every scroll-back is a nuisance */
   try{ if(sessionStorage.getItem(KEY)){ el.remove(); return; } }catch(e){}
@@ -555,17 +555,22 @@
 
   function onKey(e){ if(e.key==='Escape') close(); }
 
+  /* four-figure wins need the thousands comma, or the number reads as a
+     part number rather than money — and it has to be applied to every frame
+     of the count, not just the final one */
+  function money(n){ return '$'+n.toLocaleString('en-US'); }
+
   /* counts the amount up; skipped entirely under reduced-motion */
   function countUp(){
     var span=el.querySelector('[data-win-count]'); if(!span) return;
     var target=parseInt(span.getAttribute('data-win-count'),10);
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){ span.textContent='$'+target; return; }
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){ span.textContent=money(target); return; }
     var dur=1100, t0=null;
-    span.textContent='$0';
+    span.textContent=money(0);
     requestAnimationFrame(function step(t){
       if(!t0) t0=t;
       var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3);
-      span.textContent='$'+Math.round(target*e);
+      span.textContent=money(Math.round(target*e));
       if(p<1) requestAnimationFrame(step);
     });
   }
