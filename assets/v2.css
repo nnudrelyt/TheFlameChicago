@@ -741,9 +741,21 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    declare their own */
 .perk{--glow:255,182,74}
 .perk .shot{min-height:240px}
-/* sits where a step number would; "+$15" is wider than a digit, so a pill
-   rather than the step-n fixed circle */
-.perk-badge{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:46px;height:40px;padding:0 12px;border-radius:100px;background:rgba(255,182,74,.14);border:1px solid rgba(255,182,74,.45);color:var(--amber);font-weight:800;font-size:1rem;grid-column:1;grid-row:1}
+/* the body is the "receipt math" ledger (Tyler, 2026-08-26): the sum written
+   out — put in, the house's add in amber, a rule, play with as the big total.
+   It rides on .step-body for padding (and its breakpoint bumps) but flexes;
+   rows are divs, not p — the generic `.step p` grid-area/font-size rules
+   would fight them (same trap as the retired .perk prefix note). */
+/* align-items:stretch overrides .step-body's center — centered flex children
+   shrink to content width, which collapses the space-between rows and the rule */
+.perk-ledger{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.pl-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.pl-lbl{font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.pl-amt{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
+.pl-house .pl-lbl,.pl-house .pl-amt{color:var(--amber)}
+.pl-rule{border-top:2px solid var(--line-soft)}
+.pl-total .pl-lbl{color:var(--muted)}
+.pl-total .pl-amt{font-size:2.9rem;color:var(--amber)}
 .perk-fine{margin-top:20px;font-size:.92rem;color:var(--muted)}
 @media(max-width:960px){
   .perk-grid{grid-template-columns:1fr}
