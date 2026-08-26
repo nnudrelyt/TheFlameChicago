@@ -740,7 +740,7 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* outside .steps the per-card pillar glows don't apply, so the perk cards
    declare their own */
 .perk{--glow:255,182,74}
-.perk .shot{min-height:240px}
+.perk .shot{min-height:300px}
 /* the body is the "receipt math" ledger (Tyler, 2026-08-26): the sum written
    out — put in, the house's add in amber, a rule, play with as the big total.
    It rides on .step-body for padding (and its breakpoint bumps) but flexes;
@@ -750,8 +750,10 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    shrink to content width, which collapses the space-between rows and the rule */
 .perk-ledger{display:flex;flex-direction:column;align-items:stretch;gap:12px}
 .pl-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
-.pl-lbl{font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
-.pl-amt{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
+.pl-lbl{font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+/* weight 600 = real Bebas Neue Pro Bold — the heaviest the kit loads; don't
+   go to 700, the browser would fake it */
+.pl-amt{font-family:var(--serif);font-weight:600;font-size:1.9rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
 .pl-house .pl-lbl,.pl-house .pl-amt{color:var(--amber)}
 .pl-rule{border-top:2px solid var(--line-soft)}
 .pl-total .pl-lbl{color:var(--muted)}
