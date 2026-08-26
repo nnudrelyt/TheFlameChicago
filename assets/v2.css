@@ -748,16 +748,22 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    would fight them (same trap as the retired .perk prefix note). */
 /* align-items:stretch overrides .step-body's center — centered flex children
    shrink to content width, which collapses the space-between rows and the rule */
-.perk-ledger{display:flex;flex-direction:column;align-items:stretch;gap:12px}
-.pl-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.perk-ledger{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding-bottom:22px}
+.pl-row{display:flex;align-items:baseline;gap:12px}
 .pl-lbl{font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+/* dot leader tying each label to its figure, menu-style; tinted per row */
+.pl-lead{flex:1 1 auto;align-self:flex-end;margin-bottom:5px;border-bottom:2px dotted rgba(138,124,104,.5)}
+.pl-house .pl-lead{border-bottom-color:rgba(255,182,74,.45)}
 /* weight 600 = real Bebas Neue Pro Bold — the heaviest the kit loads; don't
    go to 700, the browser would fake it */
 .pl-amt{font-family:var(--serif);font-weight:600;font-size:1.9rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
 .pl-house .pl-lbl,.pl-house .pl-amt{color:var(--amber)}
-.pl-rule{border-top:2px solid var(--line-soft)}
-.pl-total .pl-lbl{color:var(--muted)}
-.pl-total .pl-amt{font-size:2.9rem;color:var(--amber)}
+/* the total rides its own golden tab — the ticket exploration's slab gradient,
+   full width at the card's foot (margin-top:auto keeps the three tabs level
+   across the row); ink figures, per the slab */
+.perk-tab{position:relative;z-index:2;margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 24px 20px;background:linear-gradient(135deg,#ffc571,#f0a232)}
+.perk-tab .pl-lbl{color:rgba(36,19,0,.78)}
+.perk-tab .pl-amt{font-size:2.625rem;color:#241300}
 .perk-fine{margin-top:20px;font-size:.92rem;color:var(--muted)}
 @media(max-width:960px){
   .perk-grid{grid-template-columns:1fr}
