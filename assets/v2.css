@@ -106,8 +106,8 @@
 /* hairline framing system — a soft full-bleed rule marks every section seam,
    framing the page into distinct bands for first-time visitors. The reusable
    ".rule" line (fades at the far edges) is the recurring divider/framing motif. */
-.firststeps,.occasions,.perks,.testimonials,.faqs,.invite{position:relative}
-.firststeps::before,.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before,.footer-rich::before{
+.occasions,.perks,.testimonials,.faqs,.invite{position:relative}
+.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before,.footer-rich::before{
   content:"";position:absolute;top:0;left:0;right:0;height:1px;z-index:6;pointer-events:none;
   background:rgba(255,240,222,.16);
 }
@@ -120,18 +120,17 @@
 
    Every rule runs the same four pillar colours, but each section ROTATES the
    ramp to lead with its own pillar (--r1). So the page walks the palette as
-   you scroll instead of repeating the identical rainbow five times. The
-   footer leads teal again, closing the loop the first section opened.
+   you scroll instead of repeating the identical rainbow five times. Since the
+   first-visit section retired (2026-08-26) the footer is the only teal lead.
 
    All rules run the full width, edge to edge — no fade-out at the ends. */
-.firststeps{--r1:var(--teal);   --r2:var(--amber);  --r3:var(--magenta);--r4:var(--violet); --rule-glow:rgba(69,214,208,.16)}
 .occasions {--r1:var(--magenta);--r2:var(--violet); --r3:var(--teal);   --r4:var(--amber);  --rule-glow:rgba(255,92,146,.16)}
 .perks     {--r1:var(--amber);  --r2:var(--teal);   --r3:var(--violet); --r4:var(--magenta);--rule-glow:rgba(255,182,74,.16)}
 .testimonials{--r1:var(--violet); --r2:var(--teal);  --r3:var(--amber);  --r4:var(--magenta);--rule-glow:rgba(166,132,255,.16)}
 .faqs      {--r1:var(--magenta);--r2:var(--amber);  --r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,92,146,.16)}
 .invite    {--r1:var(--amber);  --r2:var(--magenta);--r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,182,74,.16)}
 
-.firststeps::before,.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before{
+.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before{
   background:linear-gradient(90deg,
     var(--r1) 0%, var(--r2) 34%, var(--r3) 67%, var(--r4) 100%);
   opacity:.36;
@@ -159,10 +158,10 @@
 
 /* Alternating band: sections step between the page ground and one shade
    deeper so the scroll reads as rhythm rather than one continuous dark field.
-   Running order — occasions light, first-visit deep, perks light,
-   testimonials deep, FAQ light — with the hero and invite photos bookending.
-   Cards (--bg-2 / --surface) still lift off the deep band. */
-.firststeps{background:var(--bg-deep)}
+   Running order — occasions light, perks deep, testimonials light, FAQ deep —
+   with the hero and invite photos bookending. Cards (--bg-2 / --surface)
+   still lift off the deep band. */
+.perks{background:var(--bg-deep)}
 
 /* first-visit step numbers stepped through the pillar palette */
 /* The per-card teal/magenta/violet numerals were retired 2026-07-22 when the
@@ -249,13 +248,13 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 .beat p{color:var(--muted);font-size:1rem}
 
 /* =========================================================================
-   FIRST VISIT — 3 steps, each image-topped
+   STEP CARDS — the image-topped card component. Born in the first-visit
+   section (retired 2026-08-26); the Daily Perks cards wear it now.
    ========================================================================= */
-/* merged first-visit: give the empathetic headline + lead a wider measure */
-.firststeps .sec-head{max-width:none}
-.firststeps .sec-head .lead{max-width:none;margin-top:16px;text-wrap:balance}
-.firststeps .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.steps-dots{display:none}   /* only shown for the mobile one-card carousel */
+/* give the perks headline + lead a full measure so the support sits on one
+   line, same treatment the first-visit lead had */
+.perks .sec-head{max-width:none}
+.perks .sec-head .lead{max-width:none;margin-top:16px}
 /* border transparent — the edge is the .gr-ring child. It has to be a child and
    not ::before/::after: both of those already carry the pointer spotlight, and
    the last time something reached into those rules it silently killed the whole
@@ -284,9 +283,6 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    global.js overwrites both as inline props while the pointer is over a card,
    and clears them on the way out so the card falls back to here. */
 .step{--mx:10%;--my:120%}
-.steps .step:nth-child(1){--glow:69,214,208}
-.steps .step:nth-child(2){--glow:255,92,146}
-.steps .step:nth-child(3){--glow:166,132,255}
 .faq-item{--glow:255,182,74}
 
 /* the wash — sits above the photo, below the copy */
@@ -601,26 +597,6 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .roomgallery .mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:170px}
   .roomgallery .shot.big{grid-column:span 2}
 }
-/* TABLET (Tyler 2026-07-25): the step cards run as the same horizontal
-   one-and-peek swipe carousel as mobile (was a tall single-column stack).
-   JS pager in global.js is not width-gated, so the dots work here too. */
-@media(max-width:960px){
-  .firststeps .steps{
-    display:flex;grid-template-columns:none;gap:14px;padding:2px 0 6px;
-    width:100vw;margin-left:calc(50% - 50vw);
-    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);
-    overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;
-    overflow-y:clip;touch-action:pan-x;overscroll-behavior-x:contain;
-  }
-  .firststeps .steps::-webkit-scrollbar{display:none}
-  .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
-  .steps-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
-  .steps-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;cursor:pointer;
-    background:rgba(255,255,255,.3);
-    transition:background .25s var(--ease),transform .25s var(--ease)}
-  .steps-dot.is-on{background:#fff;transform:scale(1.15)}
-}
 /* mobile header: sticky bottom bar handles actions, so keep the header to logo + menu */
 @media(max-width:640px){
   .site-header .live,.site-header .nav-tools .btn{display:none}
@@ -680,36 +656,6 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
   .v2hero .hero-actions .btn{width:100%;justify-content:center;padding-block:15px}
   /* one CTA on mobile — "Find us" is covered by the footer and the nav */
   .v2hero .hero-actions .btn-ghost{display:none}
-
-  /* one-and-a-peek: each card is ~82% so the next peeks in from the right; the
-     3-dot pager (built in global.js) sits centred below. First card still
-     left-aligns with the heading (snap-start within the text column). */
-  .firststeps .steps{
-    display:flex;grid-template-columns:none;gap:14px;
-    padding:2px 0 6px;
-    /* full-bleed: strip spans 100vw so the next card peeks in at the true
-       screen edge; padding-inline + scroll-padding re-inset so the first card
-       still snaps left-aligned under the heading. */
-    width:100vw;margin-left:calc(50% - 50vw);
-    padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);
-    overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;
-    /* horizontal-only scroller. overflow-x:auto silently promotes overflow-y
-       to auto (spec), which let the strip wobble ~20px vertically; clip pins
-       it. touch-action:pan-x hands the browser the gesture so a slightly
-       diagonal swipe scrolls the cards instead of the page; overscroll
-       contain stops the swipe chaining to the page / back-gesture. */
-    overflow-y:clip;touch-action:pan-x;overscroll-behavior-x:contain;
-  }
-  .firststeps .steps::-webkit-scrollbar{display:none}
-  .firststeps .step{flex:0 0 82%;scroll-snap-align:start}
-  .steps-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
-  .steps-dot{
-    width:7px;height:7px;padding:0;border:0;border-radius:50%;cursor:pointer;
-    background:rgba(255,255,255,.3);
-    transition:background .25s var(--ease),transform .25s var(--ease);
-  }
-  .steps-dot.is-on{background:#fff;transform:scale(1.15)}
 
   /* trust claims run as a right-to-left ticker: pill chrome dropped, dot
      separators, full-bleed. The second .chips-set is a verbatim copy that
@@ -783,11 +729,11 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 
 /* =========================================================================
    DAILY PERKS — the page's one offer moment.
-   The cards are first-visit .steps wholesale — photo top, badge + title +
-   one line — so the promo reads as more of the same hospitality, not a
-   coupon taped to the wall. All three glow amber (the brand key: amber is
-   what the house adds). The daily $2 lives in the section lead, not its
-   own card (Tyler, 2026-08-26).
+   The cards are the image-topped .step component wholesale — photo top,
+   badge + title + one line — so the promo reads as more of the same
+   hospitality, not a coupon taped to the wall. All three glow amber (the
+   brand key: amber is what the house adds). The daily $2 lives in the
+   section lead, not its own card (Tyler, 2026-08-26).
    ========================================================================= */
 .perks .sec-head .kicker{display:block;margin-bottom:12px}
 .perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -851,7 +797,7 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    for browsers that composite it, but nothing depends on it: the section sits
    on a flat ground, so there is nothing behind to blur.
    ========================================================================= */
-.testimonials{background:var(--bg-deep)}
+.faqs{background:var(--bg-deep)}
 /* Pulled in a column on BOTH sides (the Occasions indent is left-only), so the
    question list reads as a narrower, quieter block than the sections around it.
    Scoped above 900px so it doesn't clobber .wrap's tighter mobile gutters. */
