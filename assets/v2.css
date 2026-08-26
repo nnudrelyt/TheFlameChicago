@@ -783,39 +783,24 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 
 /* =========================================================================
    DAILY PERKS — the page's one offer moment.
-   The cards borrow the .step card language wholesale (surface, resting wash,
-   pointer spotlight, gr-ring edge) so the promo reads as more of the same
-   hospitality rather than a coupon taped to the wall. All four cards glow
-   amber — the brand key — because amber is what the house adds: the guest's
-   numbers stay paper, and only the "+$N on the house" line takes the hue.
+   The cards are first-visit .steps wholesale — photo top, badge + title +
+   one line — so the promo reads as more of the same hospitality, not a
+   coupon taped to the wall. All three glow amber (the brand key: amber is
+   what the house adds). The daily $2 lives in the section lead, not its
+   own card (Tyler, 2026-08-26).
    ========================================================================= */
+.perks .sec-head .kicker{display:block;margin-bottom:12px}
 .perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 /* outside .steps the per-card pillar glows don't apply, so the perk cards
    declare their own */
 .perk{--glow:255,182,74}
-.perk-daily{grid-column:1/-1}
-.perk-body{position:relative;z-index:2;padding:26px 28px 28px;display:flex;flex-direction:column;gap:16px;height:100%}
-.perk-tag{font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-/* the daily card runs horizontal: statement left, copy right, vertically centred */
-.perk-daily .perk-body{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:clamp(28px,5vw,72px);row-gap:8px}
-.perk-daily .perk-tag{grid-column:1;grid-row:1}
-/* every p below carries the .perk prefix: the cards are .steps, and the
-   generic `.step p` rule (0,1,1) sets font-size AND a grid-area, so a bare
-   class (0,1,0) silently loses both */
-.perk .pd-amt{grid-column:1;grid-row:2;font-family:var(--serif);font-weight:400;font-size:clamp(2.5rem,4.4vw,3.8rem);line-height:.95;letter-spacing:.01em;color:var(--paper);white-space:nowrap}
-.pd-amt b{font-weight:400;color:var(--amber)}
-.perk .pd-copy{grid-column:2;grid-row:1/3;color:var(--muted);max-width:46ch}
-.perk .perk-math{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
-.pm-col{display:flex;flex-direction:column;gap:7px}
-.pm-lbl{font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.pm-col b{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,2.6vw,2.8rem);line-height:1;letter-spacing:.01em;color:var(--paper)}
-.pm-arrow{color:var(--faint);font-size:1.25rem;line-height:1;padding-bottom:.45rem}
-.perk .perk-note{margin-top:auto;font-weight:700;font-size:.95rem;color:var(--amber)}
+.perk .shot{min-height:240px}
+/* sits where a step number would; "+$15" is wider than a digit, so a pill
+   rather than the step-n fixed circle */
+.perk-badge{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:46px;height:40px;padding:0 12px;border-radius:100px;background:rgba(255,182,74,.14);border:1px solid rgba(255,182,74,.45);color:var(--amber);font-weight:800;font-size:1rem;grid-column:1;grid-row:1}
 .perk-fine{margin-top:20px;font-size:.92rem;color:var(--muted)}
 @media(max-width:960px){
   .perk-grid{grid-template-columns:1fr}
-  .perk-daily .perk-body{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .perk .pd-amt{white-space:normal}
 }
 
 /* =========================================================================
