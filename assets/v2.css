@@ -191,6 +191,10 @@
 
 /* real image drops straight in and covers */
 .shot-img{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:cover}
+/* top-align the cover crop for shots whose subject sits high in the frame — the
+   perk-card photo boxes are flexible-height, so a centred crop lops the standing
+   figure's head at wide viewports (Tyler, 2026-09-05) */
+.shot-img.pos-top{object-position:50% 0}
 
 /* on-canvas art-direction brief (remove when real photo lands) */
 .shot-tag{position:absolute;top:13px;left:13px;z-index:4;display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:700;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);background:rgba(15,11,7,.55);border:1px solid var(--line);padding:5px 10px;border-radius:100px;backdrop-filter:blur(3px)}
@@ -732,14 +736,22 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
    The cards are the image-topped .step component wholesale — photo top,
    badge + title + one line — so the promo reads as more of the same
    hospitality, not a coupon taped to the wall. All three glow amber (the
-   brand key: amber is what the house adds). The daily $2 lives in the
-   section lead, not its own card (Tyler, 2026-08-26).
+   brand key: amber is what the house adds). The monthly figure lives in the
+   section lead, not its own card; the section runs without an eyebrow, the
+   headline carrying it alone (Tyler, 2026-09-04).
    ========================================================================= */
-.perks .sec-head .kicker{display:block;margin-bottom:12px}
 .perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 /* outside .steps the per-card pillar glows don't apply, so the perk cards
    declare their own */
 .perk{--glow:255,182,74}
+/* perk cards carry NO edge at all: no .gr-ring (a four-hue gradient stroke
+   drew a second outline competing with the ticket silhouette) and no border.
+   .step's 1px transparent border existed only to reserve room for that ring —
+   left in place it shows as a 1px band of --bg-2 around the photo and the
+   golden tab, which reads as a frame. Zeroing it lets both bleed to the card
+   edge; the card is 2px shorter as a result, which is the intent. */
+.perk .gr-ring{display:none}
+.perk{border:0}
 .perk .shot{min-height:300px}
 /* the body is the "receipt math" ledger (Tyler, 2026-08-26): the sum written
    out — put in, the house's add in amber, a rule, play with as the big total.
@@ -749,29 +761,60 @@ h4{font-family:var(--serif);font-weight:400;font-size:var(--fs-h4);letter-spacin
 /* align-items:stretch overrides .step-body's center — centered flex children
    shrink to content width, which collapses the space-between rows and the rule */
 .perk-ledger{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding-bottom:22px}
+/* THE PERFORATION — one strip carrying the whole die-cut, centred on the seam
+   where the photo meets the base. It lives on .perk-ledger because that
+   element's top edge IS the photo's bottom edge, so top:-14px centres the
+   28px band on the seam with no magic number, and it survives any change to
+   the photo height. .step-body is already position:relative;z-index:2, and
+   that context outranks .shot (z-index:0), so the cut bites up into the image.
+   It can't live on .shot — both of that figure's pseudo-elements are spoken
+   for (cinematic wash + grain).
+
+   Three background layers, all painting the section ground so they read as
+   holes punched clean through the card:
+     1 + 2  the big end notches, circles centred ON the card edges. Half of
+            each falls outside the tile and simply doesn't paint, which is
+            the half .step's overflow:hidden would have clipped anyway.
+     3      the repeating 6px holes, one every 13px across the full width.
+   Sized in px, not %, so the pitch stays constant as the cards resize. */
+.perk-ledger::before{
+  content:"";position:absolute;left:0;right:0;top:-14px;height:28px;z-index:3;pointer-events:none;
+  background-image:
+    radial-gradient(circle 14px at 0    50%, var(--bg-deep) 13.4px, transparent 14px),
+    radial-gradient(circle 14px at 100% 50%, var(--bg-deep) 13.4px, transparent 14px),
+    radial-gradient(circle  3px at 50%  50%, var(--bg-deep)  2.6px, transparent 3px);
+  background-size: 28px 28px, 28px 28px, 13px 28px;
+  background-position: left center, right center, center center;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+}
 .pl-row{display:flex;align-items:baseline;gap:12px}
-.pl-lbl{font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.pl-lbl{font-weight:700;font-size:.92rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
 /* dot leader tying each label to its figure, menu-style; gray on both rows */
 .pl-lead{flex:1 1 auto;align-self:flex-end;margin-bottom:5px;border-bottom:2px dotted rgba(138,124,104,.5)}
-/* row figures at 500 = real Bebas Neue Pro Medium; the tab total takes 600 =
-   the real Bold, and that's the heaviest the kit loads — 700 would faux-bold */
-.pl-amt{font-family:var(--serif);font-weight:500;font-size:2.125rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
+/* row figures and the tab total both take 600 = real Bebas Neue Pro Bold, and
+   that's the heaviest the kit loads — 700 would faux-bold */
+.pl-amt{font-family:var(--serif);font-weight:600;font-size:2.625rem;line-height:1;letter-spacing:.01em;color:var(--ink-soft)}
 .pl-house .pl-lbl,.pl-house .pl-amt{color:var(--amber)}
-/* the ticket perforation: dashed tear line with punched side notches. The
-   notches paint the section ground (--bg-deep, perks' band) and hang half
-   outside the card — the card's overflow:hidden clips them to semicircles.
+/* the dashed tear above the golden stub. The side notches used to live here
+   too; they moved up to .perk-ledger (2026-09-02) so the cutout marks the
+   image/base seam instead. z-index back to 2 — it only needed 4 while it
+   carried the circles and had to clear .perk-tab.
    margin-top:auto lives HERE so perf + tab sit together at the card's foot
    and the three tabs stay level across the row. */
 .perk-perf{position:relative;z-index:2;margin-top:auto;border-top:2px dashed var(--line)}
-.perk-perf::before,.perk-perf::after{content:"";position:absolute;top:-15px;width:28px;height:28px;border-radius:50%;background:var(--bg-deep);z-index:3}
-.perk-perf::before{left:-14px}
-.perk-perf::after{right:-14px}
 /* the total rides the golden stub below the tear — the ticket exploration's
    slab gradient; ink figures, label centered against the big total */
 .perk-tab{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 24px 18px;background:linear-gradient(135deg,#ffc571,#f0a232)}
 .perk-tab .pl-lbl{color:rgba(36,19,0,.78)}
-.perk-tab .pl-amt{font-weight:600;font-size:3rem;color:#241300}
+.perk-tab .pl-amt{font-weight:600;font-size:3.75rem;color:#241300}
 .perk-fine{margin-top:20px;font-size:.92rem;color:var(--muted)}
+/* 960-1120: three cards at their narrowest, where the bigger figures squeeze
+   the dot leaders down to a stub. Ease the labels back so the leader survives. */
+@media(min-width:961px) and (max-width:1120px){
+  .pl-lbl{font-size:.82rem;letter-spacing:.14em}
+  .pl-amt{font-size:2.25rem}
+  .perk-tab .pl-amt{font-size:3.25rem}
+}
 @media(max-width:960px){
   .perk-grid{grid-template-columns:1fr}
 }
