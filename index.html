@@ -530,7 +530,7 @@
     <div class="win-shot">
       <picture>
         <source type="image/webp" srcset="/assets/img/winner-1371.webp">
-        <img src="/assets/img/winner-1371.jpg" width="800" height="1000" loading="eager" decoding="async"
+        <img src="/assets/img/winner-1371.jpg" width="800" height="1000" loading="lazy" decoding="async"
           alt="A guest at The Flame smiling beside a Golden Age game screen showing her winning total">
       </picture>
     </div>
@@ -547,8 +547,13 @@
 </div>
 <script>
 (function(){
+  /* DISABLED 2026-10-01: the modal was getting in the way of inbound Google
+     traffic. Flip to true to bring it back (and set the img above back to
+     loading="eager"). */
+  var ENABLED=false;
   var KEY='winnerSeen-1371';
   var el=document.getElementById('winnerModal'); if(!el) return;
+  if(!ENABLED){ el.remove(); return; }
   /* once per session — a modal that returns on every scroll-back is a nuisance */
   try{ if(sessionStorage.getItem(KEY)){ el.remove(); return; } }catch(e){}
   var last, hideT;
