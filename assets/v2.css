@@ -106,8 +106,8 @@
 /* hairline framing system — a soft full-bleed rule marks every section seam,
    framing the page into distinct bands for first-time visitors. The reusable
    ".rule" line (fades at the far edges) is the recurring divider/framing motif. */
-.occasions,.perks,.testimonials,.faqs,.invite{position:relative}
-.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before,.footer-rich::before{
+.occasions,.winner-row,.perks,.testimonials,.faqs,.invite{position:relative}
+.occasions::before,.winner-row::before,.perks::before,.testimonials::before,.faqs::before,.invite::before,.footer-rich::before{
   content:"";position:absolute;top:0;left:0;right:0;height:1px;z-index:6;pointer-events:none;
   background:rgba(255,240,222,.16);
 }
@@ -124,13 +124,13 @@
    first-visit section retired (2026-08-26) the footer is the only teal lead.
 
    All rules run the full width, edge to edge — no fade-out at the ends. */
-.occasions {--r1:var(--magenta);--r2:var(--violet); --r3:var(--teal);   --r4:var(--amber);  --rule-glow:rgba(255,92,146,.16)}
+.occasions,.winner-row {--r1:var(--magenta);--r2:var(--violet); --r3:var(--teal);   --r4:var(--amber);  --rule-glow:rgba(255,92,146,.16)}
 .perks     {--r1:var(--amber);  --r2:var(--teal);   --r3:var(--violet); --r4:var(--magenta);--rule-glow:rgba(255,182,74,.16)}
 .testimonials{--r1:var(--violet); --r2:var(--teal);  --r3:var(--amber);  --r4:var(--magenta);--rule-glow:rgba(166,132,255,.16)}
 .faqs      {--r1:var(--magenta);--r2:var(--amber);  --r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,92,146,.16)}
 .invite    {--r1:var(--amber);  --r2:var(--magenta);--r3:var(--violet); --r4:var(--teal);   --rule-glow:rgba(255,182,74,.16)}
 
-.occasions::before,.perks::before,.testimonials::before,.faqs::before,.invite::before{
+.occasions::before,.winner-row::before,.perks::before,.testimonials::before,.faqs::before,.invite::before{
   background:linear-gradient(90deg,
     var(--r1) 0%, var(--r2) 34%, var(--r3) 67%, var(--r4) 100%);
   opacity:.36;
@@ -1384,4 +1384,41 @@ body.menu-locked{overflow:hidden}
 .site-header .live,.site-header .nav-tools .btn{white-space:nowrap}
 @media(min-width:861px) and (max-width:1120px){
   .site-header .live{display:none}
+}
+
+/* =========================================================================
+   BIG WINNER ROW — the retired Big Winner modal, brought into the page
+   (draft 2026-10-07). Same card language as the modal: deep ground, the photo
+   behind the type, a dark band hugging the type block, Bebas amount, amber CTA.
+   Desktop splits the card: type left, the (portrait) photo right, blended in
+   with a gradient so the seam never shows. Phones stack it like the modal.
+   ========================================================================= */
+.wr-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(46%,520px));
+  max-width:1180px;margin-inline:auto;border-radius:var(--radius);overflow:hidden;
+  background:var(--bg-deep);border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.45);isolation:isolate}
+.wr-shot{position:relative;grid-column:2;grid-row:1;aspect-ratio:4/5;overflow:hidden}
+.wr-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:54% 20%}
+/* blend the photo's left edge into the type panel */
+.wr-shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to right,var(--bg-deep) 0%,rgba(14,10,7,.7) 14%,rgba(14,10,7,0) 42%)}
+.wr-panel{grid-column:1;grid-row:1;align-self:center;position:relative;z-index:2;
+  padding:clamp(40px,5vw,72px) clamp(28px,5vw,80px)}
+.wr-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--amber);margin:0}
+.wr-amt{font-family:var(--serif);font-weight:700;font-size:clamp(84px,11vw,168px);line-height:.85;letter-spacing:.5px;
+  color:var(--paper);margin:14px 0 0;font-variant-numeric:tabular-nums}
+.wr-cta{margin-top:clamp(20px,2.4vw,32px)}
+.wr-fine{font-family:var(--sans);font-size:12px;line-height:1.5;color:#8a7c68;margin:22px 0 0}
+
+/* phones / narrow: stack like the modal — photo on top, the type sitting on a
+   dark band anchored to the bottom of the photo */
+@media(max-width:760px){
+  .wr-card{grid-template-columns:minmax(0,1fr);max-width:460px}
+  .wr-shot{grid-column:1}
+  .wr-shot::after{background:linear-gradient(to top,
+    rgba(14,10,7,1) 0px,rgba(14,10,7,.9) 60px,rgba(16,12,8,.45) 130px,rgba(16,12,8,0) 190px)}
+  /* the type overlaps only the bottom of the photo (the cabinet base), so the
+     screen and her face stay clear */
+  .wr-panel{grid-column:1;grid-row:2;text-align:center;margin-top:-96px;padding:0 24px 28px}
+  .wr-amt{font-size:clamp(70px,22vw,96px)}
 }
